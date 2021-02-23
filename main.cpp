@@ -471,8 +471,7 @@ void f(int w)
 }
 
 
-int main(void)
-{
-    scanxyzr;
-    pr(x*56+y*24+14*z+6*r);
+int main(void) {
+    scann;
+    pr2l(n / 100 * 78, n / 1000 * 956);
 }
