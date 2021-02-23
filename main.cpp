@@ -473,20 +473,6 @@ void f(int w)
 
 int main(void)
 {
-    scann;
-    scana;
-    fori
-    {
-        x=a[i];
-        x -= i;
-        x++;
-        pq.push(x);
-        b[i]=pq.top();
-        pq.push(x);
-        pq.pop();
-    }
-    for(i=n-1;i>=1;i--)
-        b[i]=min(b[i],b[i+1]);
-    fori
-        pr1l(b[i]+(i-1));
+    scanxyzr;
+    pr(x*56+y*24+14*z+6*r);
 }
