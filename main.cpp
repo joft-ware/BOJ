@@ -18,7 +18,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #endif
 
-#define M 200002
+#define M 1000002
 #define MM 1102
 #define ull unsigned long long
 #define ll long long
@@ -473,48 +473,20 @@ void f(int w)
 
 int main(void)
 {
-    scannm;
-    scanxyz;
-    cnt=0;
-    no=0;
-    w1
+    scann;
+    scana;
+    fori
     {
-        if(m==x)
-            break;
-        if(boo[m]==1) {
-            no = 1;
-            break;
-        }
-        boo[m]=1;
-        if(m+y>n) {
-            if (m - z < 1) {
-                no = 1;
-                break;
-            } else {
-                m -=z;
-                cnt++;
-            }
-        }
-        else if(m-z<1)
-        {
-            m+=y;
-            cnt++;
-        }
-
-        else {
-            if (m > x) {
-                m -= z;
-                cnt++;
-            } else {
-                m += y;
-                cnt++;
-            }
-        }
-    };
-    if(no)
-        pr("use the stairs");
-    else
-        pr(cnt);
-    return 0;
+        x=a[i];
+        x -= i;
+        x++;
+        pq.push(x);
+        b[i]=pq.top();
+        pq.push(x);
+        pq.pop();
+    }
+    for(i=n-1;i>=1;i--)
+        b[i]=min(b[i],b[i+1]);
+    fori
+        pr1l(b[i]+(i-1));
 }
-
