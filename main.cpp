@@ -472,6 +472,6 @@ void f(int w)
 
 
 int main(void) {
-    scann;
-    pr2l(n / 100 * 78, n / 1000 * 956);
+    scanxy;
+    pr(y+y-x);
 }
