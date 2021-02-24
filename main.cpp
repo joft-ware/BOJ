@@ -148,6 +148,7 @@ ld ld1, ld2, ld3, ld4, ld5, ld6, ld7;
 ll a[M], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], habtree[M], mintree[M], maxtree[M];
 ll b[M], dp[10][M];
 ll d[M], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M];
+ll qry[M][4];
 bool check[M], visit[M], treecheck[M];
 char s1[M], s2[M], ss[MM][MM];
 char s[M];
@@ -194,23 +195,6 @@ bool vowel(char c)
     return false;
 }
 
-int find(int x)
-{
-    if (d[x] == x)
-        return x;
-    return find(d[x]);
-}
-
-void un(int x, int y)
-{
-    int q = find(x);
-    int w = find(y);
-    if (q < w)
-        d[w] = q;
-    else
-        d[q] = w;
-}
-
 bool bound(int x, int y)
 {
     if (x > 0 && y > 0 && x <= n && y <= m)
@@ -218,7 +202,21 @@ bool bound(int x, int y)
     return false;
 }
 
-bool same(int x, int y)
+ll find(ll x)
+{
+    if (d[x] == x)
+        return x;
+    d[x]=find(d[x]);
+    return d[x];
+}
+
+void un(ll x, ll y)
+{
+    d[y]=x;
+}
+
+
+bool same(ll x, ll y)
 {
     return (find(x) == find(y));
 }
@@ -464,14 +462,38 @@ ll reverse(ll x)
     return sum;
 }
 
-ll ar[20][20][4];
-void f(int w)
-{
-
-}
-
 
 int main(void) {
-    scanxy;
-    pr(y+y-x);
+    scannm;
+    foi(n - 1) {
+        scanx;
+        a[i + 1] = x;
+        d[i+1]=i+1;
+    }
+    a[1]=1;
+    d[1]=1;
+    foi(n + m - 1) {
+        scant;
+        qry[i][1] = t;
+        if (t) {
+            scanxy;
+            qry[i][2] = x;
+            qry[i][3] = y;
+        } else {
+            scanx;
+            qry[i][2] = x;
+        }
+    }
+    fori
+        d[i]=i;
+    for (i = n + m - 1; i >= 1; i--) {
+        if (qry[i][1])
+            b[++cnt] = same(qry[i][2], qry[i][3]);
+        else {
+            un(a[qry[i][2]], qry[i][2]);
+        }
+    }
+    n=cnt;
+    fori
+        printf("%s\n",(b[n+1-i] ? "YES" : "NO"));
 }
