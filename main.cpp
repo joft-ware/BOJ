@@ -462,38 +462,49 @@ ll reverse(ll x)
     return sum;
 }
 
+ll ds(char c)
+{
+    ll x;
+    if(so(c))
+        x = (c-'a'+1);
+    else
+        x = (c-'A'+27);
+    return x;
+}
 
 int main(void) {
     scannm;
-    foi(n - 1) {
-        scanx;
-        a[i + 1] = x;
-        d[i+1]=i+1;
+    scans;
+    foi(n) {
+        b[ds(s[i])]++;
     }
-    a[1]=1;
-    d[1]=1;
-    foi(n + m - 1) {
-        scant;
-        qry[i][1] = t;
-        if (t) {
-            scanxy;
-            qry[i][2] = x;
-            qry[i][3] = y;
-        } else {
-            scanx;
-            qry[i][2] = x;
+    scans;
+    fo(i,1,n)
+        a[ds(s[i])]++;
+    no=0;
+    fo(j,1,52){
+        if(a[j]!=b[j])
+        {
+            no=1;
+            break;
         }
     }
-    fori
-        d[i]=i;
-    for (i = n + m - 1; i >= 1; i--) {
-        if (qry[i][1])
-            b[++cnt] = same(qry[i][2], qry[i][3]);
-        else {
-            un(a[qry[i][2]], qry[i][2]);
+    if(!no)
+        cnt++;
+    fo(i,n+1,m)
+    {
+        a[ds(s[i])]++;
+        a[ds(s[i-n])]--;
+        no=0;
+        fo(j,1,52){
+            if(a[j]!=b[j])
+            {
+                no=1;
+                break;
+            }
         }
+        if(!no)
+            cnt++;
     }
-    n=cnt;
-    fori
-        printf("%s\n",(b[n+1-i] ? "YES" : "NO"));
+    pr(cnt);
 }
