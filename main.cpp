@@ -18,8 +18,8 @@
 #define _CRT_SECURE_NO_WARNINGS
 #endif
 
-#define M 1000002
-#define MM 1102
+#define M 3002
+#define MM 3002
 #define ull unsigned long long
 #define ll long long
 #define ld long double
@@ -473,38 +473,48 @@ ll ds(char c)
 }
 
 int main(void) {
-    scannm;
-    scans;
-    foi(n) {
-        b[ds(s[i])]++;
-    }
-    scans;
-    fo(i,1,n)
-        a[ds(s[i])]++;
-    no=0;
-    fo(j,1,52){
-        if(a[j]!=b[j])
-        {
-            no=1;
-            break;
+    scann;
+    d[0]=0;
+    d[1]=0;
+    fori {
+        w1{
+            scanx;
+            if(!x)
+                break;
+            aa[i][x]=aa[x][i]=1;
         }
     }
-    if(!no)
-        cnt++;
-    fo(i,n+1,m)
+    m=n;
+    fori
+        forj
+            bb[i][j]=aa[i][j]+bb[i-1][j]+bb[i][j-1]-bb[i-1][j-1];
+    fori
     {
-        a[ds(s[i])]++;
-        a[ds(s[i-n])]--;
-        no=0;
-        fo(j,1,52){
-            if(a[j]!=b[j])
-            {
-                no=1;
-                break;
+        mini=INF;
+        m=i;
+        forj
+        {
+            t=d[j-1]+(bb[i][j-1]-bb[j-1][j-1])+(zegob(i-j+1,2)-(i-j+1))/2-(bb[i][i]-bb[i][j-1]-bb[j-1][i]+bb[j-1][j-1])/2;
+
+            if(t<mini) {
+                mini = t;
+                x = j;
             }
         }
-        if(!no)
-            cnt++;
+        d[i]=mini;
+        b[i]=x;
     }
-    pr(cnt);
+    x=n;
+    w1{
+        y=b[x];
+        a[++cnt]=x-y+1;
+        if(y==1)
+            break;
+        x=y-1;
+    };
+    pr1l(d[n]);
+    n=cnt;
+    pr1(cnt);
+    fori
+        pr1(a[cnt+1-i]);
 }
