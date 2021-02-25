@@ -146,7 +146,7 @@ ll ddx[9] = { 0,-1,-1,-1,0,0,1,1,1 };
 ll ddy[9] = { 0,-1,0,1,-1,1,-1,0,1 };
 ld ld1, ld2, ld3, ld4, ld5, ld6, ld7;
 ll a[M], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], habtree[M], mintree[M], maxtree[M];
-ll b[M], dp[10][M];
+ll b[M], dp[10][M], dd[MM][MM];
 ll d[M], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M];
 ll qry[M][4];
 bool check[M], visit[M], treecheck[M];
@@ -494,33 +494,64 @@ void ff(int lev, int x)
     }
 }
 
+void solve(void)
+{
+    fori
+    {
+        dd[i][1]=INF;
+        dd[i][2]=INF;
+        dd[i][3]=INF;
+    }
+    fori
+    {
+        dd[i][1]=min(dd[i-1][2],dd[i-1][3])+bb[i][1];
+        dd[i][2]=min(dd[i-1][1],dd[i-1][3])+bb[i][2];
+        dd[i][3]=min(dd[i-1][2],dd[i-1][1])+bb[i][3];
+    }
+    t=smallest(dd[n][1],dd[n][2],dd[n][3]);
+    mini=smaller(t,mini);
+}
+
+
 
 int main(void) {
     scann;
-    d[0]=0;
+    mini=INF;
     fori {
-        d[i]=d[i-1]+1;
-        d[1]=0;
-        b[i]=i-1;
-        if (i % 3 == 0) {
-            if (d[i / 3] + 1 < d[i]) {
-                d[i] = d[i / 3] + 1;
-                b[i]=i/3;
-            }
-        }
-        if (i % 2 == 0) {
-            if (d[i / 2] + 1 < d[i]) {
-                d[i] = d[i / 2] + 1;
-                b[i]=i/2;
-            }
-        }
+        scanxyz;
+        aa[i][1] = x;
+        aa[i][2] = y;
+        aa[i][3] = z;
     }
-    pr1l(d[n]);
-    x=n;
-    w1{
-        pr1(x);
-        if(x==1)
-            break;
-        x=b[x];
-    };
+    fori {
+        m = 3;
+        forj bb[i][j] = aa[i][j];
+    }
+    bb[1][1]=887654321;
+    bb[1][3]=887654321;
+    bb[n][2]=887654321;
+    solve();
+
+
+    fori {
+        m = 3;
+        forj bb[i][j] = aa[i][j];
+    }
+    bb[1][1]=887654321;
+    bb[1][2]=887654321;
+    bb[n][3]=887654321;
+    solve();
+
+
+    fori {
+        m = 3;
+        forj bb[i][j] = aa[i][j];
+    }
+    bb[1][3]=887654321;
+    bb[1][2]=887654321;
+    bb[n][1]=887654321;
+    solve();
+
+    pr(mini);
+
 }
