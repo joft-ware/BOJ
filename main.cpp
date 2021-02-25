@@ -12,14 +12,16 @@
 #include <math.h>
 #include <stdlib.h>
 #include <deque>
+#include <map>
+
 
 
 #ifdef _MSC_VER
 #define _CRT_SECURE_NO_WARNINGS
 #endif
 
-#define M 3002
-#define MM 3002
+#define M 100002
+#define MM 32
 #define ull unsigned long long
 #define ll long long
 #define ld long double
@@ -145,26 +147,16 @@ ll dy[5] = { 0,0,-1,0,1 };
 ll ddx[9] = { 0,-1,-1,-1,0,0,1,1,1 };
 ll ddy[9] = { 0,-1,0,1,-1,1,-1,0,1 };
 ld ld1, ld2, ld3, ld4, ld5, ld6, ld7;
-ll a[M], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], habtree[M], mintree[M], maxtree[M];
+ll a[M],  bb[MM][MM], habtree[M], mintree[M], maxtree[M];
 ll b[M], dp[10][M];
-ll d[M], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M];
-ll qry[M][4];
-bool check[M], visit[M], treecheck[M];
+ll d[M], dist[M], aa[MM][MM],  tempa[M];
+bool check[M], treecheck[M];
 char s1[M], s2[M], ss[MM][MM];
 char s[M];
 char c1, c2, c, c3, c4;
-ld ldmax, ldmin, ldmax1, ldmax2, ldmin1, ldmin2, ldd[M];
 
 string str, str1;
-ull u1, u2, u3, u4;
-queue<int> q;
-queue<int> qx, qy;
-priority_queue<int> pq;
-stack<int> st;
-pair<int, int> p[M];
-deque<int> dq;
 
-bool boo[10000001];
 
 
 ll zegob(ll x, ll y)
@@ -474,47 +466,27 @@ ll ds(char c)
 
 int main(void) {
     scann;
-    d[0]=0;
-    d[1]=0;
-    fori {
-        w1{
-            scanx;
-            if(!x)
-                break;
-            aa[i][x]=aa[x][i]=1;
-        }
-    }
-    m=n;
-    fori
-        forj
-            bb[i][j]=aa[i][j]+bb[i-1][j]+bb[i][j-1]-bb[i-1][j-1];
-    fori
-    {
-        mini=INF;
-        m=i;
-        forj
-        {
-            t=d[j-1]+(bb[i][j-1]-bb[j-1][j-1])+(zegob(i-j+1,2)-(i-j+1))/2-(bb[i][i]-bb[i][j-1]-bb[j-1][i]+bb[j-1][j-1])/2;
-
-            if(t<mini) {
-                mini = t;
-                x = j;
-            }
-        }
-        d[i]=mini;
-        b[i]=x;
-    }
-    x=n;
+    scana;
+    scant;
+    sorta;
+    x=1;
+    y=n;
     w1{
-        y=b[x];
-        a[++cnt]=x-y+1;
-        if(y==1)
+        if(a[x]+a[y]==t) {
+            cnt++;
+            x++;
+            y--;
+        }
+        else if(a[x]+a[y]>t)
+            y--;
+        else
+            x++;
+        if(x>y)
             break;
-        x=y-1;
+        if(x==y)
+        {
+            break;
+        }
     };
-    pr1l(d[n]);
-    n=cnt;
-    pr1(cnt);
-    fori
-        pr1(a[cnt+1-i]);
+    prcnt;
 }
