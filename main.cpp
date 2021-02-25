@@ -14,25 +14,23 @@
 #include <deque>
 #include <map>
 
-
-
 #ifdef _MSC_VER
 #define _CRT_SECURE_NO_WARNINGS
 #endif
 
 #define M 100002
-#define MM 32
+#define MM 1002
 #define ull unsigned long long
 #define ll long long
 #define ld long double
 
-#define foi(a) for(i=1;i<=a;i++)
-#define foj(a) for(j=1;j<=a;j++)
-#define fok(a) for(k=1;k<=a;k++)
-#define fori for(i=1;i<=n;i++)
-#define forj for(j=1;j<=m;j++)
-#define fork for(k=1;k<=l;k++)
-#define foriw for(i=1;;i++)
+#define foi(a) for(ll i=1;i<=a;i++)
+#define foj(a) for(ll j=1;j<=a;j++)
+#define fok(a) for(ll k=1;k<=a;k++)
+#define fori for(ll i=1;i<=n;i++)
+#define forj for(ll j=1;j<=m;j++)
+#define fork for(ll k=1;k<=l;k++)
+#define foriw for(ll i=1;;i++)
 
 #define scann scanf("%lld",&n)
 #define scanm scanf("%lld",&m)
@@ -62,7 +60,6 @@
 #define scanstr getline(cin,str); slen=str.length();for(int i=slen;i>=1;i--) str[i]=str[i-1]; str[0]=0;
 
 
-
 #define printsum printf("%lld",sum);
 #define printcase printf("Case %lld: ",++casenum);
 #define printcases printf("Case #%lld: ",++casenum);
@@ -71,6 +68,7 @@
 #define printmax printf("%lld",maxi);
 #define printa fori {printf("%lld ",a[i]); }printf("\n");
 #define printb fori {printf("%lld ",b[i]); }printf("\n");
+#define printd fori {printf("%lld ",d[i]); }printf("\n");
 #define printaa fori {for(ll j=1;j<=m;j++) {printf("%3d ",aa[i][j]);} printf("\n");}printf("\n");
 #define printbb fori {for(ll j=1;j<=m;j++) {printf("%3d ",bb[i][j]);} printf("\n");}printf("\n");
 
@@ -147,16 +145,29 @@ ll dy[5] = { 0,0,-1,0,1 };
 ll ddx[9] = { 0,-1,-1,-1,0,0,1,1,1 };
 ll ddy[9] = { 0,-1,0,1,-1,1,-1,0,1 };
 ld ld1, ld2, ld3, ld4, ld5, ld6, ld7;
-ll a[M],  bb[MM][MM], habtree[M], mintree[M], maxtree[M];
+ll a[M], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], habtree[M], mintree[M], maxtree[M];
 ll b[M], dp[10][M];
-ll d[M], dist[M], aa[MM][MM],  tempa[M];
-bool check[M], treecheck[M];
+ll d[M], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M];
+ll qry[M][4];
+bool check[M], visit[M], treecheck[M];
 char s1[M], s2[M], ss[MM][MM];
 char s[M];
 char c1, c2, c, c3, c4;
+ld ldmax, ldmin, ldmax1, ldmax2, ldmin1, ldmin2, ldd[M];
 
 string str, str1;
+ull u1, u2, u3, u4;
+queue<ll> q;
+queue<ll> qx, qy;
+priority_queue<ll> pq;
+stack<ll> st;
+pair<ll, ll> p[M];
+deque<ll> dq;
+map<string, int> msi;
+map<int, string> mis;
 
+
+bool boo[100001];
 
 
 ll zegob(ll x, ll y)
@@ -464,29 +475,45 @@ ll ds(char c)
     return x;
 }
 
-int main(void) {
-    scann;
-    scana;
-    scant;
-    sorta;
-    x=1;
-    y=n;
-    w1{
-        if(a[x]+a[y]==t) {
-            cnt++;
-            x++;
-            y--;
-        }
-        else if(a[x]+a[y]>t)
-            y--;
-        else
-            x++;
-        if(x>y)
-            break;
-        if(x==y)
+void ff(int lev, int x)
+{
+    a[lev]=b[x];
+    if(lev==m) {
+        foi(lev) pr1(a[i]);
+        prl;
+        return;
+    }
+    for(ll i=1;i<=cnt;i++)
+    {
+        if(d[i]>0)
         {
-            break;
+            d[i]--;
+            ff(lev+1,i);
+            d[i]++;
         }
-    };
-    prcnt;
+    }
 }
+
+
+int main(void) {
+    scannm;
+    scana;
+    sorta;
+    fori{
+        if(a[i]!=a[i-1])
+        {
+            b[++cnt]=a[i];
+        }
+    }
+    foi(cnt){
+        for(j=1;j<=n;j++)
+            if(a[j]==b[i])
+                d[i]++;
+    }
+    cleana;
+    for(i=1;i<=cnt;i++) {
+        d[i]--;
+        ff(1, i);
+        d[i]++;
+    }
+};
