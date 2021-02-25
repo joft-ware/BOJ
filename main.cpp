@@ -496,24 +496,31 @@ void ff(int lev, int x)
 
 
 int main(void) {
-    scannm;
-    scana;
-    sorta;
-    fori{
-        if(a[i]!=a[i-1])
-        {
-            b[++cnt]=a[i];
+    scann;
+    d[0]=0;
+    fori {
+        d[i]=d[i-1]+1;
+        d[1]=0;
+        b[i]=i-1;
+        if (i % 3 == 0) {
+            if (d[i / 3] + 1 < d[i]) {
+                d[i] = d[i / 3] + 1;
+                b[i]=i/3;
+            }
+        }
+        if (i % 2 == 0) {
+            if (d[i / 2] + 1 < d[i]) {
+                d[i] = d[i / 2] + 1;
+                b[i]=i/2;
+            }
         }
     }
-    foi(cnt){
-        for(j=1;j<=n;j++)
-            if(a[j]==b[i])
-                d[i]++;
-    }
-    cleana;
-    for(i=1;i<=cnt;i++) {
-        d[i]--;
-        ff(1, i);
-        d[i]++;
-    }
-};
+    pr1l(d[n]);
+    x=n;
+    w1{
+        pr1(x);
+        if(x==1)
+            break;
+        x=b[x];
+    };
+}
