@@ -215,7 +215,12 @@ ll find(ll x)
 
 void un(ll x, ll y)
 {
-    d[y]=x;
+    ll q = find(x);
+    ll w= find(y);
+    if(q>w)
+        d[q]=find(w);
+    else
+        d[q]=find(w);
 }
 
 
@@ -515,43 +520,33 @@ void solve(void)
 
 
 int main(void) {
+    ld a[101], b[101], aa[101][101], mini, sum=0.0;
     scann;
-    mini=INF;
-    fori {
-        scanxyz;
-        aa[i][1] = x;
-        aa[i][2] = y;
-        aa[i][3] = z;
-    }
-    fori {
-        m = 3;
-        forj bb[i][j] = aa[i][j];
-    }
-    bb[1][1]=887654321;
-    bb[1][3]=887654321;
-    bb[n][2]=887654321;
-    solve();
+    fori scanf("%Lf %Lf",&a[i], &b[i]);
+    m = n;
+    fori
+        forj
+            aa[i][j] = aa[j][i] = (ld) sqrt((a[i]-a[j])*(a[i]-a[j])+(b[i]-b[j])*(b[i]-b[j]));
+    fori
+        d[i]=i;
+    l=n-1;
+    fork{
+        mini=(ld)999999991.0;
+        fori {
+            forj {
+                if(i==j)
+                    continue;
+                if(aa[i][j]<mini&&(!same(i,j)))
+                {
+                    mini=aa[i][j];
+                    x=i;
+                    y=j;
+                }
+            }
+        }
+        un(x,y);
 
-
-    fori {
-        m = 3;
-        forj bb[i][j] = aa[i][j];
-    }
-    bb[1][1]=887654321;
-    bb[1][2]=887654321;
-    bb[n][3]=887654321;
-    solve();
-
-
-    fori {
-        m = 3;
-        forj bb[i][j] = aa[i][j];
-    }
-    bb[1][3]=887654321;
-    bb[1][2]=887654321;
-    bb[n][1]=887654321;
-    solve();
-
-    pr(mini);
-
+        sum+=mini;
+    };
+    printf("%.5Lf",sum);
 }
