@@ -128,6 +128,7 @@
 #define pr4l(a,b,c,d) cout << (a) << ' ' << (b) << ' '<< (c) << ' '<< (d) << '\n'
 #define pr5l(a,b,c,d,e) cout << (a) << ' ' << (b) << ' '<< (c) << ' '<< (d) << ' '<< (e) << '\n'
 #define pr6l(a,b,c,d,e,f) cout << (a) << ' ' << (b) << ' '<< (c) << ' '<< (d) << ' '<< (e) << ' ' << (f) << '\n'
+#define pr7l(a,b,c,d,e,f, g) cout << (a) << ' ' << (b) << ' '<< (c) << ' '<< (d) << ' '<< (e) << ' ' << (f) << ' ' << (g) << '\n'
 
 #define prcnt pr(cnt)
 #define prno pr("no")
@@ -480,25 +481,6 @@ ll ds(char c)
     return x;
 }
 
-void ff(int lev, int x)
-{
-    a[lev]=b[x];
-    if(lev==m) {
-        foi(lev) pr1(a[i]);
-        prl;
-        return;
-    }
-    for(ll i=1;i<=cnt;i++)
-    {
-        if(d[i]>0)
-        {
-            d[i]--;
-            ff(lev+1,i);
-            d[i]++;
-        }
-    }
-}
-
 void solve(void)
 {
     fori
@@ -517,36 +499,78 @@ void solve(void)
     mini=smaller(t,mini);
 }
 
+void f(ll sx, ll sy, ll fx, ll fy, ll ori, ll l, ll w)
+{
+    if(l==1)
+    {
+        pr2l(fx,fy);
+        no=1;
+        return;
+    }
+    if(no)
+        return;
+    ll len = l/2;
+    ll na = (w-1)/(len*len);
+    ll ww = (w-1)%(len*len);
+    ll www = w%(len*len);
+    ll xx=(sx+fx)/2;
+    ll yy=(sy+fy)/2;
+
+    if(ori==1)
+    {
+        if(na==0)
+            f(sx, sy, xx,yy,2,len,www);
+        else if(na==1)
+            f(sx, yy+1, xx,fy,1,len,www);
+        else if(na==2)
+            f(xx+1,yy+1,fx,fy,1,len,www);
+        else if(na==3)
+            f(xx+1, sy, fx,yy,4,len,www);
+    }
+    else if(ori==2)
+    {
+        if(na==0)
+            f(sx, sy, xx,yy,1,len,www);
+        else if(na==1)
+            f(xx+1, sy, fx,yy,2,len,www);
+        else if(na==2)
+            f(xx+1,yy+1,fx,fy,2,len,www);
+        else if(na==3)
+            f(sx, yy+1, xx,fy,3,len,www);
+    }
+    else if(ori==3)
+    {
+        if(na==0)
+            f(xx+1,yy+1,fx,fy,4,len,www);
+        else if(na==1)
+            f(xx+1, sy, fx,yy,3,len,www);
+        else if(na==2)
+            f(sx, sy, xx,yy,3,len,www);
+        else if(na==3)
+            f(sx, yy+1, xx,fy,2,len,www);
+    }
+
+    else if(ori==4)
+    {
+        if(na==0)
+            f(xx+1,yy+1,fx,fy,3,len,www);
+        else if(na==1)
+            f(sx, yy+1, xx,fy,4,len,www);
+        else if(na==2)
+            f(sx, sy, xx,yy,4,len,www);
+        else if(na==3)
+            f(xx+1, sy, fx,yy,1,len,www);
+    }
+}
+
 
 
 int main(void) {
-    ld a[101], b[101], aa[101][101], mini, sum=0.0;
-    scann;
-    fori scanf("%Lf %Lf",&a[i], &b[i]);
-    m = n;
-    fori
-        forj
-            aa[i][j] = aa[j][i] = (ld) sqrt((a[i]-a[j])*(a[i]-a[j])+(b[i]-b[j])*(b[i]-b[j]));
-    fori
-        d[i]=i;
-    l=n-1;
-    fork{
-        mini=(ld)999999991.0;
-        fori {
-            forj {
-                if(i==j)
-                    continue;
-                if(aa[i][j]<mini&&(!same(i,j)))
-                {
-                    mini=aa[i][j];
-                    x=i;
-                    y=j;
-                }
-            }
-        }
-        un(x,y);
-
-        sum+=mini;
-    };
-    printf("%.5Lf",sum);
+    scannm;
+    if(m==n*n)
+        pr2l(n,1);
+    else if(n==m)
+        pr2l()
+    else
+        f(1,1,n,n,1,n,m);
 }
