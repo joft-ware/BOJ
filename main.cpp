@@ -19,6 +19,7 @@
 
 #define M 105
 #define MM 15
+#define N 1000001
 long long mod = 1e9+7;
 
 #define ll long long
@@ -170,9 +171,9 @@ ll dy[5] = { 0,0,-1,0,1 };
 ll ddx[9] = { 0,-1,-1,-1,0,0,1,1,1 };
 ll ddy[9] = { 0,-1,0,1,-1,1,-1,0,1 };
 ld ld1, ld2, ld3, ld4, ld5, ld6, ld7;
-ll a[400005], b1[M], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], sumtree[400005], mintree[M], maxtree[M], minindextree[M];
+ll a[4000005], b1[M], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], sumtree[4000005], mintree[M], maxtree[M], minindextree[M];
 ll b[M], dp[MM][MM], dd[MM][MM][4], ax[M], ay[M], az[M];
-ll d[M], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M], lazy[400005];
+ll d[M], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M], lazy[4000005];
 ll qry[M][4];
 bool check[M], visit[M], treecheck[M];
 char s1[M], s2[M], ss[MM][MM];
@@ -580,12 +581,10 @@ ll f(ll x1, ll y1, ll x2, ll y2){
 
 ll find_sum(ll left, ll right, ll node, ll sum){
     update_lazy_sum(node, left, right);
-    if(sumtree[node]==sum)
-        return right;
-    if(left==right)
+    if(left>=right)
         return right;
     mid=(left+right)/2;
-    if(sumtree[node*2]>sum)
+    if(sumtree[node*2]>=sum)
         return find_sum(left,mid,node*2, sum);
     else
         return find_sum(mid+1,right,node*2+1, sum-sumtree[node*2]);
@@ -604,25 +603,19 @@ ll insert_sum(ll node, ll left, ll right, ll start, ll end){
 }
 
 
-
 int main(void) {
-    scannm;
-    int N = 65535*2+4;
-    maketree_sum(1,N,1);
-    scana;
-    if(m==1){
-        suma;
-        prsum;
-    }
-    else {
-        fori {
-            a[i]++;
-            update_sum(1, N, 1, 1, a[i], a[i]);
-            if (i < m)
-                continue;
-            sum+=find_sum(1, N, 1, (m + 1) / 2-1)-1;
-            update_sum(1, N, -1, 1, a[i - m + 1], a[i - m + 1]);
-        };
-        prsum;
-    }
+    scann;
+    fori{
+        scant;
+        if(t==2){
+            scanxy;
+            update_sum(1,N,y,1,x,x);
+        }
+        else{
+            scanx;
+            w=find_sum(1,N,1,x);
+            pr1l(w);
+            update_sum(1,N,-1,1,w,w);
+        }
+    };
 }
