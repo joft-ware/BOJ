@@ -18,8 +18,8 @@
 #define _CRT_SECURE_NO_WARNINGS
 #endif
 
-#define M 100002
-#define MM 1002
+#define M 2
+#define MM 1
 #define ull unsigned long long
 #define ll long long
 #define ld long double
@@ -77,6 +77,7 @@
 #define printd fori {printf("%lld ",d[i]); }printf("\n");
 #define printaa fori {for(ll j=1;j<=m;j++) {printf("%3d ",aa[i][j]);} printf("\n");}printf("\n");
 #define printbb fori {for(ll j=1;j<=m;j++) {printf("%3d ",bb[i][j]);} printf("\n");}printf("\n");
+#define printgg pr1l("gg");
 
 #define frees for(ll i=0;i<=len+n;i++) s[i]=0;
 #define freea for(ll i=0;i<=n;i++) a[i]=0;
@@ -174,7 +175,6 @@ map<string, int> msi;
 map<int, string> mis;
 vector<int> v[M];
 bool boo[4000001];
-ll bit[16][1<<16];
 
 
 ll zegob(ll x, ll y)
@@ -493,13 +493,34 @@ ld ccw(ld x1, ld x2, ld x3, ld y1, ld y2, ld y3) {
     return x/2;
 }
 
+ll bit[101][10][1<<10];
 int main(void) {
     scann;
-    vector<pair<ld,ld>>p(n+1);
-    fori
-        sc2(p[i].first,p[i].second);
-    ld sum = 0.0;
-    for(i=2;i<=n;i++)
-        sum+=ccw(p[1].first,p[i-1].first,p[i].first,p[1].second,p[i-1].second,p[i].second);
-    printf("%.1Lf",abs(sum));
+
+    foi(9)
+        bit[1][i][1<<i] = 1;
+
+    fo(i, 2, n) {
+        fo(j, 1, 8) {
+            fo(k, 0, (1<<10) - 1) {
+                bit[i][j][k | (1<<j)] += bit[i - 1][j-1][k];
+                bit[i][j][k | (1<<j)] %= 1000000000;
+                bit[i][j][k | (1<<j)] += bit[i - 1][j+1][k];
+                bit[i][j][k | (1<<j)] %= 1000000000;
+            }
+        };
+        fo(k, 0, (1<<10) - 1)
+        {
+            bit[i][0][k | (1<<0)]+=bit[i-1][1][k];
+            bit[i][0][k | (1<<0)] %= 1000000000;
+            bit[i][9][k | (1<<9)]+=bit[i-1][8][k];
+            bit[i][9][k | (1<<9)] %= 1000000000;
+        }
+    }
+    sum=0;
+    fo(i, 0, 9) {
+        sum += bit[n][i][(1<<10)-1];
+        sum %= 1000000000;
+    }
+    prsum;
 }
