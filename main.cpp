@@ -18,7 +18,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #endif
 
-#define M 500002
+#define M 100002
 #define MM 1002
 #define ull unsigned long long
 #define ll long long
@@ -174,6 +174,7 @@ map<string, int> msi;
 map<int, string> mis;
 vector<int> v[M];
 bool boo[4000001];
+ll bit[16][1<<16];
 
 
 ll zegob(ll x, ll y)
@@ -486,81 +487,19 @@ ll ds(char c)
     return x;
 }
 
-void solve(void)
-{
-    fori
-    {
-        dd[i][1]=INF;
-        dd[i][2]=INF;
-        dd[i][3]=INF;
-    }
-    fori
-    {
-        dd[i][1]=min(dd[i-1][2],dd[i-1][3])+bb[i][1];
-        dd[i][2]=min(dd[i-1][1],dd[i-1][3])+bb[i][2];
-        dd[i][3]=min(dd[i-1][2],dd[i-1][1])+bb[i][3];
-    }
-    t=smallest(dd[n][1],dd[n][2],dd[n][3]);
-    mini=smaller(t,mini);
+ld ccw(ld x1, ld x2, ld x3, ld y1, ld y2, ld y3) {
+    ld x = (x1*y2+x2*y3+x3*y1);
+    x+= (-y1*x2-y2*x3-y3*x1);
+    return x/2;
 }
-
-void f(ll x, ll lev)
-{
-    ll no=0;
-    ll l = v[x].size();
-    foj(l)
-    {
-        ll i = j-1;
-        if(boo[v[x][i]]==false)
-        {
-            boo[v[x][i]]=true;
-            f(v[x][i],lev+1);
-            boo[v[x][i]]=false;
-            no=1;
-        }
-    }
-    if(no==0&&x!=1)
-        sum+=lev;
-}
-
-
 
 int main(void) {
-    vector<int> a;
     scann;
-    a.pb(0);
-    for (i = 2; i <= n; i++) {
-        if (boo[i] == false) {
-            a.pb(i);
-            for (j = i; j <= n; j += i)
-                boo[j] = true;
-        }
-    }
-    x = 1;
-    y = 1;
-    sum = a[x];
-    cnt=a.size()-1;
-    foi(cnt)
-        pr1(a[i]);
-    w1 {
-        if (sum == n) {
-            w++;
-            if (y == cnt)
-                break;
-            y++;
-            sum+=a[y];
-        }
-        else if(sum<n||x==y){
-            y++;
-            if(y>cnt)
-                break;
-            sum+=a[y];
-        }
-        else
-        {
-            sum-=a[x];
-            x++;
-        }
-    }
-    pr(w);
+    vector<pair<ld,ld>>p(n+1);
+    fori
+        sc2(p[i].first,p[i].second);
+    ld sum = 0.0;
+    for(i=2;i<=n;i++)
+        sum+=ccw(p[1].first,p[i-1].first,p[i].first,p[1].second,p[i-1].second,p[i].second);
+    printf("%.1Lf",abs(sum));
 }
