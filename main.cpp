@@ -18,11 +18,17 @@
 #define _CRT_SECURE_NO_WARNINGS
 #endif
 
-#define M 100002
+#define M 500002
 #define MM 1002
 #define ull unsigned long long
 #define ll long long
 #define ld long double
+#define Yes "Yes"
+#define No "No"
+#define YES "YES"
+#define NO "NO"
+#define mn m=n;
+
 
 #define foi(a) for(ll i=1;i<=a;i++)
 #define foj(a) for(ll j=1;j<=a;j++)
@@ -147,7 +153,7 @@ ll ddx[9] = { 0,-1,-1,-1,0,0,1,1,1 };
 ll ddy[9] = { 0,-1,0,1,-1,1,-1,0,1 };
 ld ld1, ld2, ld3, ld4, ld5, ld6, ld7;
 ll a[M], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], habtree[M], mintree[M], maxtree[M];
-ll b[M], dp[10][M], dd[MM][MM];
+ll b[M], dp[M][10], dd[MM][MM];
 ll d[M], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M];
 ll qry[M][4];
 bool check[M], visit[M], treecheck[M];
@@ -166,9 +172,8 @@ pair<ll, ll> p[M];
 deque<ll> dq;
 map<string, int> msi;
 map<int, string> mis;
-
-
-bool boo[100001];
+vector<int> v[M];
+bool boo[M];
 
 
 ll zegob(ll x, ll y)
@@ -499,78 +504,69 @@ void solve(void)
     mini=smaller(t,mini);
 }
 
-void f(ll sx, ll sy, ll fx, ll fy, ll ori, ll l, ll w)
+void f(ll x, ll lev)
 {
-    if(l==1)
+    ll no=0;
+    ll l = v[x].size();
+    foj(l)
     {
-        pr2l(fx,fy);
-        no=1;
-        return;
+        ll i = j-1;
+        if(boo[v[x][i]]==false)
+        {
+            boo[v[x][i]]=true;
+            f(v[x][i],lev+1);
+            boo[v[x][i]]=false;
+            no=1;
+        }
     }
-    if(no)
-        return;
-    ll len = l/2;
-    ll na = (w-1)/(len*len);
-    ll ww = (w-1)%(len*len);
-    ll www = w%(len*len);
-    ll xx=(sx+fx)/2;
-    ll yy=(sy+fy)/2;
-
-    if(ori==1)
-    {
-        if(na==0)
-            f(sx, sy, xx,yy,2,len,www);
-        else if(na==1)
-            f(sx, yy+1, xx,fy,1,len,www);
-        else if(na==2)
-            f(xx+1,yy+1,fx,fy,1,len,www);
-        else if(na==3)
-            f(xx+1, sy, fx,yy,4,len,www);
-    }
-    else if(ori==2)
-    {
-        if(na==0)
-            f(sx, sy, xx,yy,1,len,www);
-        else if(na==1)
-            f(xx+1, sy, fx,yy,2,len,www);
-        else if(na==2)
-            f(xx+1,yy+1,fx,fy,2,len,www);
-        else if(na==3)
-            f(sx, yy+1, xx,fy,3,len,www);
-    }
-    else if(ori==3)
-    {
-        if(na==0)
-            f(xx+1,yy+1,fx,fy,4,len,www);
-        else if(na==1)
-            f(xx+1, sy, fx,yy,3,len,www);
-        else if(na==2)
-            f(sx, sy, xx,yy,3,len,www);
-        else if(na==3)
-            f(sx, yy+1, xx,fy,2,len,www);
-    }
-
-    else if(ori==4)
-    {
-        if(na==0)
-            f(xx+1,yy+1,fx,fy,3,len,www);
-        else if(na==1)
-            f(sx, yy+1, xx,fy,4,len,www);
-        else if(na==2)
-            f(sx, sy, xx,yy,4,len,www);
-        else if(na==3)
-            f(xx+1, sy, fx,yy,1,len,www);
-    }
+    if(no==0&&x!=1)
+        sum+=lev;
 }
 
 
 
 int main(void) {
-    scannm;
-    if(m==n*n)
-        pr2l(n,1);
-    else if(n==m)
-        pr2l()
-    else
-        f(1,1,n,n,1,n,m);
+    scans1;
+    scans2;
+    n = len1;
+    m=len2;
+    fori {
+        forj {
+            dd[i][j] = bigger(dd[i-1][j],dd[i][j-1]);
+            if(s1[i]==s2[j]) {
+                dd[i][j] = bigger(dd[i][j], dd[i - 1][j - 1] + 1);
+                d[i]=j;
+            }
+        }
+    }
+    pr1l(dd[n][m]);
+    if(dd[n][m]==0)
+        return 0;
+    x=n;
+    y=m;
+
+    w1{
+        if(x==0||y==0)
+            break;
+        if(s1[x]==s2[y])
+        {
+            s[++cnt]=s1[x];
+            if(x==1&&y==1)
+                break;
+            x--;
+            y--;
+        }
+        else
+        {
+            if(x==1&&y==1)
+                break;
+            if(dd[x-1][y]>dd[x][y-1]||y==1)
+                x--;
+            else
+                y--;
+        }
+    };
+    n=cnt;
+    fori
+        pr(s[cnt+1-i]);
 }
