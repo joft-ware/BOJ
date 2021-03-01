@@ -18,8 +18,8 @@
 #define _CRT_SECURE_NO_WARNINGS
 #endif
 
-#define M 2
-#define MM 1
+#define M 100002
+#define MM 1000
 #define ull unsigned long long
 #define ll long long
 #define ld long double
@@ -496,31 +496,36 @@ ld ccw(ld x1, ld x2, ld x3, ld y1, ld y2, ld y3) {
 ll bit[101][10][1<<10];
 int main(void) {
     scann;
-
-    foi(9)
-        bit[1][i][1<<i] = 1;
-
-    fo(i, 2, n) {
-        fo(j, 1, 8) {
-            fo(k, 0, (1<<10) - 1) {
-                bit[i][j][k | (1<<j)] += bit[i - 1][j-1][k];
-                bit[i][j][k | (1<<j)] %= 1000000000;
-                bit[i][j][k | (1<<j)] += bit[i - 1][j+1][k];
-                bit[i][j][k | (1<<j)] %= 1000000000;
-            }
+    fori {
+        scanx;
+        a[i] = x;
+        scanm;
+        b[i]=m;
+        forj {
+            scanx;
+            v[x].pb(i);
         };
-        fo(k, 0, (1<<10) - 1)
-        {
-            bit[i][0][k | (1<<0)]+=bit[i-1][1][k];
-            bit[i][0][k | (1<<0)] %= 1000000000;
-            bit[i][9][k | (1<<9)]+=bit[i-1][8][k];
-            bit[i][9][k | (1<<9)] %= 1000000000;
+    };
+    fori{
+        if(b[i]==0) {
+            q.push(i);
+            d[i]=a[i];
+            maxi=max(d[i],maxi);
+        }
+    };
+    while(!q.empty())
+    {
+        x=q.front();
+        q.pop();
+        l=v[x].size();
+        for(i=0;i<l;i++){
+            y=v[x][i];
+            b[y]--;
+            if(b[y]==0)
+                q.push(y);
+            d[y]=max(d[y],a[y]+d[x]);
+            maxi=max(d[y],maxi);
         }
     }
-    sum=0;
-    fo(i, 0, 9) {
-        sum += bit[n][i][(1<<10)-1];
-        sum %= 1000000000;
-    }
-    prsum;
+    prmaxi;
 }
