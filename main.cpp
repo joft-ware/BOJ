@@ -173,7 +173,7 @@ deque<ll> dq;
 map<string, int> msi;
 map<int, string> mis;
 vector<int> v[M];
-bool boo[M];
+bool boo[4000001];
 
 
 ll zegob(ll x, ll y)
@@ -526,47 +526,41 @@ void f(ll x, ll lev)
 
 
 int main(void) {
-    scans1;
-    scans2;
-    n = len1;
-    m=len2;
-    fori {
-        forj {
-            dd[i][j] = bigger(dd[i-1][j],dd[i][j-1]);
-            if(s1[i]==s2[j]) {
-                dd[i][j] = bigger(dd[i][j], dd[i - 1][j - 1] + 1);
-                d[i]=j;
-            }
+    vector<int> a;
+    scann;
+    a.pb(0);
+    for (i = 2; i <= n; i++) {
+        if (boo[i] == false) {
+            a.pb(i);
+            for (j = i; j <= n; j += i)
+                boo[j] = true;
         }
     }
-    pr1l(dd[n][m]);
-    if(dd[n][m]==0)
-        return 0;
-    x=n;
-    y=m;
-
-    w1{
-        if(x==0||y==0)
-            break;
-        if(s1[x]==s2[y])
-        {
-            s[++cnt]=s1[x];
-            if(x==1&&y==1)
+    x = 1;
+    y = 1;
+    sum = a[x];
+    cnt=a.size()-1;
+    foi(cnt)
+        pr1(a[i]);
+    w1 {
+        if (sum == n) {
+            w++;
+            if (y == cnt)
                 break;
-            x--;
-            y--;
+            y++;
+            sum+=a[y];
+        }
+        else if(sum<n||x==y){
+            y++;
+            if(y>cnt)
+                break;
+            sum+=a[y];
         }
         else
         {
-            if(x==1&&y==1)
-                break;
-            if(dd[x-1][y]>dd[x][y-1]||y==1)
-                x--;
-            else
-                y--;
+            sum-=a[x];
+            x++;
         }
-    };
-    n=cnt;
-    fori
-        pr(s[cnt+1-i]);
+    }
+    pr(w);
 }
