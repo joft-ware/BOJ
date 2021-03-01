@@ -42,6 +42,7 @@
 #define scanm scanf("%lld",&m)
 #define scant scanf("%lld",&t)
 #define scanx scanf("%lld",&x)
+#define scany scanf("%lld",&y)
 #define scanc scanf("%c",&c)
 #define scanxy scanf("%lld %lld",&x,&y)
 #define scanyx scanf("%lld %lld",&y,&x)
@@ -137,12 +138,12 @@
 #define pr6l(a,b,c,d,e,f) cout << (a) << ' ' << (b) << ' '<< (c) << ' '<< (d) << ' '<< (e) << ' ' << (f) << '\n'
 #define pr7l(a,b,c,d,e,f, g) cout << (a) << ' ' << (b) << ' '<< (c) << ' '<< (d) << ' '<< (e) << ' ' << (f) << ' ' << (g) << '\n'
 
-#define prcnt pr(cnt)
-#define prno pr("no")
-#define pryes pr("yes")
-#define prmaxi pr(maxi)
-#define prmax pr(maxi)
-#define prnum pr(num)
+#define prcnt pr1l(cnt)
+#define prno pr1l("no")
+#define pryes pr1l("yes")
+#define prmaxi pr1l(maxi)
+#define prmax pr1l(maxi)
+#define prnum pr1l(num)
 #define prsum printsum
 #define prstr for(ll wq=1;wq<=slen;wq++) pr(str[wq]);
 
@@ -493,39 +494,75 @@ ld ccw(ld x1, ld x2, ld x3, ld y1, ld y2, ld y3) {
     return x/2;
 }
 
-ll bit[101][10][1<<10];
-int main(void) {
-    scann;
-    fori {
-        scanx;
-        a[i] = x;
-        scanm;
-        b[i]=m;
-        forj {
-            scanx;
-            v[x].pb(i);
-        };
-    };
-    fori{
-        if(b[i]==0) {
-            q.push(i);
-            d[i]=a[i];
-            maxi=max(d[i],maxi);
-        }
-    };
-    while(!q.empty())
+void f(ll x, ll y, ll lev, ll color)
+{
+    ll rr = x*n+y;
+    maxi=bigger(maxi,lev);
+
+    for(ll i=1;i<=n;i++)
     {
-        x=q.front();
-        q.pop();
-        l=v[x].size();
-        for(i=0;i<l;i++){
-            y=v[x][i];
-            b[y]--;
-            if(b[y]==0)
-                q.push(y);
-            d[y]=max(d[y],a[y]+d[x]);
-            maxi=max(d[y],maxi);
+        for(ll j=1;j<=n;j++)
+        {
+            ll w=i+j;
+            ll e=i+n+1-j;
+            ll r=i*n+j;
+            if(a[w]==0&&b[e]==0&&aa[i][j]==1&&r>rr&&(color==(i+j)%2))
+            {
+                a[w]=1;
+                b[e]=1;
+                aa[i][j]=0;
+                f(i,j,lev+1, color);
+                aa[i][j]=1;
+                a[w]=0;
+                b[e]=0;
+            }
         }
     }
-    prmaxi;
+}
+
+int main(void) {
+    scann;
+    mn;
+    scanaa;
+    maxi=0;
+    fori
+    {
+        forj{
+            if(aa[i][j]&&((i+j)%2==1))
+            {
+                w=i+j;
+                e=i+n+1-j;
+                a[w]=1;
+                b[e]=1;
+                aa[i][j]=0;
+                f(i, j, 1, (i+j)%2);
+                aa[i][j]=1;
+                a[w]=0;
+                b[e]=0;
+            }
+        }
+    }
+
+    sum+=maxi;
+    maxi=0;
+
+    fori
+    {
+        forj{
+            if(aa[i][j]&&((i+j)%2==0))
+            {
+                w=i+j;
+                e=i+n+1-j;
+                a[w]=1;
+                b[e]=1;
+                aa[i][j]=0;
+                f(i, j, 1, (i+j)%2);
+                aa[i][j]=1;
+                a[w]=0;
+                b[e]=0;
+            }
+        }
+    }
+    sum+=maxi;
+    printsum;
 }
