@@ -73,6 +73,8 @@
 #define prints printf("%s",&s[1]);
 #define printc printf("%c",c);
 #define printmax printf("%lld",maxi);
+#define printmin printf("%lld",mini);
+#define printmini printf("%lld",mini);
 #define printa fori {printf("%lld ",a[i]); }printf("\n");
 #define printb fori {printf("%lld ",b[i]); }printf("\n");
 #define printd fori {printf("%lld ",d[i]); }printf("\n");
@@ -524,45 +526,37 @@ int main(void) {
     scann;
     mn;
     scanaa;
-    maxi=0;
-    fori
-    {
-        forj{
-            if(aa[i][j]&&((i+j)%2==1))
-            {
-                w=i+j;
-                e=i+n+1-j;
-                a[w]=1;
-                b[e]=1;
-                aa[i][j]=0;
-                f(i, j, 1, (i+j)%2);
-                aa[i][j]=1;
-                a[w]=0;
-                b[e]=0;
+    no = 0;
+    for (k = 0; k <= (1<<n) - 1; k++) {
+        cnt = 0;
+        for (i = 1; i <= n; i++) {
+            dd[1][i] = (k & (1 << (i - 1))) > 0;
+            cnt += dd[1][i];
+        }
+        for (i = 1; i <= n; i++)
+            bb[1][i] = aa[1][i] ^ ((dd[1][i] + dd[1][i - 1] + dd[1][i + 1]) % 2);
+
+        for (i = 2; i <= n; i++) {
+            foj(n) {
+                dd[i][j] = bb[i - 1][j];
+                cnt += dd[i][j];
+            }
+            foj(n) {
+                bb[i][j] = aa[i][j] ^ ((dd[i][j] + dd[i][j - 1] + dd[i][j + 1] + dd[i-1][j]) % 2);
             }
         }
-    }
-
-    sum+=maxi;
-    maxi=0;
-
-    fori
-    {
-        forj{
-            if(aa[i][j]&&((i+j)%2==0))
-            {
-                w=i+j;
-                e=i+n+1-j;
-                a[w]=1;
-                b[e]=1;
-                aa[i][j]=0;
-                f(i, j, 1, (i+j)%2);
-                aa[i][j]=1;
-                a[w]=0;
-                b[e]=0;
-            }
+        yes = 0;
+        for (i = 1; i <= n; i++)
+            yes += bb[n][i];
+        if (yes == 0) {
+            no = 1;
+            mini = smaller(mini, cnt);
         }
     }
-    sum+=maxi;
-    printsum;
+    if (no) {
+        printmini
+    }
+    else{
+        pr(-1);
+    }
 }
