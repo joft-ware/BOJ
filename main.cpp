@@ -19,7 +19,7 @@
 #endif
 
 #define M 100002
-#define MM 1000
+#define MM 101
 #define ull unsigned long long
 #define ll long long
 #define ld long double
@@ -61,7 +61,8 @@
 #define scanna scann; fori scanf("%lld",&a[i]);
 #define scana1d fori scanf("%1d",&a[i]);
 #define scanb1d fori scanf("%1d",&b[i]);
-#define scanb fori scanf("%d",&b[i]);
+#define scanb fori scanf("%lld",&b[i]);
+#define scand fori scanf("%lld",&d[i]);
 #define scanaa fori for(ll j=1;j<=m;j++) scanf("%lld",&aa[i][j]);
 #define scanbb fori for(ll j=1;j<=m;j++) scanf("%lld",&bb[i][j]);
 #define scanstr getline(cin,str); slen=str.length();for(int i=slen;i>=1;i--) str[i]=str[i-1]; str[0]=0;
@@ -157,7 +158,7 @@ ll ddx[9] = { 0,-1,-1,-1,0,0,1,1,1 };
 ll ddy[9] = { 0,-1,0,1,-1,1,-1,0,1 };
 ld ld1, ld2, ld3, ld4, ld5, ld6, ld7;
 ll a[M], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], habtree[M], mintree[M], maxtree[M];
-ll b[M], dp[M][10], dd[MM][MM];
+ll b[M], dp[M][10], dd[MM][MM][MM][4];
 ll d[M], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M];
 ll qry[M][4];
 bool check[M], visit[M], treecheck[M];
@@ -496,67 +497,79 @@ ld ccw(ld x1, ld x2, ld x3, ld y1, ld y2, ld y3) {
     return x/2;
 }
 
-void f(ll x, ll y, ll lev, ll color)
-{
-    ll rr = x*n+y;
-    maxi=bigger(maxi,lev);
+ll f(ll x, ll y) {
+    ll w=smaller(x,y);
+    ll e=bigger(x,y);
+    ll r=w+m;
+    return smaller(e-w,r-e);
+}
 
-    for(ll i=1;i<=n;i++)
-    {
-        for(ll j=1;j<=n;j++)
-        {
-            ll w=i+j;
-            ll e=i+n+1-j;
-            ll r=i*n+j;
-            if(a[w]==0&&b[e]==0&&aa[i][j]==1&&r>rr&&(color==(i+j)%2))
-            {
-                a[w]=1;
-                b[e]=1;
-                aa[i][j]=0;
-                f(i,j,lev+1, color);
-                aa[i][j]=1;
-                a[w]=0;
-                b[e]=0;
-            }
-        }
-    }
+
+ll f1(ll x){
+    while(x<0)
+        x+=m;
+    while(x>m)
+        x-=m;
+    return x;
 }
 
 int main(void) {
+    scanm;
     scann;
-    mn;
-    scanaa;
-    no = 0;
-    for (k = 0; k <= (1<<n) - 1; k++) {
-        cnt = 0;
-        for (i = 1; i <= n; i++) {
-            dd[1][i] = (k & (1 << (i - 1))) > 0;
-            cnt += dd[1][i];
-        }
-        for (i = 1; i <= n; i++)
-            bb[1][i] = aa[1][i] ^ ((dd[1][i] + dd[1][i - 1] + dd[1][i + 1]) % 2);
+    x = n;
+    scana;
+    scann;
+    y = n;
+    scanb;
+    scann;
+    z = n;
+    scand;
+    a[0] = 1;
+    b[0] = m / 3 + 1;
+    d[0] = m / 3 * 2 + 1;
+    ll r=m/3;
 
-        for (i = 2; i <= n; i++) {
-            foj(n) {
-                dd[i][j] = bb[i - 1][j];
-                cnt += dd[i][j];
-            }
-            foj(n) {
-                bb[i][j] = aa[i][j] ^ ((dd[i][j] + dd[i][j - 1] + dd[i][j + 1] + dd[i-1][j]) % 2);
+    fo(i, 0, x) {
+        fo(j, 0, y) {
+            fo(k, 0, z) {
+                dd[i][j][k][1] = INF;
+                dd[i][j][k][2] = INF;
+                dd[i][j][k][3] = INF;
             }
         }
-        yes = 0;
-        for (i = 1; i <= n; i++)
-            yes += bb[n][i];
-        if (yes == 0) {
-            no = 1;
-            mini = smaller(mini, cnt);
+    }
+
+    dd[1][0][0][1]=f(a[1],a[0]);
+    dd[0][1][0][2]=f(b[1],b[0]);
+    dd[0][0][1][3]=f(d[1],d[0]);
+
+    fo(i,0,x)
+    {
+        fo(j,0,y){
+            fo(k,0,z){
+                if(i!=0) {
+                    dd[i][j][k][1] = smaller(smallest(dd[i - 1][j][k][1] + f(a[i - 1], a[i]),
+                                              dd[i - 1][j][k][2] + f(f1(b[j]-r), a[i]),
+                                              dd[i - 1][j][k][3] + f(f1(d[k]-2*r), a[i])),
+                                             dd[i][j][k][1]);
+                }
+
+                if(j!=0) {
+                    dd[i][j][k][2] = smaller(smallest(dd[i][j - 1][k][1] + f(f1(a[i]+r), b[j]),
+                                              dd[i][j - 1][k][2] + f(b[j - 1], b[j]),
+                                              dd[i][j - 1][k][3] + f(f1(d[k]-r), b[j])),
+                                             dd[i][j][k][2]);
+                }
+
+                if(k!=0) {
+                    dd[i][j][k][3] = smaller(smallest(dd[i][j][k - 1][1] + f(f1(a[i]+2*r), d[k]),
+                                              dd[i][j][k - 1][2] + f(f1(b[j]+r), d[k]),
+                                              dd[i][j][k - 1][3] + f(d[k - 1], d[k])),
+                                             dd[i][j][k][3]);
+                }
+
+            }
         }
     }
-    if (no) {
-        printmini
-    }
-    else{
-        pr(-1);
-    }
+    pr(smallest(dd[x][y][z][1],dd[x][y][z][2],dd[x][y][z][3]));
 }
