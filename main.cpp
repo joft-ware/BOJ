@@ -516,23 +516,37 @@ ll f1(ll x){
 
 
 int main(void) {
-    scansn;
-    m=10;
-    fori
-    {
-        d[i]=s[i]-'0';
-        a[i]=zegob(10,n-i)*d[i];
-    };
-    fori {
-        x=d[i];
-        y=n-i;
-        fo(j,0,9)
-            b[j]+=zegob(10,y-1)*y*x;
-
-        fo(j,(i==1) ? 1 : 0 ,x-1)
-            b[j]+=zegob(10,y);
-        b[x]++;
+    scant;
+    wt{
+        scann;
+        scanxyzr;
+        yes=0;
+        fo(i,0,1){
+            fo(j,0,1){
+                fo(k,0,1){
+                    fo(l,0,1){
+                        ll xx=x-i;
+                        ll yy=y-i;
+                        yy-=j;
+                        ll zz=z-j;
+                        zz-=k;
+                        ll rr=r-k;
+                        rr-=l;
+                        xx-=l;
+                        no=0;
+                        if(xx<0||yy<0||zz<0||rr<0)
+                            no=1;
+                        if((xx>(n-2))||(yy>(n-2))||(zz>(n-2))||(rr>(n-2)))
+                            no=1;
+                        if(no==0)
+                            yes=1;
+                    }
+                }
+            }
+        }
+        if(yes)
+            pr1l("YES");
+        else
+            pr1l("NO");
     }
-    fo(j,0,9)
-        pr1(b[j]);
-}
+};
