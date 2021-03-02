@@ -517,29 +517,34 @@ ll f1(ll x){
 
 int main(void) {
     scant;
-    wt{
-        scann;
-        scanxyzr;
+    wt {
+        scans;
         yes=0;
-        fo(i,0,1){
-            fo(j,0,1){
-                fo(k,0,1){
-                    fo(l,0,1){
-                        ll xx=x-i;
-                        ll yy=y-i;
-                        yy-=j;
-                        ll zz=z-j;
-                        zz-=k;
-                        ll rr=r-k;
-                        rr-=l;
-                        xx-=l;
-                        no=0;
-                        if(xx<0||yy<0||zz<0||rr<0)
-                            no=1;
-                        if((xx>(n-2))||(yy>(n-2))||(zz>(n-2))||(rr>(n-2)))
-                            no=1;
-                        if(no==0)
-                            yes=1;
+        for (i = -1; i <= 1; i += 2) {
+            for (j = -1; j <= 1; j += 2) {
+                for (k = -1; k <= 1; k += 2) {
+                    x = i;
+                    y = j;
+                    z = k;
+                    no=0;
+                    sum=0;
+                    for(l=1;l<=len;l++){
+                        if(s[l]=='A')
+                            sum+=x;
+                        else if(s[l]=='B')
+                            sum+=y;
+                        else
+                            sum+=z;
+                        if(sum<0) {
+                            no = 1;
+                            break;
+                        }
+                    }
+                    if(sum!=0)
+                        no=1;
+                    if(no==0){
+                        yes=1;
+                        break;
                     }
                 }
             }
@@ -549,4 +554,5 @@ int main(void) {
         else
             pr1l("NO");
     }
+
 };
