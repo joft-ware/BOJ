@@ -82,6 +82,7 @@
 #define printaa fori {for(ll j=1;j<=m;j++) {printf("%3d ",aa[i][j]);} printf("\n");}printf("\n");
 #define printbb fori {for(ll j=1;j<=m;j++) {printf("%3d ",bb[i][j]);} printf("\n");}printf("\n");
 #define printgg pr1l("gg");
+#define prinnt
 
 #define frees for(ll i=0;i<=len+n;i++) s[i]=0;
 #define freea for(ll i=0;i<=n;i++) a[i]=0;
@@ -167,7 +168,7 @@ char s[M];
 char c1, c2, c, c3, c4;
 ld ldmax, ldmin, ldmax1, ldmax2, ldmin1, ldmin2, ldd[M];
 
-string str, str1;
+string str[10001];
 ull u1, u2, u3, u4;
 queue<ll> q;
 queue<ll> qx, qy;
@@ -513,63 +514,25 @@ ll f1(ll x){
     return x;
 }
 
+
 int main(void) {
-    scanm;
-    scann;
-    x = n;
-    scana;
-    scann;
-    y = n;
-    scanb;
-    scann;
-    z = n;
-    scand;
-    a[0] = 1;
-    b[0] = m / 3 + 1;
-    d[0] = m / 3 * 2 + 1;
-    ll r=m/3;
-
-    fo(i, 0, x) {
-        fo(j, 0, y) {
-            fo(k, 0, z) {
-                dd[i][j][k][1] = INF;
-                dd[i][j][k][2] = INF;
-                dd[i][j][k][3] = INF;
+    scant;
+    wt {
+        no = 0;
+        scann;
+        string str[10001];
+        fori sc1(str[i]);
+        sort(str + 1, str + n + 1);
+        foi(n-1) {
+            l = str[i].size();
+            if (str[i].compare(str[i + 1].substr(0, l)) == 0) {
+                no = 1;
+                break;
             }
         }
+        if (!no)
+            pr1l("YES");
+        else
+            pr1l("NO");
     }
-
-    dd[1][0][0][1]=f(a[1],a[0]);
-    dd[0][1][0][2]=f(b[1],b[0]);
-    dd[0][0][1][3]=f(d[1],d[0]);
-
-    fo(i,0,x)
-    {
-        fo(j,0,y){
-            fo(k,0,z){
-                if(i!=0) {
-                    dd[i][j][k][1] = smaller(smallest(dd[i - 1][j][k][1] + f(a[i - 1], a[i]),
-                                              dd[i - 1][j][k][2] + f(f1(b[j]-r), a[i]),
-                                              dd[i - 1][j][k][3] + f(f1(d[k]-2*r), a[i])),
-                                             dd[i][j][k][1]);
-                }
-
-                if(j!=0) {
-                    dd[i][j][k][2] = smaller(smallest(dd[i][j - 1][k][1] + f(f1(a[i]+r), b[j]),
-                                              dd[i][j - 1][k][2] + f(b[j - 1], b[j]),
-                                              dd[i][j - 1][k][3] + f(f1(d[k]-r), b[j])),
-                                             dd[i][j][k][2]);
-                }
-
-                if(k!=0) {
-                    dd[i][j][k][3] = smaller(smallest(dd[i][j][k - 1][1] + f(f1(a[i]+2*r), d[k]),
-                                              dd[i][j][k - 1][2] + f(f1(b[j]+r), d[k]),
-                                              dd[i][j][k - 1][3] + f(d[k - 1], d[k])),
-                                             dd[i][j][k][3]);
-                }
-
-            }
-        }
-    }
-    pr(smallest(dd[x][y][z][1],dd[x][y][z][2],dd[x][y][z][3]));
 }
