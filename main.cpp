@@ -516,23 +516,23 @@ ll f1(ll x){
 
 
 int main(void) {
-    scant;
-    wt {
-        no = 0;
-        scann;
-        string str[10001];
-        fori sc1(str[i]);
-        sort(str + 1, str + n + 1);
-        foi(n-1) {
-            l = str[i].size();
-            if (str[i].compare(str[i + 1].substr(0, l)) == 0) {
-                no = 1;
-                break;
-            }
-        }
-        if (!no)
-            pr1l("YES");
-        else
-            pr1l("NO");
+    scansn;
+    m=10;
+    fori
+    {
+        d[i]=s[i]-'0';
+        a[i]=zegob(10,n-i)*d[i];
+    };
+    fori {
+        x=d[i];
+        y=n-i;
+        fo(j,0,9)
+            b[j]+=zegob(10,y-1)*y*x;
+
+        fo(j,(i==1) ? 1 : 0 ,x-1)
+            b[j]+=zegob(10,y);
+        b[x]++;
     }
+    fo(j,0,9)
+        pr1(b[j]);
 }
