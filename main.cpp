@@ -13,15 +13,20 @@
 #include <stdlib.h>
 #include <deque>
 #include <map>
-
 #ifdef _MSC_VER
 #define _CRT_SECURE_NO_WARNINGS
+#endif
+#ifdef __CLANG___
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wshadow"
 #endif
 
 #define M 100002
 #define MM 1001
-#define ull unsigned long long
+long long mod = 1e9+7;
+
 #define ll long long
+#define ull unsigned ll
 #define ld long double
 #define Yes "Yes"
 #define No "No"
@@ -158,7 +163,7 @@ ll dy[5] = { 0,0,-1,0,1 };
 ll ddx[9] = { 0,-1,-1,-1,0,0,1,1,1 };
 ll ddy[9] = { 0,-1,0,1,-1,1,-1,0,1 };
 ld ld1, ld2, ld3, ld4, ld5, ld6, ld7;
-ll a[500001], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], habtree[M], mintree[M], maxtree[M];
+ll a[4000001], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], habtree[M], mintree[M], maxtree[M], minindextree[M];
 ll b[M], dp[M][10], dd[MM][MM][4];
 ll d[M], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M];
 ll qry[M][4];
@@ -305,13 +310,6 @@ ll zari(ll n)
 }
 
 
-bool zzz(int x, int y, int z)
-{
-    if (x == 0 && y == 0 && z == 0)
-        return true;
-    return false;
-}
-
 ll biggest(int x, int y, int z)
 {
     ll a[4];
@@ -321,6 +319,7 @@ ll biggest(int x, int y, int z)
     sort(a + 1, a + 4);
     return a[3];
 }
+
 ll smallest(int x, int y, int z)
 {
     ll a[4];
@@ -331,7 +330,25 @@ ll smallest(int x, int y, int z)
     return a[1];
 }
 
-ll maketree_min(int left, int right, int node)
+ll minindex(ll x, ll y){
+    if(a[x]==a[y]) return (smaller(x,y));
+    return (a[x] < a[y]) ? x:y;
+}
+
+ll maketree_minindex(ll left, ll right, ll node)
+{
+    if (left >= right)
+        return minindextree[node] = left;
+    else
+    {
+        ll mid = (left + right) / 2;
+        ll leftnode = maketree_minindex(left, mid, node * 2);
+        ll rightnode = maketree_minindex(mid + 1, right, node * 2 + 1);
+        return minindextree[node] = minindex(leftnode, rightnode);
+    }
+}
+
+ll maketree_min(ll left, ll right, ll node)
 {
     if (left == right)
         return mintree[node] = a[left];
@@ -343,7 +360,7 @@ ll maketree_min(int left, int right, int node)
     }
 }
 
-ll query_min(int node, int left, int right, int start, int end)
+ll query_min(ll node, ll left, ll right, ll start, ll end)
 {
     if (right < start || end < left)
         return 9876543210; // 겹치지 않는 경우(영향이 없는 값을 반환)
@@ -352,19 +369,19 @@ ll query_min(int node, int left, int right, int start, int end)
     return smaller(query_min(node * 2, left, mid, start, end), query_min(node * 2 + 1, mid + 1, right, start, end));
 }
 
-ll maketree_max(int left, int right, int node)
+ll maketree_max(ll left, ll right, ll node)
 {
     if (left == right)
         return maxtree[node] = a[left];
     else
     {
-        int mid = (left + right) / 2;
+        ll mid = (left + right) / 2;
         maxtree[node] = bigger(maketree_max(left, mid, node * 2), maketree_max(mid + 1, right, node * 2 + 1)); //작은거
         return maxtree[node];
     }
 }
 
-ll query_max(int node, int left, int right, int start, int end)
+ll query_max(ll node, ll left, ll right, ll start, ll end)
 {
     if (right < start || end < left)
         return -1; // 겹치지 않는 경우(영향이 없는 값을 반환)
@@ -400,20 +417,16 @@ ll query_hab(ll node, ll left, ll right, ll start, ll end)
     return (query_hab(node * 2, left, mid, start, end)) + (query_hab(node * 2 + 1, mid + 1, right, start, end));
 }
 
-
-void update(ll node, ll left, ll right, ll idx)
+ll update(ll node, ll left, ll right, ll idx) ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 {
-    if (idx<left || idx>right)
-        return;
-    if (left == right)
-    {
-        habtree[node] = 1;
-        return;
-    }
+    if (idx<left || idx>right || left==right) // update 필요없음
+        return minindextree[node];
+
     ll mid = (left + right) / 2;
-    update(node * 2, left, mid, idx);
-    update(node * 2 + 1, mid + 1, right, idx);
-    habtree[node] = habtree[node * 2] + habtree[node * 2 + 1];
+    ll leftnode = update(node*2,left,mid,idx);
+    ll rightnode = update(node*2+1,mid+1,right,idx);
+    minindextree[node]=minindex(leftnode, rightnode);
+    return minindextree[node];
 }
 
 ll fact(ll n)
@@ -498,39 +511,25 @@ ld ccw(ld x1, ld x2, ld x3, ld y1, ld y2, ld y3) {
     return x/2;
 }
 
-ll f(ll x){
-    ll sum=0;
-    fo(i,x,n){
-        sum+=d[i]*zegob(10,n-i);
-    }
-    return sum+1;
+ll f(ll x, ll y){
+    if(!y) return 1;
+    if(y&1) return (x*f(x,y-1)%mod)%mod;
+    return f((x*x)%mod,y/2)%mod;
 }
 
-
-ll f1(ll x){
-    ll sum=0;
-    fo(i,1,x){
-        sum+=d[i]*zegob(10,x-i);
-    }
-    return sum;
-}
-stack <ppair> sta;
 int main(void) {
     scann;
     scana;
-    fori{
-        x=1;
-        while(!sta.empty() && sta.top().first <= a[i]){
-            cnt+=sta.top().second;
-            if(sta.top().first==a[i])
-                x=sta.top().second+1;
-            else
-                x=1;
-            sta.pop();
+    scanm;
+    maketree_minindex(1,n,1);
+    forj{
+        scant;
+        if(t==2)
+            pr1l(minindextree[1]);
+        else{
+            scanxy;
+            a[x]=y;
+            update(1,1,n,x);
         }
-        if(!sta.empty()) cnt++;
-        sta.push({a[i],x});
     }
-    prcnt;
-
 };
