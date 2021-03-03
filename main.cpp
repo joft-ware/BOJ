@@ -348,6 +348,18 @@ ll maketree_minindex(ll left, ll right, ll node)
     }
 }
 
+ll query_minindex(ll node, ll left, ll right, ll start, ll end)
+{
+    if (right < start || end < left)
+        return 0; // 겹치지 않는 경우(영향이 없는 값을 반환)
+    if (start <= left && right <= end) return minindextree[node]; // 모두 겹치는 경우
+    int mid = (left + right) / 2; // 일부만 겹치는 경우
+    ll leftnode = query_minindex(node * 2, left, mid, start, end);
+    ll rightnode = query_minindex(node * 2 + 1, mid + 1, right, start, end);
+    return minindex(leftnode, rightnode);
+}
+
+
 ll maketree_min(ll left, ll right, ll node)
 {
     if (left == right)
@@ -363,7 +375,7 @@ ll maketree_min(ll left, ll right, ll node)
 ll query_min(ll node, ll left, ll right, ll start, ll end)
 {
     if (right < start || end < left)
-        return 9876543210; // 겹치지 않는 경우(영향이 없는 값을 반환)
+        return INF; // 겹치지 않는 경우(영향이 없는 값을 반환)
     if (start <= left && right <= end) return mintree[node]; // 모두 겹치는 경우
     int mid = (left + right) / 2; // 일부만 겹치는 경우
     return smaller(query_min(node * 2, left, mid, start, end), query_min(node * 2 + 1, mid + 1, right, start, end));
@@ -417,16 +429,18 @@ ll query_hab(ll node, ll left, ll right, ll start, ll end)
     return (query_hab(node * 2, left, mid, start, end)) + (query_hab(node * 2 + 1, mid + 1, right, start, end));
 }
 
-ll update(ll node, ll left, ll right, ll idx) ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ll update_min(ll node, ll left, ll right, ll idx) ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 {
-    if (idx<left || idx>right || left==right) // update 필요없음
-        return minindextree[node];
+    if (idx<left || idx>right) // update 필요없음
+        return mintree[node];
+    if(left==right)
+        return mintree[node] = a[left];
 
     ll mid = (left + right) / 2;
-    ll leftnode = update(node*2,left,mid,idx);
-    ll rightnode = update(node*2+1,mid+1,right,idx);
-    minindextree[node]=minindex(leftnode, rightnode);
-    return minindextree[node];
+    ll leftnode = update_min(node*2,left,mid,idx);
+    ll rightnode = update_min(node*2+1,mid+1,right,idx);
+    mintree[node]=min(leftnode, rightnode);
+    return mintree[node];
 }
 
 ll fact(ll n)
@@ -521,15 +535,18 @@ int main(void) {
     scann;
     scana;
     scanm;
-    maketree_minindex(1,n,1);
+    a[0]=INF;
+    maketree_min(1,n,1);
     forj{
         scant;
-        if(t==2)
-            pr1l(minindextree[1]);
+        if(t==2) {
+            scanxy;
+            pr1l(query_min(1,1,n,x,y));
+        }
         else{
             scanxy;
             a[x]=y;
-            update(1,1,n,x);
+            update_min(1,1,n,x);
         }
     }
 };
