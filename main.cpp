@@ -21,8 +21,8 @@
 #pragma clang diagnostic ignored "-Wshadow"
 #endif
 
-#define M 100002
-#define MM 1001
+#define M 12
+#define MM 11
 long long mod = 1e9+7;
 
 #define ll long long
@@ -150,6 +150,8 @@ long long mod = 1e9+7;
 #define prcnt pr1l(cnt)
 #define prno pr1l("no")
 #define pryes pr1l("yes")
+#define prNO pr1l("NO")
+#define prYES pr1l("YES")
 #define prmaxi pr1l(maxi)
 #define prmax pr1l(maxi)
 #define prnum pr1l(num)
@@ -163,9 +165,9 @@ ll dy[5] = { 0,0,-1,0,1 };
 ll ddx[9] = { 0,-1,-1,-1,0,0,1,1,1 };
 ll ddy[9] = { 0,-1,0,1,-1,1,-1,0,1 };
 ld ld1, ld2, ld3, ld4, ld5, ld6, ld7;
-ll a[4000001], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], habtree[M], mintree[M], maxtree[M], minindextree[M];
-ll b[M], dp[M][10], dd[MM][MM][4];
-ll d[M], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M];
+ll a[5001], a1[800001], a2[800001], a3[M], a4[M], a5[M], bb[MM][MM], habtree[M], mintree[M], maxtree[M], minindextree[M];
+ll b[800001], dp[M][10], dd[MM][MM][4];
+ll d[800001], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M];
 ll qry[M][4];
 bool check[M], visit[M], treecheck[M];
 char s1[M], s2[M], ss[MM][MM];
@@ -532,21 +534,77 @@ ll f(ll x, ll y){
 }
 
 int main(void) {
-    scann;
+    scanmn;
     scana;
-    scanm;
-    a[0]=INF;
-    maketree_min(1,n,1);
-    forj{
-        scant;
-        if(t==2) {
-            scanxy;
-            pr1l(query_min(1,1,n,x,y));
-        }
-        else{
-            scanxy;
-            a[x]=y;
-            update_min(1,1,n,x);
+    fori
+        b[a[i]]=1;
+    fori{
+        fo(j,i+1,n){
+            x=a[i];
+            y=a[j];
+            d[x+y]++;
+            a1[x+y]=x;
+            a2[x+y]=y;
         }
     }
+
+    forj{
+        if(d[j]&&d[m-j]){
+            w=d[j]+d[m-j];
+            if(w>3){
+                yes=1;
+                break;
+            }
+            if(w==3){
+                if(d[j]==1){
+                    x=a1[j];
+                    y=a2[j];
+                    if(m-j-x>0&&m-j-y>0) {
+                        if (b[(m - j) - x] && b[(m - j) - y]) {
+                        } else {
+                            yes = 1;
+                            break;
+                        }
+                    }
+                    else {
+                        yes=1;
+                        break;
+                    }
+                }
+                else{
+                    x=a1[m-j];
+                    y=a2[m-j];
+                    if(j-x>0&&j-y>0) {
+                        if (b[j - x] && b[j - y]) {
+                        }
+                        else{
+                            yes=1;
+                            break;
+                        }
+                    }
+                    else {
+                        yes=1;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                x=a1[j];
+                y=a2[j];
+                z=a1[m-j];
+                r=a2[m-j];
+                if((x-y)*(x-z)*(x-r)*(y-z)*(y-r)*(z*r))
+                {
+                    yes=1;
+                    break;
+                }
+            }
+        }
+    }
+    if(yes)
+        prYES;
+    else
+        prNO;
+
 };
