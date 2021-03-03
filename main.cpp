@@ -498,61 +498,88 @@ ld ccw(ld x1, ld x2, ld x3, ld y1, ld y2, ld y3) {
     return x/2;
 }
 
-ll f(ll x, ll y) {
-    ll w=smaller(x,y);
-    ll e=bigger(x,y);
-    ll r=w+m;
-    return smaller(e-w,r-e);
+ll f(ll x){
+    ll sum=0;
+    fo(i,x,n){
+        sum+=d[i]*zegob(10,n-i);
+    }
+    return sum+1;
 }
 
 
 ll f1(ll x){
-    while(x<0)
-        x+=m;
-    while(x>m)
-        x-=m;
-    return x;
+    ll sum=0;
+    fo(i,1,x){
+        sum+=d[i]*zegob(10,x-i);
+    }
+    return sum;
 }
 
 
 int main(void) {
-    scant;
-    wt {
-        scans;
-        yes=0;
-        for (i = -1; i <= 1; i += 2) {
-            for (j = -1; j <= 1; j += 2) {
-                for (k = -1; k <= 1; k += 2) {
-                    x = i;
-                    y = j;
-                    z = k;
-                    no=0;
-                    sum=0;
-                    for(l=1;l<=len;l++){
-                        if(s[l]=='A')
-                            sum+=x;
-                        else if(s[l]=='B')
-                            sum+=y;
-                        else
-                            sum+=z;
-                        if(sum<0) {
-                            no = 1;
-                            break;
-                        }
-                    }
-                    if(sum!=0)
-                        no=1;
-                    if(no==0){
-                        yes=1;
-                        break;
-                    }
-                }
-            }
+    scansn;
+    m=10;
+    fori
+    {
+        d[i]=s[i]-'0';
+        a[i]=zegob(10,n-i)*d[i];
+    };
+    /*
+    fori {
+        x=d[i];
+        y=n-i;
+        if(i==1){
+            fo(j,1,9)
+                b[j]+=zegob(10,y-1)*y*x;
+            b[0]+=zegob(10,y-1)*(y-1)*x;
         }
-        if(yes)
-            pr1l("YES");
-        else
-            pr1l("NO");
-    }
+        else{
+            fo(j,0,9)
+                b[j]+=zegob(10,y-1)*y*x;
+        }
 
-};
+        pr1l(b[0]);
+        fo(j,(i==1) ? 1 : 0 ,x-1)
+            b[j]+=zegob(10,y);
+
+        pr1l(b[0]);
+        // x
+        sum=0;
+        fo(j,i+1,n)
+            sum+=d[j]*zegob(10,n-j);
+        b[x]+=(sum+1);
+        pr1l(b[0]);
+    }
+    if(b[0])
+        b[0]--;
+        */
+
+    fori{
+        x=d[i];
+        y=n-i;
+        if(i==1){
+            fo(j,1,x-1)
+                b[j]+=zegob(10,y);
+            b[x]+=f(i+1);
+
+        }
+        else if(i==n){
+            fo(j,0,9)
+                b[j]+=f1(i-1);
+            fo(j,0,x)
+                b[j]+=1;
+        }
+        else{
+            fo(j,1,9)
+                b[j]+=zegob(10,y)*f1(i-1);
+            b[0]+=zegob(10,y)*(f1(i-1)-1);
+            b[x]+=f(i+1);
+            fo(j,0,x-1)
+                b[j]+=zegob(10,y);
+        }
+    };
+    if(b[0])
+        b[0]--;
+    fo(j,0,9)
+        pr1(b[j]);
+}
