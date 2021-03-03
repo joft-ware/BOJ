@@ -18,8 +18,8 @@
 #define _CRT_SECURE_NO_WARNINGS
 #endif
 
-#define M 100002
-#define MM 101
+#define M 12
+#define MM 11
 #define ull unsigned long long
 #define ll long long
 #define ld long double
@@ -168,18 +168,17 @@ char s[M];
 char c1, c2, c, c3, c4;
 ld ldmax, ldmin, ldmax1, ldmax2, ldmin1, ldmin2, ldd[M];
 
-string str[10001];
+string str[M];
 ull u1, u2, u3, u4;
 queue<ll> q;
 queue<ll> qx, qy;
 priority_queue<ll> pq;
 stack<ll> st;
-pair<ll, ll> p[M];
 deque<ll> dq;
 map<string, int> msi;
 map<int, string> mis;
 vector<int> v[M];
-bool boo[4000001];
+bool boo[M];
 
 
 ll zegob(ll x, ll y)
@@ -515,27 +514,30 @@ ll f1(ll x){
     return sum;
 }
 
+pair<int, int> p[1000001];
 
 int main(void) {
-    w1{
-        scann;
-        if(n==0)
-            break;
-        scana;
-        maxi=0;
-        a[++n]=0;
-        fori{
-            while(!st.empty()&&a[st.top()]>=a[i]){
-                x=st.top();
-                st.pop();
-                l = (st.empty() ? 0 : st.top());
-                maxi=max(maxi,a[x]*(i-1-l));
-            }
-            st.push(i);
-        };
-        while(!st.empty())
-            st.pop();
-        pr1l(maxi);
-
-    }
+    scann;
+    fori{
+        scanxy;
+        p[i].first=x;
+        p[i].second=y;
+    };
+    sort(p+1,p+n+1);
+    r=-INF;
+    fori{
+        if(p[i].second<r){
+            continue;
+        }
+        if(p[i].first<r)
+        {
+            sum+=(p[i].second-r);
+            r=p[i].second;
+        }
+        else{
+            sum+=(p[i].second-p[i].first);
+            r=p[i].second;
+        }
+    };
+    prsum;
 }
