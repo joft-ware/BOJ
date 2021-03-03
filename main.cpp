@@ -18,8 +18,8 @@
 #define _CRT_SECURE_NO_WARNINGS
 #endif
 
-#define M 12
-#define MM 11
+#define M 100002
+#define MM 1001
 #define ull unsigned long long
 #define ll long long
 #define ld long double
@@ -158,8 +158,8 @@ ll dy[5] = { 0,0,-1,0,1 };
 ll ddx[9] = { 0,-1,-1,-1,0,0,1,1,1 };
 ll ddy[9] = { 0,-1,0,1,-1,1,-1,0,1 };
 ld ld1, ld2, ld3, ld4, ld5, ld6, ld7;
-ll a[M], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], habtree[M], mintree[M], maxtree[M];
-ll b[M], dp[M][10], dd[MM][MM][MM][4];
+ll a[500001], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], habtree[M], mintree[M], maxtree[M];
+ll b[M], dp[M][10], dd[MM][MM][4];
 ll d[M], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M];
 ll qry[M][4];
 bool check[M], visit[M], treecheck[M];
@@ -175,10 +175,11 @@ queue<ll> qx, qy;
 priority_queue<ll> pq;
 stack<ll> st;
 deque<ll> dq;
-map<string, int> msi;
-map<int, string> mis;
-vector<int> v[M];
+map<string, ll> msi;
+map<ll, string> mis;
+vector<ll> v[M];
 bool boo[M];
+typedef pair<ll,ll> ppair;
 
 
 ll zegob(ll x, ll y)
@@ -513,31 +514,23 @@ ll f1(ll x){
     }
     return sum;
 }
-
-pair<int, int> p[1000001];
-
+stack <ppair> sta;
 int main(void) {
     scann;
+    scana;
     fori{
-        scanxy;
-        p[i].first=x;
-        p[i].second=y;
-    };
-    sort(p+1,p+n+1);
-    r=-INF;
-    fori{
-        if(p[i].second<r){
-            continue;
+        x=1;
+        while(!sta.empty() && sta.top().first <= a[i]){
+            cnt+=sta.top().second;
+            if(sta.top().first==a[i])
+                x=sta.top().second+1;
+            else
+                x=1;
+            sta.pop();
         }
-        if(p[i].first<r)
-        {
-            sum+=(p[i].second-r);
-            r=p[i].second;
-        }
-        else{
-            sum+=(p[i].second-p[i].first);
-            r=p[i].second;
-        }
-    };
-    prsum;
-}
+        if(!sta.empty()) cnt++;
+        sta.push({a[i],x});
+    }
+    prcnt;
+
+};
