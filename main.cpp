@@ -517,69 +517,25 @@ ll f1(ll x){
 
 
 int main(void) {
-    scansn;
-    m=10;
-    fori
-    {
-        d[i]=s[i]-'0';
-        a[i]=zegob(10,n-i)*d[i];
-    };
-    /*
-    fori {
-        x=d[i];
-        y=n-i;
-        if(i==1){
-            fo(j,1,9)
-                b[j]+=zegob(10,y-1)*y*x;
-            b[0]+=zegob(10,y-1)*(y-1)*x;
-        }
-        else{
-            fo(j,0,9)
-                b[j]+=zegob(10,y-1)*y*x;
-        }
+    w1{
+        scann;
+        if(n==0)
+            break;
+        scana;
+        maxi=0;
+        a[++n]=0;
+        fori{
+            while(!st.empty()&&a[st.top()]>=a[i]){
+                x=st.top();
+                st.pop();
+                l = (st.empty() ? 0 : st.top());
+                maxi=max(maxi,a[x]*(i-1-l));
+            }
+            st.push(i);
+        };
+        while(!st.empty())
+            st.pop();
+        pr1l(maxi);
 
-        pr1l(b[0]);
-        fo(j,(i==1) ? 1 : 0 ,x-1)
-            b[j]+=zegob(10,y);
-
-        pr1l(b[0]);
-        // x
-        sum=0;
-        fo(j,i+1,n)
-            sum+=d[j]*zegob(10,n-j);
-        b[x]+=(sum+1);
-        pr1l(b[0]);
     }
-    if(b[0])
-        b[0]--;
-        */
-
-    fori{
-        x=d[i];
-        y=n-i;
-        if(i==1){
-            fo(j,1,x-1)
-                b[j]+=zegob(10,y);
-            b[x]+=f(i+1);
-
-        }
-        else if(i==n){
-            fo(j,0,9)
-                b[j]+=f1(i-1);
-            fo(j,0,x)
-                b[j]+=1;
-        }
-        else{
-            fo(j,1,9)
-                b[j]+=zegob(10,y)*f1(i-1);
-            b[0]+=zegob(10,y)*(f1(i-1)-1);
-            b[x]+=f(i+1);
-            fo(j,0,x-1)
-                b[j]+=zegob(10,y);
-        }
-    };
-    if(b[0])
-        b[0]--;
-    fo(j,0,9)
-        pr1(b[j]);
 }
