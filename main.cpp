@@ -16,10 +16,6 @@
 #ifdef _MSC_VER
 #define _CRT_SECURE_NO_WARNINGS
 #endif
-#ifdef __CLANG___
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wshadow"
-#endif
 
 #define M 12
 #define MM 11
@@ -165,9 +161,9 @@ ll dy[5] = { 0,0,-1,0,1 };
 ll ddx[9] = { 0,-1,-1,-1,0,0,1,1,1 };
 ll ddy[9] = { 0,-1,0,1,-1,1,-1,0,1 };
 ld ld1, ld2, ld3, ld4, ld5, ld6, ld7;
-ll a[5001], a1[800001], a2[800001], a3[M], a4[M], a5[M], bb[MM][MM], habtree[M], mintree[M], maxtree[M], minindextree[M];
-ll b[800001], dp[M][10], dd[MM][MM][4];
-ll d[800001], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M];
+ll a[300001], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], habtree[M], mintree[M], maxtree[M], minindextree[M];
+ll b[M], dp[M][10], dd[MM][MM][4];
+ll d[M], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M];
 ll qry[M][4];
 bool check[M], visit[M], treecheck[M];
 char s1[M], s2[M], ss[MM][MM];
@@ -533,78 +529,28 @@ ll f(ll x, ll y){
     return f((x*x)%mod,y/2)%mod;
 }
 
+ll bzegob(ll x, ll y){
+    ll k=1;
+    while(y>0){
+        if(y&1)
+            k=(k*x)%mod;
+        k%=mod;
+        x=(x*x)%mod;
+        y>>=1;
+    }
+    return k%mod;
+}
+
 int main(void) {
-    scanmn;
+    scann;
     scana;
-    fori
-        b[a[i]]=1;
+    sorta;
     fori{
-        fo(j,i+1,n){
-            x=a[i];
-            y=a[j];
-            d[x+y]++;
-            a1[x+y]=x;
-            a2[x+y]=y;
-        }
-    }
-
-    forj{
-        if(d[j]&&d[m-j]){
-            w=d[j]+d[m-j];
-            if(w>3){
-                yes=1;
-                break;
-            }
-            if(w==3){
-                if(d[j]==1){
-                    x=a1[j];
-                    y=a2[j];
-                    if(m-j-x>0&&m-j-y>0) {
-                        if (b[(m - j) - x] && b[(m - j) - y]) {
-                        } else {
-                            yes = 1;
-                            break;
-                        }
-                    }
-                    else {
-                        yes=1;
-                        break;
-                    }
-                }
-                else{
-                    x=a1[m-j];
-                    y=a2[m-j];
-                    if(j-x>0&&j-y>0) {
-                        if (b[j - x] && b[j - y]) {
-                        }
-                        else{
-                            yes=1;
-                            break;
-                        }
-                    }
-                    else {
-                        yes=1;
-                        break;
-                    }
-                }
-            }
-            else
-            {
-                x=a1[j];
-                y=a2[j];
-                z=a1[m-j];
-                r=a2[m-j];
-                if((x-y)*(x-z)*(x-r)*(y-z)*(y-r)*(z*r))
-                {
-                    yes=1;
-                    break;
-                }
-            }
-        }
-    }
-    if(yes)
-        prYES;
-    else
-        prNO;
-
-};
+        sum+=((a[i]%mod)*(bzegob(2,i-1)%mod))%mod;
+        sum%=mod;
+        sum-=((a[i]%mod)*(bzegob(2,n-i)%mod))%mod;
+        sum+=mod;
+        sum%=mod;
+    };
+    pr(sum%mod);
+}
