@@ -567,10 +567,14 @@ void f(ll x){
     }
 }
 int main(void) {
-    scanxyz;
-    w = x + 2 * y + 3 * z;
-    if (w >= 10)
-        pr("happy");
-    else
-        pr("sad");
-}
+    scann;
+    fori {
+        scanf(" %lld,%lld", &a[i], &b[i]);
+    }
+    sorta;
+    sortb;
+    printf("%lld,%lld\n", a[1] - 1, b[1] - 1);
+    printf("%lld,%lld", a[n] + 1, b[n] + 1);
+
+
+    }
