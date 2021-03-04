@@ -568,7 +568,6 @@ void f(ll x){
     }
 }
 int main(void) {
-    sc(ld1);
-    ld2 = sqrt(ld1 / 3.14159265359);
-    prld(ld2 * 2 * 3.14159265359);
+    scann;
+    pr((n-3)*(n-1)*(n-2)/6);
 }
