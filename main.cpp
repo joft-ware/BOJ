@@ -567,7 +567,10 @@ void f(ll x){
     }
 }
 int main(void) {
-    ld x, y;
-    sc2(x, y);
-    printf("%.7Lf",(x + y - sqrt(x * x + y * y)));
+    scanxyz;
+    w = x + 2 * y + 3 * z;
+    if (w >= 10)
+        pr("happy");
+    else
+        pr("sad");
 }
