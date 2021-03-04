@@ -567,10 +567,7 @@ void f(ll x){
     }
 }
 int main(void) {
-    a[1] = 1;
-    a[2] = 7;
-    a[3] = 2;
-    a[4] = 3;
-    scann;
-    pr(a[n]);
+    ld x, y;
+    sc2(x, y);
+    printf("%.7Lf",(x + y - sqrt(x * x + y * y)));
 }
