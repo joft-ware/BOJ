@@ -1,0 +1,34 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/JJH/CLionProjects/BOJ/main.cpp
+stdio.h
+-
+iostream
+-
+string.h
+-
+algorithm
+-
+queue
+-
+vector
+-
+stack
+-
+string
+-
+math.h
+-
+stdlib.h
+-
+deque
+-
+map
+-
+
