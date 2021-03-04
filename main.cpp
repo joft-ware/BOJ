@@ -567,23 +567,10 @@ void f(ll x){
     }
 }
 int main(void) {
+    a[1] = 1;
+    a[2] = 7;
+    a[3] = 2;
+    a[4] = 3;
     scann;
-    scans;
-    fori {
-        if (s[i] == 'J')
-            a[i] = 1;
-        else if (s[i] == 'O')
-            a[i] = 2;
-        else
-            a[i] = 3;
-    }
-    sorta;
-    fori {
-        if (a[i] == 1)
-            pr('J');
-        else if (a[i] == 2)
-            pr('O');
-        else
-            pr('I');
-    }
-    }
+    pr(a[n]);
+}
