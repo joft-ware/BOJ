@@ -568,23 +568,22 @@ void f(ll x){
 }
 int main(void) {
     scann;
-    fori{
-        scanxy;
-        vp.pb(make_pair(max(x,y),min(x,y)));
+    scans;
+    fori {
+        if (s[i] == 'J')
+            a[i] = 1;
+        else if (s[i] == 'O')
+            a[i] = 2;
+        else
+            a[i] = 3;
     }
-    scant;
-    sort(vp.begin(),vp.end());
-    for(i=0;i<n;i++){
-        x=vp[i].second;
-        y=vp[i].first;
-        pq.push(-x);
-        while(!pq.empty()){
-            ll left=-pq.top();
-            if(left>=(y-t))
-                break;
-            pq.pop();
-        }
-        maxi = max(maxi,(ll)pq.size());
+    sorta;
+    fori {
+        if (a[i] == 1)
+            pr('J');
+        else if (a[i] == 2)
+            pr('O');
+        else
+            pr('I');
     }
-    printmax;
-}
+    }
