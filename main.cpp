@@ -73,7 +73,8 @@ long long mod = 1e9+7;
 #define scanbb fori for(ll j=1;j<=m;j++) scanf("%lld",&bb[i][j]);
 #define scanstr getline(cin,str); slen=str.length();for(int i=slen;i>=1;i--) str[i]=str[i-1]; str[0]=0;
 
-
+#define prld(a) printf("%.20Lf",a);
+#define printld(a) prld(a)
 #define printsum printf("%lld\n",sum);
 #define printcase printf("Case %lld: ",++casenum);
 #define printcases printf("Case #%lld: ",++casenum);
@@ -567,14 +568,7 @@ void f(ll x){
     }
 }
 int main(void) {
-    scann;
-    fori {
-        scanf(" %lld,%lld", &a[i], &b[i]);
-    }
-    sorta;
-    sortb;
-    printf("%lld,%lld\n", a[1] - 1, b[1] - 1);
-    printf("%lld,%lld", a[n] + 1, b[n] + 1);
-
-
-    }
+    sc(ld1);
+    ld2 = sqrt(ld1 / 3.14159265359);
+    prld(ld2 * 2 * 3.14159265359);
+}
