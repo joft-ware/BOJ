@@ -568,7 +568,11 @@ void f(ll x){
     }
 }
 int main(void) {
-    sc(ld1);
-    ld2 = sqrt(ld1 / 3.14159265359);
-    prld(ld2 * 2 * 3.14159265359);
+    scann;
+    if (n == 1996 || n == 1997 || n == 2000 || n == 2007 || n == 2008 || n == 2013 || n == 2018)
+        pr("SPbSU");
+    else if (n == 2006)
+        pr("PetrSU, ITMO");
+    else
+        pr("ITMO");
 }
