@@ -17,8 +17,8 @@
 #define _CRT_SECURE_NO_WARNINGS
 #endif
 
-#define M 12
-#define MM 11
+#define M 1005
+#define MM 1005
 long long mod = 1e9+7;
 
 #define ll long long
@@ -35,7 +35,12 @@ long long mod = 1e9+7;
 #define foj(a) for(ll j=1;j<=a;j++)
 #define fok(a) for(ll k=1;k<=a;k++)
 #define fori for(ll i=1;i<=n;i++)
+#define forin for(ll i=1;i<=n;i++)
+#define fori0 for(ll i=0;i<=n;i++)
 #define forj for(ll j=1;j<=m;j++)
+#define forjn for(ll j=1;j<=n;j++)
+#define forjn0 for(ll j=0;j<=n;j++)
+#define forj0 for(ll j=0;j<=m;j++)
 #define fork for(ll k=1;k<=l;k++)
 #define foriw for(ll i=1;;i++)
 
@@ -69,14 +74,14 @@ long long mod = 1e9+7;
 #define scanstr getline(cin,str); slen=str.length();for(int i=slen;i>=1;i--) str[i]=str[i-1]; str[0]=0;
 
 
-#define printsum printf("%lld",sum);
+#define printsum printf("%lld\n",sum);
 #define printcase printf("Case %lld: ",++casenum);
 #define printcases printf("Case #%lld: ",++casenum);
 #define prints printf("%s",&s[1]);
 #define printc printf("%c",c);
-#define printmax printf("%lld",maxi);
-#define printmin printf("%lld",mini);
-#define printmini printf("%lld",mini);
+#define printmax printf("%lld\n",maxi);
+#define printmin printf("%lld\n",mini);
+#define printmini printf("%lld\n",mini);
 #define printa fori {printf("%lld ",a[i]); }printf("\n");
 #define printb fori {printf("%lld ",b[i]); }printf("\n");
 #define printd fori {printf("%lld ",d[i]); }printf("\n");
@@ -104,7 +109,7 @@ long long mod = 1e9+7;
 #define test printf("TEST!");
 #define wt while(t--)
 #define w1 while(1)
-#define INF 0x7f7f7f7f
+#define INF (ll)0x7f7f7f7f
 #define br break
 #define braek break
 #define bk break
@@ -141,13 +146,15 @@ long long mod = 1e9+7;
 #define pr4l(a,b,c,d) cout << (a) << ' ' << (b) << ' '<< (c) << ' '<< (d) << '\n'
 #define pr5l(a,b,c,d,e) cout << (a) << ' ' << (b) << ' '<< (c) << ' '<< (d) << ' '<< (e) << '\n'
 #define pr6l(a,b,c,d,e,f) cout << (a) << ' ' << (b) << ' '<< (c) << ' '<< (d) << ' '<< (e) << ' ' << (f) << '\n'
-#define pr7l(a,b,c,d,e,f, g) cout << (a) << ' ' << (b) << ' '<< (c) << ' '<< (d) << ' '<< (e) << ' ' << (f) << ' ' << (g) << '\n'
+#define pr7l(a,b,c,d,e,f,g) cout << (a) << ' ' << (b) << ' '<< (c) << ' '<< (d) << ' '<< (e) << ' ' << (f) << ' ' << (g) << '\n'
+#define pr8l(a,b,c,d,e,f,g,h) cout << (a) << ' ' << (b) << ' '<< (c) << ' '<< (d) << ' '<< (e) << ' ' << (f) << ' ' << (g) << ' ' << (h) << '\n'
 
 #define prcnt pr1l(cnt)
 #define prno pr1l("no")
 #define pryes pr1l("yes")
 #define prNO pr1l("NO")
 #define prYES pr1l("YES")
+#define prgg pr1l("gg")
 #define prmaxi pr1l(maxi)
 #define prmax pr1l(maxi)
 #define prnum pr1l(num)
@@ -155,14 +162,14 @@ long long mod = 1e9+7;
 #define prstr for(ll wq=1;wq<=slen;wq++) pr(str[wq]);
 
 using namespace std;
-ll i, j, ii, jj, n, zz, yyy, xxx, bre, cnt, ans, slen, casenum, nn, hab, count, t, now, one, two, yy, m, yes, cntt, x1, x2, x3, Y1, y2, y3, temp, i1, i2, J1, j2, i3, j3, len1, len2, low, mid, left, right, high, ok, tx, ty, k, start, num, xx, qq, w, e, no, r, sum, x, y, z, l, len, mini = INF, maxi = -INF, x11, x22, x33, y11, y22, y33;
+ll i, j, ii, jj, n, zz, yyy, xxx, bre, cnt, ans, slen, to, casenum, nn, hab, count, t, now, one, two, yy, m, yes, cntt, x1, x2, x3, Y1, y2, y3, temp, i1, i2, J1, j2, i3, j3, len1, len2, low, mid, left, right, high, ok, tx, ty, k, start, num, xx, qq, w, e, no, r, sum, x, y, z, l, len, mini = INF, maxi = -INF, x11, x22, x33, y11, y22, y33;
 ll dx[5] = { 0,-1,0,1,0 };
 ll dy[5] = { 0,0,-1,0,1 };
 ll ddx[9] = { 0,-1,-1,-1,0,0,1,1,1 };
 ll ddy[9] = { 0,-1,0,1,-1,1,-1,0,1 };
 ld ld1, ld2, ld3, ld4, ld5, ld6, ld7;
-ll a[300001], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], habtree[M], mintree[M], maxtree[M], minindextree[M];
-ll b[M], dp[M][10], dd[MM][MM][4];
+ll a[M], b1[M], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], habtree[M], mintree[M], maxtree[M], minindextree[M];
+ll b[M], dp[M][M], dd[MM][MM][4];
 ll d[M], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M];
 ll qry[M][4];
 bool check[M], visit[M], treecheck[M];
@@ -529,6 +536,13 @@ ll f(ll x, ll y){
     return f((x*x)%mod,y/2)%mod;
 }
 
+ll ab(ll x)
+{
+    if(x<0)
+        return -x;
+    return x;
+}
+
 ll bzegob(ll x, ll y){
     ll k=1;
     while(y>0){
@@ -542,15 +556,66 @@ ll bzegob(ll x, ll y){
 }
 
 int main(void) {
-    scann;
-    scana;
-    sorta;
-    fori{
-        sum+=((a[i]%mod)*(bzegob(2,i-1)%mod))%mod;
-        sum%=mod;
-        sum-=((a[i]%mod)*(bzegob(2,n-i)%mod))%mod;
-        sum+=mod;
-        sum%=mod;
+    scanmn;
+    fori {
+        scanxy;
+        a[i]=x;
+        b[i]=y;
+        a1[i]=x;
+        b1[i]=y;
     };
-    pr(sum%mod);
+    a[0]=1;
+    b[0]=1;
+    a1[0]=m;
+    b1[0]=m;
+    for(i=0;i<=n+1;i++)
+        for(j=0;j<=n+1;j++)
+            dp[i][j] = INF;
+
+    dp[0][0]=0;
+
+    fo(i,0,n){
+        fo(j,0,n){
+            if(bigger(i,j)==n)
+            {
+                if(dp[i][j]<=mini) {
+                    mini = dp[i][j];
+                    xx=i;
+                    yy=j;
+                }
+            }
+            x=bigger(i,j)+1;
+            w=ab(a1[x]-a1[j])+ab(b1[x]-b1[j]);
+            e=dp[i][j]+w;
+            if(dp[i][x]>dp[i][j]+w) {
+                dp[i][x] = e;
+                aa[i][x]=i;
+                bb[i][x]=j;
+            }
+            w=ab(a[x]-a[i])+ab(b[x]-b[i]);
+            if(dp[x][j]>dp[i][j]+w)
+            {
+                dp[x][j]=dp[i][j]+w;
+                aa[x][j]=i;
+                bb[x][j]=j;
+            }
+        }
+    };
+
+    printmin;
+    w1{
+        if(xx==0&&yy==0)
+            break;
+        tx=xx;
+        ty=yy;
+        xx=aa[tx][ty];
+        yy=bb[tx][ty];
+        cnt++;
+        if(tx==xx)
+            a3[cnt]=2;
+        else
+            a3[cnt]=1;
+    };
+    foi(cnt)
+        pr1l(a3[n+1-i]);
 }
