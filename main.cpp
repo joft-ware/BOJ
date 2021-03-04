@@ -119,7 +119,7 @@ long long mod = 1e9+7;
 
 #define X first
 #define Y second
-#define fo(i,a,b) for(i = a; i <= b; i++)
+#define fo(i,a,b) for(ll i = a; i <= b; i++)
 #define pb push_back
 #define mp make_pair
 #define vsort(v) sort(v.begin(),v.end());
@@ -169,7 +169,7 @@ ll ddx[9] = { 0,-1,-1,-1,0,0,1,1,1 };
 ll ddy[9] = { 0,-1,0,1,-1,1,-1,0,1 };
 ld ld1, ld2, ld3, ld4, ld5, ld6, ld7;
 ll a[M], b1[M], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], habtree[M], mintree[M], maxtree[M], minindextree[M];
-ll b[M], dp[M][M], dd[MM][MM][4];
+ll b[M], dp[MM][MM], dd[MM][MM][4];
 ll d[M], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M];
 ll qry[M][4];
 bool check[M], visit[M], treecheck[M];
@@ -188,6 +188,7 @@ deque<ll> dq;
 map<string, ll> msi;
 map<ll, string> mis;
 vector<ll> v[M];
+vector<ll> v1[M], v2[M], v3[M];
 bool boo[M];
 typedef pair<ll,ll> ppair;
 
@@ -530,12 +531,6 @@ ld ccw(ld x1, ld x2, ld x3, ld y1, ld y2, ld y3) {
     return x/2;
 }
 
-ll f(ll x, ll y){
-    if(!y) return 1;
-    if(y&1) return (x*f(x,y-1)%mod)%mod;
-    return f((x*x)%mod,y/2)%mod;
-}
-
 ll ab(ll x)
 {
     if(x<0)
@@ -555,67 +550,67 @@ ll bzegob(ll x, ll y){
     return k%mod;
 }
 
+
+void f(ll x){
+    ll ma=0;
+    if(y==0)
+        return;
+    ll l = v1[x].size()-1;
+    fo(i,1,l){
+        ll e = v1[x][i];
+        if(b[e]<v3[x][i]+b[x]) {
+            b[e] = v3[x][i] + b[x];
+            f(e);
+        }
+    }
+}
+
 int main(void) {
-    scanmn;
-    fori {
-        scanxy;
-        a[i]=x;
-        b[i]=y;
-        a1[i]=x;
-        b1[i]=y;
-    };
-    a[0]=1;
-    b[0]=1;
-    a1[0]=m;
-    b1[0]=m;
-    for(i=0;i<=n+1;i++)
-        for(j=0;j<=n+1;j++)
-            dp[i][j] = INF;
-
-    dp[0][0]=0;
-
-    fo(i,0,n){
-        fo(j,0,n){
-            if(bigger(i,j)==n)
-            {
-                if(dp[i][j]<=mini) {
-                    mini = dp[i][j];
-                    xx=i;
-                    yy=j;
-                }
-            }
-            x=bigger(i,j)+1;
-            w=ab(a1[x]-a1[j])+ab(b1[x]-b1[j]);
-            e=dp[i][j]+w;
-            if(dp[i][x]>dp[i][j]+w) {
-                dp[i][x] = e;
-                aa[i][x]=i;
-                bb[i][x]=j;
-            }
-            w=ab(a[x]-a[i])+ab(b[x]-b[i]);
-            if(dp[x][j]>dp[i][j]+w)
-            {
-                dp[x][j]=dp[i][j]+w;
-                aa[x][j]=i;
-                bb[x][j]=j;
-            }
+    scannm;
+    fori v[i].pb(0);
+    fori v1[i].pb(0);
+    fori v2[i].pb(0);
+    fori v3[i].pb(0);
+    forj {
+        scanxyz;
+        a1[j]=x;
+        a2[j]=y;
+        a3[j]=z;
+        if (aa[x][y] < z) {
+            aa[x][y] = z;
+            a[y]++;
+            v1[y].pb(x);
+            v[x].pb(y);
+            v2[x].pb(z);
+            v3[y].pb(z);
         }
     };
-
-    printmin;
-    w1{
-        if(xx==0&&yy==0)
-            break;
-        tx=xx;
-        ty=yy;
-        xx=aa[tx][ty];
-        yy=bb[tx][ty];
-        cnt++;
-        if(tx==xx)
-            a3[cnt]=2;
-        else
-            a3[cnt]=1;
+    scanxy;
+    f(y);
+    q.push(x);
+    d[x] = 0;
+    while (!q.empty()) {
+        w = q.front();
+        q.pop();
+        l = v[w].size() - 1;
+        foi(l) {
+            e = v[w][i];
+            a[e]--;
+            if (a[e] == 0)
+                q.push(e);
+            if (d[e] < d[w] + v2[w][i])
+                d[e] = d[w] + v2[w][i];
+        }
+    }
+    maxi = d[y];
+    printmax;
+    forj{
+        x=a1[j];
+        y=a2[j];
+        z=a3[j];
+        if(d[a1[j]]+b[a2[j]]+z==maxi)
+            cnt++;
     };
-    foi(cnt)
-        pr1l(a3[n+1-i]);
+    prcnt;
 }
+
