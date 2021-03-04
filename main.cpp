@@ -179,18 +179,20 @@ char c1, c2, c, c3, c4;
 ld ldmax, ldmin, ldmax1, ldmax2, ldmin1, ldmin2, ldd[M];
 
 string str[M];
+typedef pair<ll,ll> ppair;
 ull u1, u2, u3, u4;
 queue<ll> q;
 queue<ll> qx, qy;
 priority_queue<ll> pq;
+priority_queue<ppair> ppq;
 stack<ll> st;
 deque<ll> dq;
 map<string, ll> msi;
 map<ll, string> mis;
 vector<ll> v[M];
 vector<ll> v1[M], v2[M], v3[M];
+vector<ppair> vp;
 bool boo[M];
-typedef pair<ll,ll> ppair;
 
 
 ll zegob(ll x, ll y)
@@ -564,53 +566,25 @@ void f(ll x){
         }
     }
 }
-
 int main(void) {
-    scannm;
-    fori v[i].pb(0);
-    fori v1[i].pb(0);
-    fori v2[i].pb(0);
-    fori v3[i].pb(0);
-    forj {
-        scanxyz;
-        a1[j]=x;
-        a2[j]=y;
-        a3[j]=z;
-        if (aa[x][y] < z) {
-            aa[x][y] = z;
-            a[y]++;
-            v1[y].pb(x);
-            v[x].pb(y);
-            v2[x].pb(z);
-            v3[y].pb(z);
-        }
-    };
-    scanxy;
-    f(y);
-    q.push(x);
-    d[x] = 0;
-    while (!q.empty()) {
-        w = q.front();
-        q.pop();
-        l = v[w].size() - 1;
-        foi(l) {
-            e = v[w][i];
-            a[e]--;
-            if (a[e] == 0)
-                q.push(e);
-            if (d[e] < d[w] + v2[w][i])
-                d[e] = d[w] + v2[w][i];
-        }
+    scann;
+    fori{
+        scanxy;
+        vp.pb(make_pair(max(x,y),min(x,y)));
     }
-    maxi = d[y];
+    scant;
+    sort(vp.begin(),vp.end());
+    for(i=0;i<n;i++){
+        x=vp[i].second;
+        y=vp[i].first;
+        pq.push(-x);
+        while(!pq.empty()){
+            ll left=-pq.top();
+            if(left>=(y-t))
+                break;
+            pq.pop();
+        }
+        maxi = max(maxi,(ll)pq.size());
+    }
     printmax;
-    forj{
-        x=a1[j];
-        y=a2[j];
-        z=a3[j];
-        if(d[a1[j]]+b[a2[j]]+z==maxi)
-            cnt++;
-    };
-    prcnt;
 }
-
