@@ -568,11 +568,17 @@ void f(ll x){
     }
 }
 int main(void) {
-    scanxy;
-    if (y > 30)
-        pr("Red");
-    else if (x <= 50 && y <= 10)
-        pr("White");
+    scanxyzr;
+    scant;
+    if (t < 30)
+        e = 0;
     else
-        pr("Yellow");
+        e = t - 30;
+    pr1(x + y * 21 * e);
+
+    if (t < 45)
+        e = 0;
+    else
+        e = t - 45;
+    pr1(z + r * 21 * e);
 }
