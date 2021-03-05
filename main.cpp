@@ -568,15 +568,7 @@ void f(ll x){
     }
 }
 int main(void) {
-    scannm;
-    ld1=(ld)n;
-    ld2=(ld)m;
-    if(ld2*7<=ld1)
-        pr((ll)ld2*7000);
-    else if(ld2*3.5<=ld1)
-        pr((ll)ld2*3500);
-    else if(ld2*1.75<=ld1)
-        pr((ll)ld2*1750);
-    else
-        pr(0);
+    sc1(ld1);
+    ld2 = ld1 / 3.785411784 * 1609.344 / 100 / 1000;
+    prld(1/ld2);
 }
