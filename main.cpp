@@ -568,12 +568,7 @@ void f(ll x){
     }
 }
 int main(void) {
-    scanf("%lld/%lld/%lld", &x, &y, &z);
-    if(y==0)
-        pr("hasu");
-    else
-        if(x+z<y)
-            pr("hasu");
-        else
-            pr("gosu");
+    scanxyzr;
+    t = (z / r) * (y / r);
+    pr(min(x, t));
 }
