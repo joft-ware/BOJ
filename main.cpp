@@ -568,19 +568,8 @@ void f(ll x){
     }
 }
 int main(void) {
-    n = 6;
-    fori {
-        scanc;
-        scanf("%c",&w);
-        if (c == 'W')
-            cnt++;
-    };
-    if(cnt>4)
-        pr(1);
-    else if(cnt>2)
-        pr(2);
-    else if(cnt>0)
-        pr(3);
-    else
-        pr(-1);
+    scannm;
+    x=min(m+60,n);
+    sum=x*1500+(n-x)*3000;
+    prsum;
 }
