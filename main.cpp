@@ -568,11 +568,12 @@ void f(ll x){
     }
 }
 int main(void) {
-    scannm;
-    if (n >= 3 && m <= 4)
-        pr1l("TroyMartian");
-    if (n <= 6 && m >= 2)
-        pr1l("VladSaturnian");
-    if (n <= 2 && m <= 3)
-        pr1l("GraemeMercurian");
+    scanf("%lld/%lld/%lld", &x, &y, &z);
+    if(y==0)
+        pr("hasu");
+    else
+        if(x+z<y)
+            pr("hasu");
+        else
+            pr("gosu");
 }
