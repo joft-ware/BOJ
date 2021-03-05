@@ -568,7 +568,19 @@ void f(ll x){
     }
 }
 int main(void) {
-    scanxyzr;
-    t = (z / r) * (y / r);
-    pr(min(x, t));
+    n = 6;
+    fori {
+        scanc;
+        scanf("%c",&w);
+        if (c == 'W')
+            cnt++;
+    };
+    if(cnt>4)
+        pr(1);
+    else if(cnt>2)
+        pr(2);
+    else if(cnt>0)
+        pr(3);
+    else
+        pr(-1);
 }
