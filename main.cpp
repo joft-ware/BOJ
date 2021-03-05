@@ -569,7 +569,14 @@ void f(ll x){
 }
 int main(void) {
     scannm;
-    x=min(m+60,n);
-    sum=x*1500+(n-x)*3000;
-    prsum;
+    ld1=(ld)n;
+    ld2=(ld)m;
+    if(ld2*7<=ld1)
+        pr((ll)ld2*7000);
+    else if(ld2*3.5<=ld1)
+        pr((ll)ld2*3500);
+    else if(ld2*1.75<=ld1)
+        pr((ll)ld2*1750);
+    else
+        pr(0);
 }
