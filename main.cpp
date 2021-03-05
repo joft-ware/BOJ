@@ -568,17 +568,11 @@ void f(ll x){
     }
 }
 int main(void) {
-    scanxyzr;
-    scant;
-    if (t < 30)
-        e = 0;
-    else
-        e = t - 30;
-    pr1(x + y * 21 * e);
-
-    if (t < 45)
-        e = 0;
-    else
-        e = t - 45;
-    pr1(z + r * 21 * e);
+    scannm;
+    if (n >= 3 && m <= 4)
+        pr1l("TroyMartian");
+    if (n <= 6 && m >= 2)
+        pr1l("VladSaturnian");
+    if (n <= 2 && m <= 3)
+        pr1l("GraemeMercurian");
 }
