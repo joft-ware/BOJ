@@ -568,7 +568,14 @@ void f(ll x){
     }
 }
 int main(void) {
-    sc1(ld1);
-    ld2 = ld1 / 3.785411784 * 1609.344 / 100 / 1000;
-    prld(1/ld2);
+    n = 4;
+    scanxyzr;
+    if (x < y && y < z && z < r)
+        pr("Fish Rising");
+    else if (x > y && y > z && z > r)
+        pr("Fish Diving");
+    else if (x == y && y == z && z == r)
+        pr("Fish At Constant Depth");
+    else
+        pr("No Fish");
 }
