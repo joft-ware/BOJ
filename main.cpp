@@ -169,9 +169,9 @@ ll dy[5] = { 0,0,-1,0,1 };
 ll ddx[9] = { 0,-1,-1,-1,0,0,1,1,1 };
 ll ddy[9] = { 0,-1,0,1,-1,1,-1,0,1 };
 ld ld1, ld2, ld3, ld4, ld5, ld6, ld7;
-ll a[1000005], b1[M], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], sumtree[4000005], mintree[M], maxtree[M], minindextree[M];
+ll a[2000005], b1[M], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], sumtree[2000005], mintree[M], maxtree[M], minindextree[M];
 ll b[M], dp[MM][MM], dd[MM][MM][4];
-ll d[M], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M], lazy[4000005];
+ll d[M], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M], lazy[2000005];
 ll qry[M][4];
 bool check[M], visit[M], treecheck[M];
 char s1[M], s2[M], ss[MM][MM];
@@ -584,20 +584,21 @@ void f(ll x){
     }
 }
 int main(void) {
-    scannm;
-    maketree_sum(1,n,1);
-    forj{
-        scant;
-        if(t==1) {
-            scanxy;
-            ll w = query_sum(1,1,n,x,x);
-            update_sum(1,n,y-w, 1, x, x);
-        }
-        else{
-            scanxy;
-            if(x>y)
-                swap(x,y);
-            pr1l(query_sum(1,1,n,x,y));
-        }
+    scann;
+    vp.pb(make_pair(INF,INF));
+    fori {
+        scanx;
+        vp.pb(make_pair(x, i));
+    };
+    sort(vp.begin()+1,vp.end());
+    fori{
+        vp[i].first=vp[i].second;
+        vp[i].second=n+1-i;
+    };
+    sort(vp.begin()+1,vp.end());
+    fori{
+        x=query_sum(1,1,n,1,vp[i].second-1);
+        pr1l(x+1);
+        update_sum(1,n,1,1,vp[i].second,vp[i].second);
     };
 }
