@@ -170,9 +170,9 @@ ll dy[5] = { 0,0,-1,0,1 };
 ll ddx[9] = { 0,-1,-1,-1,0,0,1,1,1 };
 ll ddy[9] = { 0,-1,0,1,-1,1,-1,0,1 };
 ld ld1, ld2, ld3, ld4, ld5, ld6, ld7;
-ll a[2000005], b1[M], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], sumtree[2000005], mintree[M], maxtree[M], minindextree[M];
-ll b[M], dp[MM][MM], dd[MM][MM][4];
-ll d[M], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M], lazy[2000005];
+ll a[4000005], b1[M], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], sumtree[4000005], mintree[M], maxtree[M], minindextree[M];
+ll b[M], dp[MM][MM], dd[MM][MM][4], ax[M], ay[M], az[M];
+ll d[4000005], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M], lazy[4000005];
 ll qry[M][4];
 bool check[M], visit[M], treecheck[M];
 char s1[M], s2[M], ss[MM][MM];
@@ -437,12 +437,12 @@ ll maketree_sum(ll left, ll right, ll node)
 }
 
 void update_lazy_sum(ll node, ll left, ll right){
-    if(lazy[node]%2==0)
+    if(!lazy[node])
         return;
-    sumtree[node]=(right-left+1)-sumtree[node];
+    sumtree[node]+=((right-left+1)*lazy[node]);
     if(right!=left){
-        lazy[node*2]++;
-        lazy[node*2+1]++;
+        lazy[node*2]+=lazy[node];
+        lazy[node*2+1]+=lazy[node];
     }
     lazy[node]=0;
 }
@@ -452,7 +452,7 @@ ll update_sum(ll left, ll right, ll val, ll node, ll start, ll end){
     if(end<left||start>right) // 범위 밖
         return sumtree[node];
     if(start<=left&&end>=right){ // 범위 내부에 속함
-        lazy[node]++;
+        lazy[node]+=val;
         update_lazy_sum(node,left,right);
         return sumtree[node];
     }
@@ -570,40 +570,54 @@ ll bzegob(ll x, ll y){
     return k%mod;
 }
 
-void f(ll x){
-    ll ma=0;
-    if(y==0)
-        return;
-    ll l = v1[x].size()-1;
-    fo(i,1,l){
-        ll e = v1[x][i];
-        if(b[e]<v3[x][i]+b[x]) {
-            b[e] = v3[x][i] + b[x];
-            f(e);
-        }
-    }
+ll f(ll x1, ll y1, ll x2, ll y2){
+    ll xx=max(x1,x2);
+    ll x = min(x1,x2);
+    ll yy = max(y1, y2);
+    ll y= min(y1,y2);
+    return aa[xx][yy]-aa[x-1][yy]-aa[xx][y-1]+aa[x-1][y-1];
 }
 
+ll find_sum(ll left, ll right, ll node, ll sum){
+    update_lazy_sum(node, left, right);
+    if(sumtree[node]==sum)
+        return right;
+    if(left==right)
+        return right;
+    mid=(left+right)/2;
+    if(sumtree[node*2]>=sum)
+        return find_sum(left,mid,node*2, sum);
+    else
+        return find_sum(mid+1,right,node*2+1, sum-sumtree[node*2]);
+}
+
+ll insert_sum(ll node, ll left, ll right, ll start, ll end){
+    update_lazy_sum(node, left, right);
+
+    mid=(left+right)/2;
+    if(left==right)
+        return left;
+    if(sumtree[node*2]>0&&mid>=start)
+        return insert_sum(node*2, left, mid, start,end);
+    else
+        return insert_sum(node*2+1,mid+1,right,start,end);
+}
+
+
 int main(void) {
-    scannm;
-    vp.pb(make_pair(0, 0));
-    fori {
+    scann;
+    fori
+        a[i]=1;
+    maketree_sum(1,n,1);
+    fori{
         scanx;
-        a[i]=x;
-        vp.pbm(x, i);
+        if(x==0)
+            w=0;
+        else
+            w = find_sum(1,n,1,x);
+        y=insert_sum(1,1,n,w+1,n);
+        d[y]=i;
+        update_sum(1,n,-1,1,y,y);
     };
-    sort(vp.begin() + 1, vp.end());
-    forj{
-        scanxyz;
-        cnt=0;
-        fori{
-            if(vp[i].second>=x&&vp[i].second<=y)
-                cnt++;
-            if(cnt==z)
-            {
-                pr1l(vp[i].first);
-                break;
-            }
-        }
-    };
+    printd;
 }
