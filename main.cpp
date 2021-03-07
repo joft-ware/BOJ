@@ -436,12 +436,12 @@ ll maketree_sum(ll left, ll right, ll node)
 }
 
 void update_lazy_sum(ll node, ll left, ll right){
-    if(!lazy[node])
+    if(lazy[node]%2==0)
         return;
-    sumtree[node]+=((right-left+1)*lazy[node]);
+    sumtree[node]=(right-left+1)-sumtree[node];
     if(right!=left){
-        lazy[node*2]+=lazy[node];
-        lazy[node*2+1]+=lazy[node];
+        lazy[node*2]++;
+        lazy[node*2+1]++;
     }
     lazy[node]=0;
 }
@@ -451,7 +451,7 @@ ll update_sum(ll left, ll right, ll val, ll node, ll start, ll end){
     if(end<left||start>right) // 범위 밖
         return sumtree[node];
     if(start<=left&&end>=right){ // 범위 내부에 속함
-        lazy[node]+=val;
+        lazy[node]++;
         update_lazy_sum(node,left,right);
         return sumtree[node];
     }
@@ -569,7 +569,6 @@ ll bzegob(ll x, ll y){
     return k%mod;
 }
 
-
 void f(ll x){
     ll ma=0;
     if(y==0)
@@ -583,22 +582,16 @@ void f(ll x){
         }
     }
 }
+
 int main(void) {
-    scann;
-    vp.pb(make_pair(INF,INF));
-    fori {
-        scanx;
-        vp.pb(make_pair(x, i));
-    };
-    sort(vp.begin()+1,vp.end());
-    fori{
-        vp[i].first=vp[i].second;
-        vp[i].second=n+1-i;
-    };
-    sort(vp.begin()+1,vp.end());
-    fori{
-        x=query_sum(1,1,n,1,vp[i].second-1);
-        pr1l(x+1);
-        update_sum(1,n,1,1,vp[i].second,vp[i].second);
+    scannm;
+    maketree_sum(1,n,1);
+    forj{
+        scanxyz;
+        if(!x){
+            update_sum(1,n,1,1,y,z);
+        }
+        else
+            pr1l(query_sum(1,1,n,y,z));
     };
 }
