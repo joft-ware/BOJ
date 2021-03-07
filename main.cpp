@@ -18,7 +18,7 @@
 #endif
 
 #define M 1005
-#define MM 1005
+#define MM 15
 long long mod = 1e9+7;
 
 #define ll long long
@@ -169,9 +169,9 @@ ll dy[5] = { 0,0,-1,0,1 };
 ll ddx[9] = { 0,-1,-1,-1,0,0,1,1,1 };
 ll ddy[9] = { 0,-1,0,1,-1,1,-1,0,1 };
 ld ld1, ld2, ld3, ld4, ld5, ld6, ld7;
-ll a[M], b1[M], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], habtree[M], mintree[M], maxtree[M], minindextree[M];
+ll a[1000005], b1[M], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], sumtree[4000005], mintree[M], maxtree[M], minindextree[M];
 ll b[M], dp[MM][MM], dd[MM][MM][4];
-ll d[M], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M];
+ll d[M], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M], lazy[4000005];
 ll qry[M][4];
 bool check[M], visit[M], treecheck[M];
 char s1[M], s2[M], ss[MM][MM];
@@ -249,7 +249,6 @@ void un(ll x, ll y)
         d[q]=find(w);
 }
 
-
 bool same(ll x, ll y)
 {
     return (find(x) == find(y));
@@ -300,7 +299,6 @@ ll find_max(long long* a, ll n)
     return maxi;
 }
 
-
 void clean(long long* a, int n)
 {
     fori
@@ -317,7 +315,6 @@ ll zari(ll n)
         k *= 10;
     }
 }
-
 
 ll biggest(int x, int y, int z)
 {
@@ -368,7 +365,6 @@ ll query_minindex(ll node, ll left, ll right, ll start, ll end)
     return minindex(leftnode, rightnode);
 }
 
-
 ll maketree_min(ll left, ll right, ll node)
 {
     if (left == right)
@@ -388,6 +384,19 @@ ll query_min(ll node, ll left, ll right, ll start, ll end)
     if (start <= left && right <= end) return mintree[node]; // 모두 겹치는 경우
     int mid = (left + right) / 2; // 일부만 겹치는 경우
     return smaller(query_min(node * 2, left, mid, start, end), query_min(node * 2 + 1, mid + 1, right, start, end));
+}
+
+ll update_min(ll node, ll left, ll right, ll idx){ ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    if (idx<left || idx>right) // update 필요없음
+        return mintree[node];
+    if(left==right)
+        return mintree[node] = a[left];
+
+    ll mid = (left + right) / 2;
+    ll leftnode = update_min(node*2,left,mid,idx);
+    ll rightnode = update_min(node*2+1,mid+1,right,idx);
+    mintree[node]=min(leftnode, rightnode);
+    return mintree[node];
 }
 
 ll maketree_max(ll left, ll right, ll node)
@@ -411,45 +420,54 @@ ll query_max(ll node, ll left, ll right, ll start, ll end)
     return bigger(query_max(node * 2, left, mid, start, end), query_max(node * 2 + 1, mid + 1, right, start, end));
 }
 
-ll maketree_hab(ll left, ll right, ll node)
+ll maketree_sum(ll left, ll right, ll node)
 {
-    treecheck[node] = 1;
     if (left == right)
     {
-        d[left] = node;
-        habtree[left] = a[left];
-        return habtree[node];
+        sumtree[node] = a[left];
+        return sumtree[node];
     }
     else
     {
         ll mid = (left + right) / 2;
-        habtree[node] = (maketree_hab(left, mid, node * 2) + maketree_hab(mid + 1, right, node * 2 + 1) % 1000000007) % 1000000007;
-        return habtree[node];
+        sumtree[node] = (maketree_sum(left, mid, node * 2) + maketree_sum(mid + 1, right, node * 2 + 1));
+        return sumtree[node];
     }
 }
 
-ll query_hab(ll node, ll left, ll right, ll start, ll end)
-{
-    if (right < start || end < left)
-        return 0; // 겹치지 않는 경우(영향이 없는 값을 반환)
-    if (start <= left && right <= end)
-        return habtree[node]; // 모두 겹치는 경우
-    ll mid = (left + right) / 2; // 일부만 겹치는 경우
-    return (query_hab(node * 2, left, mid, start, end)) + (query_hab(node * 2 + 1, mid + 1, right, start, end));
+void update_lazy_sum(ll node, ll left, ll right){
+    if(!lazy[node])
+        return;
+    sumtree[node]+=((right-left+1)*lazy[node]);
+    if(right!=left){
+        lazy[node*2]+=lazy[node];
+        lazy[node*2+1]+=lazy[node];
+    }
+    lazy[node]=0;
 }
 
-ll update_min(ll node, ll left, ll right, ll idx) ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-{
-    if (idx<left || idx>right) // update 필요없음
-        return mintree[node];
-    if(left==right)
-        return mintree[node] = a[left];
+ll update_sum(ll left, ll right, ll val, ll node, ll start, ll end){
+    update_lazy_sum(node, left, right);
+    if(end<left||start>right) // 범위 밖
+        return sumtree[node];
+    if(start<=left&&end>=right){ // 범위 내부에 속함
+        lazy[node]+=val;
+        update_lazy_sum(node,left,right);
+        return sumtree[node];
+    }
+    ll mid = (left+right)/2; // 걸쳐 있음
+    sumtree[node] = update_sum(left, mid, val, node*2, start, end)+update_sum(mid+1, right, val, node*2+1, start, end);
+    return sumtree[node];
+}
 
-    ll mid = (left + right) / 2;
-    ll leftnode = update_min(node*2,left,mid,idx);
-    ll rightnode = update_min(node*2+1,mid+1,right,idx);
-    mintree[node]=min(leftnode, rightnode);
-    return mintree[node];
+ll query_sum(ll node, ll left, ll right, ll start, ll end) {
+    update_lazy_sum(node, left, right);
+    if (right < start || end < left)
+        return 0; // 겹치지 않는 경우(영향이 없는 값을 반환)
+    if(start<=left&&end>=right) // 범위 내부에 속함
+        return sumtree[node]; // 포함되는 경우
+    ll mid = (left + right) / 2; // 일부만 겹치는 경우
+    return (query_sum(node * 2, left, mid, start, end)) + (query_sum(node * 2 + 1, mid + 1, right, start, end));
 }
 
 ll fact(ll n)
@@ -481,8 +499,6 @@ long long dfs(long long now, long long visit)
         }
     }
 }
-
-
 
 void re(int x, int lev)
 {
@@ -568,14 +584,19 @@ void f(ll x){
     }
 }
 int main(void) {
-    n = 4;
-    scanxyzr;
-    if (x < y && y < z && z < r)
-        pr("Fish Rising");
-    else if (x > y && y > z && z > r)
-        pr("Fish Diving");
-    else if (x == y && y == z && z == r)
-        pr("Fish At Constant Depth");
-    else
-        pr("No Fish");
+    scannml;
+    scana;
+    maketree_sum(1,n,1);
+    m+=l;
+    forj{
+        scant;
+        if(t==1) {
+            scanxyz;
+            update_sum(1,n,z, 1, x, y);
+        }
+        else{
+            scanxy;
+            pr1l(query_sum(1,1,n,x,y));
+        }
+    };
 }
