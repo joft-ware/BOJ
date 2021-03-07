@@ -170,9 +170,9 @@ ll dy[5] = { 0,0,-1,0,1 };
 ll ddx[9] = { 0,-1,-1,-1,0,0,1,1,1 };
 ll ddy[9] = { 0,-1,0,1,-1,1,-1,0,1 };
 ld ld1, ld2, ld3, ld4, ld5, ld6, ld7;
-ll a[2000005], b1[M], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], sumtree[2000005], mintree[M], maxtree[M], minindextree[M];
+ll a[4000005], b1[M], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], sumtree[4000005], mintree[M], maxtree[M], minindextree[M];
 ll b[M], dp[MM][MM], dd[MM][MM][4];
-ll d[M], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M], lazy[2000005];
+ll d[M], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M], lazy[4000005];
 ll qry[M][4];
 bool check[M], visit[M], treecheck[M];
 char s1[M], s2[M], ss[MM][MM];
@@ -437,12 +437,12 @@ ll maketree_sum(ll left, ll right, ll node)
 }
 
 void update_lazy_sum(ll node, ll left, ll right){
-    if(lazy[node]%2==0)
+    if(!lazy[node])
         return;
-    sumtree[node]=(right-left+1)-sumtree[node];
+    sumtree[node]+=((right-left+1)*lazy[node]);
     if(right!=left){
-        lazy[node*2]++;
-        lazy[node*2+1]++;
+        lazy[node*2]+=lazy[node];
+        lazy[node*2+1]+=lazy[node];
     }
     lazy[node]=0;
 }
@@ -452,7 +452,7 @@ ll update_sum(ll left, ll right, ll val, ll node, ll start, ll end){
     if(end<left||start>right) // 범위 밖
         return sumtree[node];
     if(start<=left&&end>=right){ // 범위 내부에 속함
-        lazy[node]++;
+        lazy[node]+=val;
         update_lazy_sum(node,left,right);
         return sumtree[node];
     }
@@ -586,24 +586,14 @@ void f(ll x){
 
 int main(void) {
     scannm;
-    vp.pb(make_pair(0, 0));
-    fori {
-        scanx;
-        a[i]=x;
-        vp.pbm(x, i);
+    maketree_sum(1,n,1);
+    forj {
+        scant;
+        scanxy;
+        if(t==1)
+            update_sum(1,n,y,1,x,x);
+        else
+            pr1l(query_sum(1,1,n,x,y));
     };
-    sort(vp.begin() + 1, vp.end());
-    forj{
-        scanxyz;
-        cnt=0;
-        fori{
-            if(vp[i].second>=x&&vp[i].second<=y)
-                cnt++;
-            if(cnt==z)
-            {
-                pr1l(vp[i].first);
-                break;
-            }
-        }
-    };
+
 }
