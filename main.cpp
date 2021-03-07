@@ -123,6 +123,7 @@ long long mod = 1e9+7;
 #define fo(i,a,b) for(ll i = a; i <= b; i++)
 #define pb push_back
 #define mp make_pair
+#define pbm(a,b) push_back(make_pair(a,b))
 #define vsort(v) sort(v.begin(),v.end());
 #define sc(a) cin >> a
 #define sc1(a) cin >> a
@@ -585,13 +586,24 @@ void f(ll x){
 
 int main(void) {
     scannm;
-    maketree_sum(1,n,1);
+    vp.pb(make_pair(0, 0));
+    fori {
+        scanx;
+        a[i]=x;
+        vp.pbm(x, i);
+    };
+    sort(vp.begin() + 1, vp.end());
     forj{
         scanxyz;
-        if(!x){
-            update_sum(1,n,1,1,y,z);
+        cnt=0;
+        fori{
+            if(vp[i].second>=x&&vp[i].second<=y)
+                cnt++;
+            if(cnt==z)
+            {
+                pr1l(vp[i].first);
+                break;
+            }
         }
-        else
-            pr1l(query_sum(1,1,n,y,z));
     };
 }
