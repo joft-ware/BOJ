@@ -584,18 +584,19 @@ void f(ll x){
     }
 }
 int main(void) {
-    scannml;
-    scana;
+    scannm;
     maketree_sum(1,n,1);
-    m+=l;
     forj{
         scant;
         if(t==1) {
-            scanxyz;
-            update_sum(1,n,z, 1, x, y);
+            scanxy;
+            ll w = query_sum(1,1,n,x,x);
+            update_sum(1,n,y-w, 1, x, x);
         }
         else{
             scanxy;
+            if(x>y)
+                swap(x,y);
             pr1l(query_sum(1,1,n,x,y));
         }
     };
