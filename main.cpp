@@ -160,6 +160,8 @@ long long mod = 1e9+7;
 #define prgg pr1l("gg")
 #define prmaxi pr1l(maxi)
 #define prmax pr1l(maxi)
+#define prmin pr1l(mini)
+#define prmini pr1l(mini)
 #define prnum pr1l(num)
 #define prsum printsum
 #define prstr for(ll wq=1;wq<=slen;wq++) pr(str[wq]);
@@ -605,17 +607,33 @@ ll insert_sum(ll node, ll left, ll right, ll start, ll end){
 
 int main(void) {
     scann;
-    fori{
-        scant;
-        if(t==2){
-            scanxy;
-            update_sum(1,N,y,1,x,x);
+    scana;
+    fori
+        forjn
+            dp[i][j]=INF;
+    dp[0][0]=0;
+    dp[1][0]=0;
+    dp[0][1]=0;
+    fo(i,0,n){
+        fo(j,0,n){
+            if(i==j)
+                continue;
+            w=bigger(i,j)+1;
+            if(j==0){
+                dp[i][w]=min(dp[i][w],dp[i][j]);
+            }
+            else if(i==0){
+                dp[w][j]=min(dp[w][j],dp[i][j]);
+            }
+            else {
+                dp[i][w] = min(dp[i][w], dp[i][j] + abs(a[j] - a[w]));
+                dp[w][j] = min(dp[w][i], dp[i][j] + abs(a[i] - a[w]));
+            }
+            pr1(dp[i][j]);
+            if(w==n+1)
+                mini=smaller(mini,dp[i][j]);
         }
-        else{
-            scanx;
-            w=find_sum(1,N,1,x);
-            pr1l(w);
-            update_sum(1,N,-1,1,w,w);
-        }
-    };
-}
+        prl;
+    }
+    prmini;
+ };
