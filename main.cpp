@@ -171,8 +171,8 @@ ll ddx[9] = { 0,-1,-1,-1,0,0,1,1,1 };
 ll ddy[9] = { 0,-1,0,1,-1,1,-1,0,1 };
 ld ld1, ld2, ld3, ld4, ld5, ld6, ld7;
 ll a[400005], b1[M], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], sumtree[400005], mintree[M], maxtree[M], minindextree[M];
-ll b[400005], dp[MM][MM], dd[MM][MM][4], ax[M], ay[M], az[M];
-ll d[400005], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M], lazy[400005];
+ll b[M], dp[MM][MM], dd[MM][MM][4], ax[M], ay[M], az[M];
+ll d[M], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M], lazy[400005];
 ll qry[M][4];
 bool check[M], visit[M], treecheck[M];
 char s1[M], s2[M], ss[MM][MM];
@@ -585,7 +585,7 @@ ll find_sum(ll left, ll right, ll node, ll sum){
     if(left==right)
         return right;
     mid=(left+right)/2;
-    if(sumtree[node*2]>=sum)
+    if(sumtree[node*2]>sum)
         return find_sum(left,mid,node*2, sum);
     else
         return find_sum(mid+1,right,node*2+1, sum-sumtree[node*2]);
@@ -604,27 +604,25 @@ ll insert_sum(ll node, ll left, ll right, ll start, ll end){
 }
 
 
+
 int main(void) {
-    scann;
-    fori
-        a[i]=1;
-    maketree_sum(1,n,1);
-    fori
-    {
-        scanx;
-        b[n+1-i]=x;
-    };
-    forjn{
-        x=b[j];
-        i=n+1-j;
-        x=(i-1)-x;
-        if(x==0)
-            w=0;
-        else
-            w = find_sum(1,n,1,x);
-        y=insert_sum(1,1,n,w+1,n);
-        d[y]=i;
-        update_sum(1,n,-1,1,y,y);
-    };
-    printd;
+    scannm;
+    int N = 65535*2+4;
+    maketree_sum(1,N,1);
+    scana;
+    if(m==1){
+        suma;
+        prsum;
+    }
+    else {
+        fori {
+            a[i]++;
+            update_sum(1, N, 1, 1, a[i], a[i]);
+            if (i < m)
+                continue;
+            sum+=find_sum(1, N, 1, (m + 1) / 2-1)-1;
+            update_sum(1, N, -1, 1, a[i - m + 1], a[i - m + 1]);
+        };
+        prsum;
+    }
 }
