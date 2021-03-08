@@ -17,7 +17,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #endif
 
-#define M 1005
+#define M 105
 #define MM 15
 long long mod = 1e9+7;
 
@@ -170,9 +170,9 @@ ll dy[5] = { 0,0,-1,0,1 };
 ll ddx[9] = { 0,-1,-1,-1,0,0,1,1,1 };
 ll ddy[9] = { 0,-1,0,1,-1,1,-1,0,1 };
 ld ld1, ld2, ld3, ld4, ld5, ld6, ld7;
-ll a[4000005], b1[M], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], sumtree[4000005], mintree[M], maxtree[M], minindextree[M];
-ll b[M], dp[MM][MM], dd[MM][MM][4], ax[M], ay[M], az[M];
-ll d[4000005], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M], lazy[4000005];
+ll a[400005], b1[M], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], sumtree[400005], mintree[M], maxtree[M], minindextree[M];
+ll b[400005], dp[MM][MM], dd[MM][MM][4], ax[M], ay[M], az[M];
+ll d[400005], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M], lazy[400005];
 ll qry[M][4];
 bool check[M], visit[M], treecheck[M];
 char s1[M], s2[M], ss[MM][MM];
@@ -609,8 +609,15 @@ int main(void) {
     fori
         a[i]=1;
     maketree_sum(1,n,1);
-    fori{
+    fori
+    {
         scanx;
+        b[n+1-i]=x;
+    };
+    forjn{
+        x=b[j];
+        i=n+1-j;
+        x=(i-1)-x;
         if(x==0)
             w=0;
         else
