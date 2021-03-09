@@ -17,6 +17,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #endif
 
+
 #define M 2002
 #define MM 52
 #define N 1000001
@@ -30,6 +31,8 @@ long long mod = 1e9+7;
 #define YES "YES"
 #define NO "NO"
 #define mn m=n;
+#define X first
+#define Y second
 
 
 #define foi(a) for(ll i=1;i<=a;i++)
@@ -620,68 +623,37 @@ bool dfs(ll x, ll xx){
 int main(void) {
     scann;
     scana;
-
-    foi(2000){
-        if(i==1)continue;
-        if(a1[i]==0){
-            prime[i]=1;
-            for(j=i;j<=2000;j+=i)
-                a1[j]=1;
-        }
-    }
-
     fori{
-        if(a[i]%2)
-            xx++;
-        else
-            xx--;
+        cnt=0;
+        x=a[i];
         forjn{
-            if(i==j)
-                continue;
-            if(a[i]<a[j])
-                continue;
-            if(prime[a[i]+a[j]]) {
-                aa[i][0]++;
-                k=aa[i][0];
-                aa[i][k] = j;
+            if(!d[j])
+                cnt++;
+            if(cnt==x+1) {
+                d[j]=i;
+                break;
             }
-        }
+        };
+
     };
-
-    if(xx!=0)
-    {
-        pr(-1);
-        return 0;
-    }
-
-    mn;
-
-    fori{
-        if(i==1)
-            continue;
-        if(prime[(a[i]+a[1])]){
-            forj d[j]=-1;
-            ll cnt=0;
-            forj{
-                if(j==i||j==1)
-                    continue;
-                fo(k,1,n)
-                    visit[k]=false;
-                if(visit[j]==false&&d[j]==-1)
-                    if(dfs(j,i))
-                        cnt++;
-            }
-            if(cnt==(n/2-1)) {
-                yes = 1;
-                b[++num]=a[i];
-            }
-        }
-    };
-    n=num;
-    sortb;
-    if(!yes)
-        pr(-1);
-    else
-        printb;
-
+    printd;
 }
+
+
+
+
+    /*
+    ll dp[51][500001] = {{0, 0}};
+    scann;
+    scana;
+    sorta;
+    fori {
+        x=a[i];
+        for(j=0;j<=500000;j++){
+            dp[i+1][abs(j-x)] = min(dp[i+1][abs(j-x)],max(dp[i][j],dp[i][j]-j+a[i]));
+            dp[i+1][abs(j-x)] = min(dp[i+1][abs(j-x)],max(dp[i][j],dp[i][j]-j+a[i]));
+
+        }
+    };
+}
+     */ // 1126 Solving...
