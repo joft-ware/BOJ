@@ -606,7 +606,7 @@ bool dfs(ll x){
     ll y=aa[x][0];
     fo(i,1,y){
         ll e = aa[x][i];
-        if(!d[e]||(!visit[d[e]]&&dfs(d[e])))
+        if(d[e]-1||(!visit[d[e]]&&dfs(d[e])))
         {
             d[e]=x;
             return true;
@@ -614,49 +614,45 @@ bool dfs(ll x){
     }
     return false;
 }
-bool dfs2(ll x){
-    if(visit[x])
-        return false;
-    visit[x]=true;
-    ll y=bb[x][0];
-    fo(i,1,y){
-        ll e = bb[x][i];
-        if(!d1[e]||(!visit[d1[e]]&&dfs2(d1[e])))
-        {
-            d1[e]=x;
-            return true;
-        }
-    }
-    return false;
-}
 int main(void) {
-    scannm;
-    scanxy;
-    foi(x){
-        scanwe;
-        aa[w][0]++;
-        ll r = aa[w][0];
-        aa[w][r]=e;
-    }
-
+    scann;
+    fori{
+        sc3(a1[i],a2[i],a3[i]);
+    };
+    fori{
+        foj(n){
+            if(i==j)
+                continue;
+            if(a1[i]==a1[j]&&a2[i]==a2[j]&&a3[i]==a3[j])
+            {
+                if(i>j) {
+                    aa[i][0]++;
+                    aa[i][aa[i][0]] = j;
+                }
+            }
+            else if(a1[i]>=a1[j]&&a2[i]>=a2[j]&&a3[i]>=a3[j])
+            {
+                aa[i][0]++;
+                aa[i][aa[i][0]]=j;
+            }
+        }
+    };
+    mn;
+    printaa;
+    fori d[i]=-1;
     fori{
         forjn visit[j]=false;
-        if(dfs(i)) cnt++;
-    };
-
-    foi(y){
-        scanwe;
-        bb[w][0]++;
-        ll r = bb[w][0];
-        bb[w][r]=e;
-    }
-
-    fori{
+        if(dfs(i))
+            cnt++;
         forjn visit[j]=false;
-        if(dfs2(i)) sum++;
+        if(dfs(i))
+            cnt++;
+        forjn pr1(d[j]);
+        prl;
     };
-    if(cnt>=sum)
-        pr("그만 알아보자");
-    else
-        pr("네 다음 힐딱이");
+    forjn{
+        if(d[j]==-1)
+            sum++;
+    };
+    pr2l(n-sum,cnt);
 }
