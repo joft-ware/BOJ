@@ -621,22 +621,34 @@ bool dfs(ll x, ll xx){
     return false;
 }
 int main(void) {
-    scann;
-    pr1l(n * n + 1);
-    fori
-        forjn
-            pq[i].push(j);
-    x = 1;
-    w1 {
-        pr1(x);
-        if(pq[x].empty())
-            break;
-        y = pq[x].top();
-        pq[x].pop();
-        x = y;
-    }
-}
+    scanxyz;
 
+    n=x;
+    m=y;
+    k=z;
+    y=1;
+    if(m+k-1>n||n>m*k)
+    {
+        pr(-1);
+        return 0;
+    }
+    for(i=1;i<=m;i++){
+        x=smaller(i*k,n);
+        if(n-i*k+i<m)
+        {
+            x=m-(i-1);
+            for(j=n-x+1;j<=n;j++)
+                pr1(j);
+            for(j=n-x;j>=(i-1)*k+1;j--)
+                pr1(j);
+            braek;
+        }
+        for(j=x;j>=y;j--)
+            pr1(j);
+
+        y=x+1;
+    };
+}
 
     /*
     ll dp[51][500001] = {{0, 0}};
