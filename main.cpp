@@ -18,8 +18,8 @@
 #endif
 
 
-#define M 2002
-#define MM 52
+#define M 10002
+#define MM 5
 #define N 1000001
 long long mod = 1e9+7;
 
@@ -623,23 +623,26 @@ bool dfs(ll x, ll xx){
 int main(void) {
     scann;
     scana;
-    fori{
-        cnt=0;
-        x=a[i];
-        forjn{
-            if(!d[j])
-                cnt++;
-            if(cnt==x+1) {
-                d[j]=i;
-                break;
-            }
-        };
-
+    fori {
+        if (a[i] <= 0)
+            b[++cnt] = a[i];
+        else
+            d[++sum]=a[i];
     };
-    printd;
+    sort(b+1,b+cnt+1);
+    sort(d+1,d+sum+1);
+    for(i=sum;i>=2;i-=2) {
+        ans += max(d[i] * d[i - 1],d[i]+d[i-1]);
+    }
+    if(sum%2)
+        ans+=d[1];
+
+    for(i=1;i<=cnt-1;i+=2)
+        ans+=(b[i]*b[i+1]);
+    if(cnt%2)
+        ans+=b[cnt];
+    pr(ans);
 }
-
-
 
 
     /*
