@@ -56,6 +56,7 @@ long long mod = 1e9+7;
 #define scanyx scanf("%lld %lld",&y,&x)
 #define scanwe scanf("%lld %lld",&w,&e)
 #define scannm scanf("%lld %lld",&n,&m)
+#define scanwe scanf("%lld %lld",&w,&e)
 #define scanmn scanf("%lld %lld",&m,&n)
 #define scannml scanf("%lld %lld %lld",&n,&m,&l)
 #define scanxyz scanf("%lld %lld %lld",&x,&y,&z)
@@ -613,33 +614,49 @@ bool dfs(ll x){
     }
     return false;
 }
-int main(void) {
-    scannm;
-    scank;
-    fori{
-        scant;
-        foj(t) {
-            scanx;
-            aa[i][0]++;
-            y=aa[i][0];
-            aa[i][y]=x;
+bool dfs2(ll x){
+    if(visit[x])
+        return false;
+    visit[x]=true;
+    ll y=bb[x][0];
+    fo(i,1,y){
+        ll e = bb[x][i];
+        if(!d1[e]||(!visit[d1[e]]&&dfs2(d1[e])))
+        {
+            d1[e]=x;
+            return true;
         }
     }
+    return false;
+}
+int main(void) {
+    scannm;
+    scanxy;
+    foi(x){
+        scanwe;
+        aa[w][0]++;
+        ll r = aa[w][0];
+        aa[w][r]=e;
+    }
+
     fori{
         forjn visit[j]=false;
         if(dfs(i)) cnt++;
     };
+
+    foi(y){
+        scanwe;
+        bb[w][0]++;
+        ll r = bb[w][0];
+        bb[w][r]=e;
+    }
+
     fori{
         forjn visit[j]=false;
-        {
-            if(k==0)
-                break;
-            if (dfs(i)) {
-                cnt++;
-                k--;
-            }
-
-        }
+        if(dfs2(i)) sum++;
     };
-    prcnt;
+    if(cnt>=sum)
+        pr("그만 알아보자");
+    else
+        pr("네 다음 힐딱이");
 }
