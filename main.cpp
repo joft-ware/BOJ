@@ -50,6 +50,7 @@ long long mod = 1e9+7;
 #define scant scanf("%lld",&t)
 #define scanx scanf("%lld",&x)
 #define scany scanf("%lld",&y)
+#define scank scanf("%lld",&k)
 #define scanc scanf("%c",&c)
 #define scanxy scanf("%lld %lld",&x,&y)
 #define scanyx scanf("%lld %lld",&y,&x)
@@ -614,6 +615,7 @@ bool dfs(ll x){
 }
 int main(void) {
     scannm;
+    scank;
     fori{
         scant;
         foj(t) {
@@ -626,8 +628,18 @@ int main(void) {
     fori{
         forjn visit[j]=false;
         if(dfs(i)) cnt++;
+    };
+    fori{
         forjn visit[j]=false;
-        if(dfs(i)) cnt++;
+        {
+            if(k==0)
+                break;
+            if (dfs(i)) {
+                cnt++;
+                k--;
+            }
+
+        }
     };
     prcnt;
 }
