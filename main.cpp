@@ -17,8 +17,8 @@
 #define _CRT_SECURE_NO_WARNINGS
 #endif
 
-#define M 105
-#define MM 15
+#define M 2002
+#define MM 2002
 #define N 1000001
 long long mod = 1e9+7;
 
@@ -173,9 +173,9 @@ ll dy[5] = { 0,0,-1,0,1 };
 ll ddx[9] = { 0,-1,-1,-1,0,0,1,1,1 };
 ll ddy[9] = { 0,-1,0,1,-1,1,-1,0,1 };
 ld ld1, ld2, ld3, ld4, ld5, ld6, ld7;
-ll a[4000005], b1[M], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], sumtree[4000005], mintree[M], maxtree[M], minindextree[M];
+ll a[M], b1[M], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], sumtree[M], mintree[M], maxtree[M], minindextree[M];
 ll b[M], dp[MM][MM], dd[MM][MM][4], ax[M], ay[M], az[M];
-ll d[M], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M], lazy[4000005];
+ll d[M], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M], lazy[M];
 ll qry[M][4];
 bool check[M], visit[M], treecheck[M];
 char s1[M], s2[M], ss[MM][MM];
@@ -573,13 +573,6 @@ ll bzegob(ll x, ll y){
     return k%mod;
 }
 
-ll f(ll x1, ll y1, ll x2, ll y2){
-    ll xx=max(x1,x2);
-    ll x = min(x1,x2);
-    ll yy = max(y1, y2);
-    ll y= min(y1,y2);
-    return aa[xx][yy]-aa[x-1][yy]-aa[xx][y-1]+aa[x-1][y-1];
-}
 
 ll find_sum(ll left, ll right, ll node, ll sum){
     update_lazy_sum(node, left, right);
@@ -604,36 +597,37 @@ ll insert_sum(ll node, ll left, ll right, ll start, ll end){
         return insert_sum(node*2+1,mid+1,right,start,end);
 }
 
-
-int main(void) {
-    scann;
-    scana;
-    fori
-        forjn
-            dp[i][j]=INF;
-    dp[0][0]=0;
-    dp[1][0]=0;
-    dp[0][1]=0;
-    fo(i,0,n){
-        fo(j,0,n){
-            if(i==j)
-                continue;
-            w=bigger(i,j)+1;
-            if(j==0){
-                dp[i][w]=min(dp[i][w],dp[i][j]);
-            }
-            else if(i==0){
-                dp[w][j]=min(dp[w][j],dp[i][j]);
-            }
-            else {
-                dp[i][w] = min(dp[i][w], dp[i][j] + abs(a[j] - a[w]));
-                dp[w][j] = min(dp[w][i], dp[i][j] + abs(a[i] - a[w]));
-            }
-            pr1(dp[i][j]);
-            if(w==n+1)
-                mini=smaller(mini,dp[i][j]);
+bool dfs(ll x){
+    if(visit[x])
+        return false;
+    visit[x]=true;
+    ll y=aa[x][0];
+    fo(i,1,y){
+        ll e = aa[x][i];
+        if(!d[e]||(!visit[d[e]]&&dfs(d[e])))
+        {
+            d[e]=x;
+            return true;
         }
-        prl;
     }
-    prmini;
- };
+    return false;
+}
+int main(void) {
+    scannm;
+    fori{
+        scant;
+        foj(t) {
+            scanx;
+            aa[i][0]++;
+            y=aa[i][0];
+            aa[i][y]=x;
+        }
+    }
+    fori{
+        forjn visit[j]=false;
+        if(dfs(i)) cnt++;
+        forjn visit[j]=false;
+        if(dfs(i)) cnt++;
+    };
+    prcnt;
+}
