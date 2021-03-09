@@ -193,7 +193,7 @@ typedef pair<ll,ll> ppair;
 ull u1, u2, u3, u4;
 queue<ll> q;
 queue<ll> qx, qy;
-priority_queue<ll> pq;
+priority_queue<ll> pq[1001];
 priority_queue<ppair> ppq;
 stack<ll> st;
 deque<ll> dq;
@@ -622,26 +622,19 @@ bool dfs(ll x, ll xx){
 }
 int main(void) {
     scann;
-    scana;
-    fori {
-        if (a[i] <= 0)
-            b[++cnt] = a[i];
-        else
-            d[++sum]=a[i];
-    };
-    sort(b+1,b+cnt+1);
-    sort(d+1,d+sum+1);
-    for(i=sum;i>=2;i-=2) {
-        ans += max(d[i] * d[i - 1],d[i]+d[i-1]);
+    pr1l(n * n + 1);
+    fori
+        forjn
+            pq[i].push(j);
+    x = 1;
+    w1 {
+        pr1(x);
+        if(pq[x].empty())
+            break;
+        y = pq[x].top();
+        pq[x].pop();
+        x = y;
     }
-    if(sum%2)
-        ans+=d[1];
-
-    for(i=1;i<=cnt-1;i+=2)
-        ans+=(b[i]*b[i+1]);
-    if(cnt%2)
-        ans+=b[cnt];
-    pr(ans);
 }
 
 
