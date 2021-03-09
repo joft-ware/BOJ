@@ -18,7 +18,7 @@
 #endif
 
 #define M 2002
-#define MM 2002
+#define MM 52
 #define N 1000001
 long long mod = 1e9+7;
 
@@ -175,7 +175,7 @@ ll dy[5] = { 0,0,-1,0,1 };
 ll ddx[9] = { 0,-1,-1,-1,0,0,1,1,1 };
 ll ddy[9] = { 0,-1,0,1,-1,1,-1,0,1 };
 ld ld1, ld2, ld3, ld4, ld5, ld6, ld7;
-ll a[M], b1[M], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], sumtree[M], mintree[M], maxtree[M], minindextree[M];
+ll a[M], b1[M], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], sumtree[M], mintree[M], maxtree[M], minindextree[M], prime[M];
 ll b[M], dp[MM][MM], dd[MM][MM][4], ax[M], ay[M], az[M];
 ll d[M], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M], lazy[M];
 ll qry[M][4];
@@ -484,7 +484,7 @@ ll fact(ll n)
     return k;
 }
 
-long long dfs(long long now, long long visit)
+long long dfs(long long now, long long visit, ll w)
 {
     pr2l(now, visit);
     if (visit == ((1 << n) - 1))
@@ -500,7 +500,7 @@ long long dfs(long long now, long long visit)
 
         if ((visit & (1 << (i - 1))) == 0 && aa[now][i] > 0)
         {
-            dp[now][visit] = smaller(mini, aa[now][i] + dfs(i, (visit | (1 << (i - 1)))));
+            dp[now][visit] = smaller(mini, aa[now][i] + dfs(i, (visit | (1 << (i - 1))),w));
             return dp[now][visit];
         }
     }
@@ -599,16 +599,19 @@ ll insert_sum(ll node, ll left, ll right, ll start, ll end){
         return insert_sum(node*2+1,mid+1,right,start,end);
 }
 
-bool dfs(ll x){
+bool dfs(ll x, ll xx){
     if(visit[x])
         return false;
     visit[x]=true;
     ll y=aa[x][0];
     fo(i,1,y){
         ll e = aa[x][i];
-        if(d[e]-1||(!visit[d[e]]&&dfs(d[e])))
+        if(e==xx||e==1)
+            continue;
+        if(d[e]==-1||(visit[d[e]]==false&&dfs(d[e],xx)))
         {
             d[e]=x;
+            d[x]=e;
             return true;
         }
     }
@@ -616,43 +619,69 @@ bool dfs(ll x){
 }
 int main(void) {
     scann;
+    scana;
+
+    foi(2000){
+        if(i==1)continue;
+        if(a1[i]==0){
+            prime[i]=1;
+            for(j=i;j<=2000;j+=i)
+                a1[j]=1;
+        }
+    }
+
     fori{
-        sc3(a1[i],a2[i],a3[i]);
-    };
-    fori{
-        foj(n){
+        if(a[i]%2)
+            xx++;
+        else
+            xx--;
+        forjn{
             if(i==j)
                 continue;
-            if(a1[i]==a1[j]&&a2[i]==a2[j]&&a3[i]==a3[j])
-            {
-                if(i>j) {
-                    aa[i][0]++;
-                    aa[i][aa[i][0]] = j;
-                }
-            }
-            else if(a1[i]>=a1[j]&&a2[i]>=a2[j]&&a3[i]>=a3[j])
-            {
+            if(a[i]<a[j])
+                continue;
+            if(prime[a[i]+a[j]]) {
                 aa[i][0]++;
-                aa[i][aa[i][0]]=j;
+                k=aa[i][0];
+                aa[i][k] = j;
             }
         }
     };
+
+    if(xx!=0)
+    {
+        pr(-1);
+        return 0;
+    }
+
     mn;
-    printaa;
-    fori d[i]=-1;
+
     fori{
-        forjn visit[j]=false;
-        if(dfs(i))
-            cnt++;
-        forjn visit[j]=false;
-        if(dfs(i))
-            cnt++;
-        forjn pr1(d[j]);
-        prl;
+        if(i==1)
+            continue;
+        if(prime[(a[i]+a[1])]){
+            forj d[j]=-1;
+            ll cnt=0;
+            forj{
+                if(j==i||j==1)
+                    continue;
+                fo(k,1,n)
+                    visit[k]=false;
+                if(visit[j]==false&&d[j]==-1)
+                    if(dfs(j,i))
+                        cnt++;
+            }
+            if(cnt==(n/2-1)) {
+                yes = 1;
+                b[++num]=a[i];
+            }
+        }
     };
-    forjn{
-        if(d[j]==-1)
-            sum++;
-    };
-    pr2l(n-sum,cnt);
+    n=num;
+    sortb;
+    if(!yes)
+        pr(-1);
+    else
+        printb;
+
 }
