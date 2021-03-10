@@ -179,7 +179,7 @@ ll ddx[9] = { 0,-1,-1,-1,0,0,1,1,1 };
 ll ddy[9] = { 0,-1,0,1,-1,1,-1,0,1 };
 ld ld1, ld2, ld3, ld4, ld5, ld6, ld7;
 ll a[M], b1[M], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], sumtree[M], mintree[M], maxtree[M], minindextree[M], prime[M];
-ll b[M], dp[MM][MM], dd[MM][MM][4], ax[M], ay[M], az[M];
+ll b[M], dp[52][500001], dd[MM][MM][4], ax[M], ay[M], az[M];
 ll d[M], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M], lazy[M];
 ll qry[M][4];
 bool check[M], visit[M], treecheck[M];
@@ -621,47 +621,24 @@ bool dfs(ll x, ll xx){
     return false;
 }
 int main(void) {
-    scanxyz;
-
-    n=x;
-    m=y;
-    k=z;
-    y=1;
-    if(m+k-1>n||n>m*k)
-    {
-        pr(-1);
-        return 0;
-    }
-    for(i=1;i<=m;i++){
-        x=smaller(i*k,n);
-        if(n-i*k+i<m)
-        {
-            x=m-(i-1);
-            for(j=n-x+1;j<=n;j++)
-                pr1(j);
-            for(j=n-x;j>=(i-1)*k+1;j--)
-                pr1(j);
-            braek;
-        }
-        for(j=x;j>=y;j--)
-            pr1(j);
-
-        y=x+1;
-    };
-}
-
-    /*
-    ll dp[51][500001] = {{0, 0}};
     scann;
     scana;
     sorta;
-    fori {
-        x=a[i];
-        for(j=0;j<=500000;j++){
-            dp[i+1][abs(j-x)] = min(dp[i+1][abs(j-x)],max(dp[i][j],dp[i][j]-j+a[i]));
-            dp[i+1][abs(j-x)] = min(dp[i+1][abs(j-x)],max(dp[i][j],dp[i][j]-j+a[i]));
-
+    suma;
+    fori
+        dp[i][a[i]]=a[i];
+    fo(i,1,n) {
+        x=a[i+1];
+        for(j=0;j<=sum;j++){
+            if(dp[i][j]>0) {
+                dp[i + 1][abs(j - x)] = max(dp[i + 1][abs(j - x)], max(dp[i][j], dp[i][j] - j + x)); //작은거
+                dp[i + 1][j + x] = max(dp[i + 1][j + x], dp[i][j] + x); // 큰거에 더함
+                dp[i + 1][j] = max(dp[i + 1][j], dp[i][j]); // 버림
+            }
         }
+        maxi=max(maxi,dp[i][0]);
     };
+    if(maxi==0)
+        maxi--;
+    prmaxi;
 }
-     */ // 1126 Solving...
