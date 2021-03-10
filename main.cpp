@@ -18,9 +18,9 @@
 #endif
 
 
-#define M 10002
+#define M 12
 #define MM 5
-#define N 1000001
+#define N 11
 long long mod = 1e9+7;
 
 #define ll long long
@@ -172,17 +172,17 @@ long long mod = 1e9+7;
 #define prstr for(ll wq=1;wq<=slen;wq++) pr(str[wq]);
 
 using namespace std;
-ll i, j, ii, jj, n, zz, yyy, xxx, bre, cnt, ans, slen, to, casenum, nn, hab, count, t, now, one, two, yy, m, yes, cntt, x1, x2, x3, Y1, y2, y3, temp, i1, i2, J1, j2, i3, j3, len1, len2, low, mid, left, right, high, ok, tx, ty, k, start, num, xx, qq, w, e, no, r, sum, x, y, z, l, len, mini = INF, maxi = -INF, x11, x22, x33, y11, y22, y33;
+ll i, j, ii, jj, n, zz, yyy, xxx, maxim, bre, cnt, ans, slen, to, casenum, nn, hab, count, t, now, one, two, yy, m, yes, cntt, x1, x2, x3, Y1, y2, y3, temp, i1, i2, J1, j2, i3, j3, len1, len2, low, mid, left, right, high, ok, tx, ty, k, start, num, xx, qq, w, e, no, r, sum, x, y, z, l, len, mini = INF, maxi = -INF, x11, x22, x33, y11, y22, y33;
 ll dx[5] = { 0,-1,0,1,0 };
 ll dy[5] = { 0,0,-1,0,1 };
 ll ddx[9] = { 0,-1,-1,-1,0,0,1,1,1 };
 ll ddy[9] = { 0,-1,0,1,-1,1,-1,0,1 };
 ld ld1, ld2, ld3, ld4, ld5, ld6, ld7;
-ll a[M], b1[M], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], sumtree[M], mintree[M], maxtree[M], minindextree[M], prime[M];
-ll b[M], dp[52][500001], dd[MM][MM][4], ax[M], ay[M], az[M];
-ll d[M], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M], lazy[M];
+ll a[150001], b1[M], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], sumtree[M], mintree[M], maxtree[M], minindextree[M], prime[M];
+ll b[M], dd[MM][MM][4], ax[M], ay[M], az[M];
+ll d[150001], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M], lazy[M];
 ll qry[M][4];
-bool check[M], visit[M], treecheck[M];
+bool check[M], visit[M], treecheck[M], dp[151][150001];
 char s1[M], s2[M], ss[MM][MM];
 char s[M];
 char c1, c2, c, c3, c4;
@@ -623,22 +623,45 @@ bool dfs(ll x, ll xx){
 int main(void) {
     scann;
     scana;
-    sorta;
-    suma;
-    fori
-        dp[i][a[i]]=a[i];
-    fo(i,1,n) {
-        x=a[i+1];
-        for(j=0;j<=sum;j++){
-            if(dp[i][j]>0) {
-                dp[i + 1][abs(j - x)] = max(dp[i + 1][abs(j - x)], max(dp[i][j], dp[i][j] - j + x)); //작은거
-                dp[i + 1][j + x] = max(dp[i + 1][j + x], dp[i][j] + x); // 큰거에 더함
-                dp[i + 1][j] = max(dp[i + 1][j], dp[i][j]); // 버림
+    scant;
+    dp[0][0]=1;
+    d[0]=1;
+    fori {
+        d[a[i]] = 1;
+        dp[i][a[i]]=1;
+        dp[i][0]=1;
+        fo(j,1,i) {
+            ll sum = 0;
+            maxim = 0;
+            e=0;
+            for (k = j; k <= i; k++)
+                sum += a[k] * (i - k + 1);
+            for(k=1;k<=j-1;k++)
+                e+=a[k]*(j-1-k+1);
+            d[sum]=1;
+            dp[i][sum]=1;
+            if(j<=2)
+                continue;
+            for (k = a[j-2]; k <= e; k++) {
+                if (dp[j - 2][k]) {
+                    d[k + sum] = 1;
+                    dp[i][k + sum] = 1;
+                }
             }
         }
-        maxi=max(maxi,dp[i][0]);
     };
-    if(maxi==0)
-        maxi--;
-    prmaxi;
+    sum=0;
+    fori
+        sum+=(n+1-i)*a[i];
+    for(i=t;i<=sum;i++) {
+        if (!d[i]) {
+            num = i;
+            yes=1;
+            break;
+        }
+    }
+    if(yes==0)
+        pr(t);
+    else
+        prnum;
 }
