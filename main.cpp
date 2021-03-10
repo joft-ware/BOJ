@@ -18,8 +18,8 @@
 #endif
 
 
-#define M 12
-#define MM 5
+#define M 101
+#define MM 101
 #define N 11
 long long mod = 1e9+7;
 
@@ -179,11 +179,11 @@ ll dy[5] = { 0,0,-1,0,1 };
 ll ddx[9] = { 0,-1,-1,-1,0,0,1,1,1 };
 ll ddy[9] = { 0,-1,0,1,-1,1,-1,0,1 };
 ld ld1, ld2, ld3, ld4, ld5, ld6, ld7;
-ll a[150001], b1[M], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], sumtree[M], mintree[M], maxtree[M], minindextree[M], prime[M];
+ll a[1501], b1[M], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], sumtree[M], mintree[M], maxtree[M], minindextree[M], prime[M];
 ll b[M], dd[MM][MM][4], ax[M], ay[M], az[M];
-ll d[150001], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M], lazy[M];
+ll d[1501], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M], lazy[M];
 ll qry[M][4];
-bool check[M], visit[M], treecheck[M], dp[151][150001];
+bool check[M], visit[M], treecheck[M], dp[151][1501];
 char s1[M], s2[M], ss[MM][MM];
 char s[M];
 char c1, c2, c, c3, c4;
@@ -628,30 +628,22 @@ bool yuil(ll x){
     return true;
 }
 int main(void) {
-    scann;
-    scana;
-    sorta;
-    a[0]=-2;
-    y=-2;
-    fori{
-        forjn{ // i번째로 올 숫자 후보 = j
-            if(a[j]==(y+1))
-                continue;
-            if(visit[j])
-                continue;
-            yes=0;
-            forkn
-            {
-                if(!visit[k]&&a[k]!=a[j]&&a[k]!=a[j]+1) // 다음으로 올 수 있는 숫자가 있다.
-                    yes=1;
-            };
-            if((!yuil(j))&&(!yes)) // 유일하지도않고 다음으로 올 수 있는 숫자가 없음.
-                continue;
-            pr1(a[j]);
-            y=a[j];
-            visit[j]=true;
-            break;
+    scant;
+    wt{
+        scanxy;
+        scans;
+        n=y;
+        no=0;
+        cnt=0;
+        foi((len-1)/2) {
+            if (s[i] == s[len + 1 - i])
+                cnt++;
+            else
+                break;
         }
-    }
-
+        if(cnt>=y)
+            prYES;
+        else
+            prNO;
+    };
 };
