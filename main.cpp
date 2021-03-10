@@ -46,6 +46,7 @@ long long mod = 1e9+7;
 #define forjn0 for(ll j=0;j<=n;j++)
 #define forj0 for(ll j=0;j<=m;j++)
 #define fork for(ll k=1;k<=l;k++)
+#define forkn for(ll k=1;k<=n;k++)
 #define foriw for(ll i=1;;i++)
 
 #define scann scanf("%lld",&n)
@@ -620,48 +621,37 @@ bool dfs(ll x, ll xx){
     }
     return false;
 }
+bool yuil(ll x){
+    fori
+        if(!visit[i]&&a[x]!=a[i])
+            return false;
+    return true;
+}
 int main(void) {
     scann;
     scana;
-    scant;
-    dp[0][0]=1;
-    d[0]=1;
-    fori {
-        d[a[i]] = 1;
-        dp[i][a[i]]=1;
-        dp[i][0]=1;
-        fo(j,1,i) {
-            ll sum = 0;
-            maxim = 0;
-            e=0;
-            for (k = j; k <= i; k++)
-                sum += a[k] * (i - k + 1);
-            for(k=1;k<=j-1;k++)
-                e+=a[k]*(j-1-k+1);
-            d[sum]=1;
-            dp[i][sum]=1;
-            if(j<=2)
+    sorta;
+    a[0]=-2;
+    y=-2;
+    fori{
+        forjn{ // i번째로 올 숫자 후보 = j
+            if(a[j]==(y+1))
                 continue;
-            for (k = a[j-2]; k <= e; k++) {
-                if (dp[j - 2][k]) {
-                    d[k + sum] = 1;
-                    dp[i][k + sum] = 1;
-                }
-            }
-        }
-    };
-    sum=0;
-    fori
-        sum+=(n+1-i)*a[i];
-    for(i=t;i<=sum;i++) {
-        if (!d[i]) {
-            num = i;
-            yes=1;
+            if(visit[j])
+                continue;
+            yes=0;
+            forkn
+            {
+                if(!visit[k]&&a[k]!=a[j]&&a[k]!=a[j]+1) // 다음으로 올 수 있는 숫자가 있다.
+                    yes=1;
+            };
+            if((!yuil(j))&&(!yes)) // 유일하지도않고 다음으로 올 수 있는 숫자가 없음.
+                continue;
+            pr1(a[j]);
+            y=a[j];
+            visit[j]=true;
             break;
         }
     }
-    if(yes==0)
-        pr(t);
-    else
-        prnum;
-}
+
+};
