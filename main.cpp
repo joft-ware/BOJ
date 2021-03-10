@@ -80,7 +80,7 @@ long long mod = 1e9+7;
 #define scanbb fori for(ll j=1;j<=m;j++) scanf("%lld",&bb[i][j]);
 #define scanstr getline(cin,str); slen=str.length();for(int i=slen;i>=1;i--) str[i]=str[i-1]; str[0]=0;
 
-#define prld(a) printf("%.20Lf",a);
+#define prld(a) printf("%.12Lf",a);
 #define printld(a) prld(a)
 #define printsum printf("%lld\n",sum);
 #define printcase printf("Case %lld: ",++casenum);
@@ -179,11 +179,11 @@ ll dy[5] = { 0,0,-1,0,1 };
 ll ddx[9] = { 0,-1,-1,-1,0,0,1,1,1 };
 ll ddy[9] = { 0,-1,0,1,-1,1,-1,0,1 };
 ld ld1, ld2, ld3, ld4, ld5, ld6, ld7;
-ll a[1501], b1[M], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], sumtree[M], mintree[M], maxtree[M], minindextree[M], prime[M];
-ll b[M], dd[MM][MM][4], ax[M], ay[M], az[M];
+ll a[100001], b1[M], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], sumtree[M], mintree[M], maxtree[M], minindextree[M], prime[M];
+ll b[100001], dd[MM][MM][4], ax[M], ay[M], az[M];
 ll d[1501], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M], lazy[M];
 ll qry[M][4];
-bool check[M], visit[M], treecheck[M], dp[151][1501];
+bool check[M], visit[1000001], treecheck[M], dp[151][1501];
 char s1[M], s2[M], ss[MM][MM];
 char s[M];
 char c1, c2, c, c3, c4;
@@ -628,22 +628,23 @@ bool yuil(ll x){
     return true;
 }
 int main(void) {
-    scant;
-    wt{
-        scanxy;
-        scans;
-        n=y;
-        no=0;
-        cnt=0;
-        foi((len-1)/2) {
-            if (s[i] == s[len + 1 - i])
-                cnt++;
-            else
-                break;
+    scanxy;
+    ld1 = sqrt(y);
+    t=(ll)ld1;
+    fo(i,2,t){
+        e=i*i;
+        r=x/e;
+        r*=e;
+        while(r<x){
+            r+=e;
         }
-        if(cnt>=y)
-            prYES;
-        else
-            prNO;
-    };
-};
+        for(j=r;j<=y;j+=e)
+            visit[j-x+1]=1;
+    }
+    fo(i,x,y){
+        if(visit[i-x+1])
+            cnt++;
+    }
+    pr(y-x+1-cnt);
+
+}
