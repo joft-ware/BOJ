@@ -38,7 +38,9 @@ long long mod = 1e9+7;
 
 
 #define foi(a) for(ll i=1;i<=a;i++)
+#define foi0(a) for(ll i=0;i<a;i++)
 #define foj(a) for(ll j=1;j<=a;j++)
+#define foj0(a) for(ll j=0;j<a;j++)
 #define fok(a) for(ll k=1;k<=a;k++)
 #define fori for(ll i=1;i<=n;i++)
 #define forin for(ll i=1;i<=n;i++)
@@ -98,7 +100,8 @@ long long mod = 1e9+7;
 #define printaa fori {for(ll j=1;j<=m;j++) {printf("%3d ",aa[i][j]);} printf("\n");}printf("\n");
 #define printbb fori {for(ll j=1;j<=m;j++) {printf("%3d ",bb[i][j]);} printf("\n");}printf("\n");
 #define printgg pr1l("gg");
-#define prinnt
+#define printv(v) for(auto qwe:v) {pr1(qwe);}; prl;
+#define prv(v) printv(v)
 
 #define frees for(ll i=0;i<=len+n;i++) s[i]=0;
 #define freea for(ll i=0;i<=n;i++) a[i]=0;
@@ -203,8 +206,9 @@ stack<ll> st;
 deque<ll> dq;
 map<string, ll> msi;
 map<ll, string> mis;
-vector<ll> v[M];
-vector<ll> v1[M], v2[M], v3[M];
+vector<ll> v;
+vector<ll> vv[M];
+vector<ll> v1, v2, v3;
 vector<ppair> vp;
 bool boo[M];
 
@@ -646,44 +650,87 @@ vll kmp(string s, string s2){ // 문자열 s에 문자열 s2가 포함된 위치
     return ans;
 }
 
-ll ff(ll x){
-    while(x>360000)
-    {
-        x-=360000;
-    }
-    return x;
+vll getpi(vll p){ // 벡터 p의 pi배열 반환
+    ll n = (ll)p.size();
+    ll j=0;
+    vll pi(n,0);
+    fo(i,1,n-1){
+        while(j>0 && p[i] != p[j]) // i: 기준, j: 비교 대상
+            j=pi[j-1];
+        if(p[i]==p[j])
+            pi[i]=++j;
+    };
+    return pi;
 }
 
-void EEA(int a, int b)
-{
-    int r0=a, r1=b;
-    int s0=1, s1=0;
-    int t0=0, t1=1;
-    int temp=0,q=0;
-
-    while(r1){
-        q=r0/r1;
-        temp=r0;
-        r0=r1;
-        r1=temp-r1*q;
-        temp=s0;
-        s0=s1;
-        s1=temp-s1*q;
-        temp=t0;
-        t0=t1;
-        t1=temp-t1*q;
-    }
+vll kmpll(vll v1, vll v2){ // 벡터 v1에 벡터 v2가 포함된 위치 벡터를 반환
+    vll ans;
+    auto pi = getpi(v2);
+    ll n = (ll)v1.size(), m=(ll)v2.size(), j=0;
+    fori0{
+        while(j>0&&v1[i]!=v2[j])
+            j=pi[j-1];
+        if(v1[i]==v2[j]){
+            if(j==m-1) {
+                ans.pb(i - m + 1);
+                j = pi[j];
+            }
+            else
+                j++;
+        }
+    };
+    return ans;
 }
-
 
 int main(void) {
-    scanline(s);
-    s1="";
-    for(auto i:s)
-        if(daso(i))
-            s1.append(1,i);
+    scannm;
+    fori {
+        scanx;
+        foj(x){
+            scany;
+            vv[i].pb(y);
+        }
+        if(maxi<x){
+            maxi=x;
+            num=i;
+        }
+    };
+    sum=0;
+    foi0(maxi-m+1){
+        vll v3, vr;
+        fo(j,i,i+m-1) {
+            v3.pb(vv[num][j]);
+            vr.pb(vv[num][j]);
+        }
+        reverse(vr.begin(),vr.end());
+        no=0;
+        forjn{
+            yes=0;
 
-    scanline(s2);
-    auto v = kmp(s1,s2);
-    pr(v.size()>0);
+            auto v4 = kmpll(vv[j],v3);
+            e = (ll)v4.size();
+            if(e>0)
+                yes=1;
+
+            auto v5 = kmpll(vv[j],vr);
+            w = (ll)v5.size();
+            if(w>0)
+                yes=1;
+
+            if(yes==0)
+            {
+                no=1;
+                break;
+            }
+        };
+        if(no==0)
+        {
+            sum=1;
+            break;
+        }
+    }
+    if(sum)
+        prYES;
+    else
+        prNO;
 }
