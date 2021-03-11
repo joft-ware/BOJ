@@ -9,6 +9,8 @@
 C:/Users/JJH/CLionProjects/BOJ/main.cpp
 stdio.h
 -
+cstdio
+-
 iostream
 -
 string.h

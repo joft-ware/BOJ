@@ -637,13 +637,8 @@ vll kmp(string s, string s2){
 
 
 int main(void) {
-    string s, s1;
+    scann;scanc;
     scanline(s);
-    scanline(s1);
-    auto v = kmp(s,s1);
-    x=(ll)v.size();
-    pr1l(x);
-    for(auto i:v)
-        pr1(i+1);
-    return 0;
+    auto v = getpi(s);
+    pr(n-v[n-1]);
 }
