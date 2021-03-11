@@ -230,6 +230,14 @@ bool so(char c)
     return false;
 }
 
+bool isnum(char c){
+    return (c>='0'&&c<='9');
+}
+
+bool daso(char c){
+    return (da(c)||so(c));
+}
+
 bool vowel(char c)
 {
     if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u')
@@ -606,7 +614,7 @@ ll insert_sum(ll node, ll left, ll right, ll start, ll end){
         return insert_sum(node*2+1,mid+1,right,start,end);
 }
 
-vll getpi(string p){
+vll getpi(string p){ // 문자열 p의 pi배열 반환
     ll n = (ll)p.size();
     ll j=0;
     vll pi(n,0);
@@ -619,7 +627,7 @@ vll getpi(string p){
     return pi;
 }
 
-vll kmp(string s, string s2){
+vll kmp(string s, string s2){ // 문자열 s에 문자열 s2가 포함된 위치 벡터를 반환
     vll ans;
     auto pi = getpi(s2);
     ll n = (ll)s.size(), m=(ll)s2.size(), j=0;
@@ -646,26 +654,36 @@ ll ff(ll x){
     return x;
 }
 
+void EEA(int a, int b)
+{
+    int r0=a, r1=b;
+    int s0=1, s1=0;
+    int t0=0, t1=1;
+    int temp=0,q=0;
+
+    while(r1){
+        q=r0/r1;
+        temp=r0;
+        r0=r1;
+        r1=temp-r1*q;
+        temp=s0;
+        s0=s1;
+        s1=temp-s1*q;
+        temp=t0;
+        t0=t1;
+        t1=temp-t1*q;
+    }
+}
+
 
 int main(void) {
-    m=360000;
-    forj0{
-        s1.append(1,'0');
-        s2.append(1,'0');
-    };
-    scann;
-    scana;
-    scanb;
+    scanline(s);
+    s1="";
+    for(auto i:s)
+        if(daso(i))
+            s1.append(1,i);
 
-    fori{
-        s1[a[i]]='1';
-        s2[b[i]]='1';
-    };
-    s1.append(s1);
+    scanline(s2);
     auto v = kmp(s1,s2);
-    if(v.size())
-        pr("possible");
-    else
-        pr("impossible");
-
+    pr(v.size()>0);
 }
