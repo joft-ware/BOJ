@@ -639,22 +639,50 @@ vll kmp(string s, string s2){
 
 
 int main(void) {
-    w1{
-        scanline(s);
-        n=slen;
-        if(s[0]=='.')
-            break;
-        auto v = getpi(s);
-        y=1;
-        w=n-v[n-1];
-        if(w==0) {
-            pr0;
-        }
-
-        else if(n%w==0)
-            pr(n/w);
-        else
-            pr(1);
-        prl;
+    scann;
+    s="";
+    s2="";
+    fori {
+        scanc;
+        scanc;
+        s.append(1,c);
     }
+    fori {
+        scanc;
+        scanc;
+        s2.append(1,c);
+    }
+    auto v2 = kmp(s2,s);
+    x = v2.size();
+    if(x)
+        no=1;
+
+    fori0 {
+        s2.append(1, s2[i]);
+    }
+    auto v = kmp(s2,s);
+    x = v.size()-no;
+    y = n;
+
+    while(1){
+        z = max(x,y);
+        yes=0;
+        fo(i,2,z){
+            while(x%i==0&&y%i==0){
+                yes=1;
+                x/=i;
+                y/=i;
+            }
+        }
+        if(!yes)
+            break;
+    }
+    if(x>y)
+    {
+        pr("1/1");
+        return 0;
+    }
+    pr(x);
+    pr('/');
+    pr(y);
 }
