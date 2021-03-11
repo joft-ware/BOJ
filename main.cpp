@@ -2,6 +2,7 @@
 # pragma GCC optimize ("Ofast")
 # pragma GCC optimize ("unroll-loops")
 #include <stdio.h>
+#include <cstdio>
 #include <iostream>
 #include <string.h>
 #include <algorithm>
@@ -18,14 +19,15 @@
 #endif
 
 
-#define M 101
-#define MM 101
+#define M 11
+#define MM 11
 #define N 11
 long long mod = 1e9+7;
 
 #define ll long long
 #define ull unsigned ll
 #define ld double
+#define vll vector<ll>
 #define Yes "Yes"
 #define No "No"
 #define YES "YES"
@@ -40,11 +42,11 @@ long long mod = 1e9+7;
 #define fok(a) for(ll k=1;k<=a;k++)
 #define fori for(ll i=1;i<=n;i++)
 #define forin for(ll i=1;i<=n;i++)
-#define fori0 for(ll i=0;i<=n;i++)
+#define fori0 for(ll i=0;i<n;i++)
 #define forj for(ll j=1;j<=m;j++)
 #define forjn for(ll j=1;j<=n;j++)
-#define forjn0 for(ll j=0;j<=n;j++)
-#define forj0 for(ll j=0;j<=m;j++)
+#define forjn0 for(ll j=0;j<n;j++)
+#define forj0 for(ll j=0;j<m;j++)
 #define fork for(ll k=1;k<=l;k++)
 #define forkn for(ll k=1;k<=n;k++)
 #define foriw for(ll i=1;;i++)
@@ -68,8 +70,8 @@ long long mod = 1e9+7;
 #define scans frees; scanf("%s", &s[1]); len = strlen(&s[1]);
 #define scansn frees; scanf("%s", &s[1]); len = strlen(&s[1]); n=len;
 #define scansm frees; scanf("%s", &s[1]); len = strlen(&s[1]); m=len;
-#define scans1 scanf("%s", &s1[1]); len1 = strlen(&s1[1]);
-#define scans2 scanf("%s", &s2[1]); len2 = strlen(&s2[1]);
+#define scans1 cin >> s1; len1 = s1.size();
+#define scans2 cin >> s1; len1 = s1.size();
 #define scana freea; fori scanf("%lld",&a[i]);
 #define scanna scann; fori scanf("%lld",&a[i]);
 #define scana1d fori scanf("%1d",&a[i]);
@@ -78,7 +80,7 @@ long long mod = 1e9+7;
 #define scand fori scanf("%lld",&d[i]);
 #define scanaa fori for(ll j=1;j<=m;j++) scanf("%lld",&aa[i][j]);
 #define scanbb fori for(ll j=1;j<=m;j++) scanf("%lld",&bb[i][j]);
-#define scanstr getline(cin,str); slen=str.length();for(int i=slen;i>=1;i--) str[i]=str[i-1]; str[0]=0;
+#define scanline(s) getline(cin,s);
 
 #define prld(a) printf("%.12lf",a);
 #define printld(a) prld(a)
@@ -184,12 +186,10 @@ ll b[100001], dd[MM][MM][4], ax[M], ay[M], az[M];
 ll d[1501], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M], lazy[M];
 ll qry[M][4];
 bool check[M], visit[M], treecheck[M], dp[151][1501];
-char s1[M], s2[M], ss[MM][MM];
-char s[M];
 char c1, c2, c, c3, c4;
 ld ldmax, ldmin, ldmax1, ldmax2, ldmin1, ldmin2, ldd[M];
 
-string str[M];
+string str, s, s1, s2, s3;
 typedef pair<ll,ll> ppair;
 ull u1, u2, u3, u4;
 queue<ll> q;
@@ -603,55 +603,47 @@ ll insert_sum(ll node, ll left, ll right, ll start, ll end){
         return insert_sum(node*2+1,mid+1,right,start,end);
 }
 
-bool dfs(ll x, ll xx){
-    if(visit[x])
-        return false;
-    visit[x]=true;
-    ll y=aa[x][0];
-    fo(i,1,y){
-        ll e = aa[x][i];
-        if(e==xx||e==1)
-            continue;
-        if(d[e]==-1||(visit[d[e]]==false&&dfs(d[e],xx)))
-        {
-            d[e]=x;
-            d[x]=e;
-            return true;
-        }
-    }
-    return false;
+vll getpi(string p){
+    ll n = (ll)p.size();
+    ll j=0;
+    vll pi(n,0);
+    fo(i,1,n-1){
+        while(j>0 && p[i] != p[j]) // i: 기준, j: 비교 대상
+            j=pi[j-1];
+        if(p[i]==p[j])
+            pi[i]=++j;
+    };
+    return pi;
 }
-bool yuil(ll x){
-    fori
-        if(!visit[i]&&a[x]!=a[i])
-            return false;
-    return true;
-}
-int main(void) {
-    scant;
-    wt {
-        ll cnt = 0;
-        ll sum = 0;
-        ld ld1 = 0.0;
-        scann;
-        foi(n*2) {
-            scanxy;
-            if (x!=0)
-                a[++cnt] = ab(x);
+
+vll kmp(string s, string s2){
+    vll ans;
+    auto pi = getpi(s2);
+    ll n = (ll)s.size(), m=(ll)s2.size(), j=0;
+    fori0{
+        while(j>0&&s[i]!=s2[j])
+            j=pi[j-1];
+        if(s[i]==s2[j]){
+            if(j==m-1) {
+                ans.pb(i - m + 1);
+                j = pi[j];
+            }
             else
-                b[++sum] = ab(y);
+                j++;
         }
-        sort(a + 1, a + cnt + 1);
-        sort(b + 1, b + sum + 1);
-        fori {
-            w=a[i]*a[i]+b[i]*b[i];
-            ld2 = (ld)w;
-            ld1 += (ld)sqrt(ld2);
-        }
-        prld(ld1);
-        if(t!=0)
-            prl;
-        fori
-            a[i]=b[i]=0;
-    }
+    };
+    return ans;
+}
+
+
+int main(void) {
+    string s, s1;
+    scanline(s);
+    scanline(s1);
+    auto v = kmp(s,s1);
+    x=(ll)v.size();
+    pr1l(x);
+    for(auto i:v)
+        pr1(i+1);
+    return 0;
 }
