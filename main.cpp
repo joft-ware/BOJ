@@ -80,7 +80,7 @@ long long mod = 1e9+7;
 #define scand fori scanf("%lld",&d[i]);
 #define scanaa fori for(ll j=1;j<=m;j++) scanf("%lld",&aa[i][j]);
 #define scanbb fori for(ll j=1;j<=m;j++) scanf("%lld",&bb[i][j]);
-#define scanline(s) getline(cin,s);
+#define scanline(s) getline(cin,s); slen=s.size();
 
 #define prld(a) printf("%.12lf",a);
 #define printld(a) prld(a)
@@ -106,6 +106,7 @@ long long mod = 1e9+7;
 #define cleanb for(ll i=0;i<=n;i++) b[i]=0;
 #define sorta sort(a+1,a+n+1);
 #define sortb sort(b+1,b+n+1);
+#define sortv sort(v.begin(),v.end());
 #define suma sum=0; fori sum+=a[i];
 #define infa fori a[i]=INF;
 #define reversea fori tempa[i]=a[n+1-i]; fori a[i]=tempa[i];
@@ -143,6 +144,7 @@ long long mod = 1e9+7;
 #define sc6(a,b,c,d,e,f) cin >> a >> b >> c >> d >> e >> f
 
 #define pr(a) cout << (a)
+#define pr0 cout << ('0');
 #define prl cout << '\n'
 #define pr1(a) cout << (a) << ' '
 #define pr2(a,b) cout << (a) << ' ' << (b) << ' '
@@ -637,8 +639,22 @@ vll kmp(string s, string s2){
 
 
 int main(void) {
-    scann;scanc;
-    scanline(s);
-    auto v = getpi(s);
-    pr(n-v[n-1]);
+    w1{
+        scanline(s);
+        n=slen;
+        if(s[0]=='.')
+            break;
+        auto v = getpi(s);
+        y=1;
+        w=n-v[n-1];
+        if(w==0) {
+            pr0;
+        }
+
+        else if(n%w==0)
+            pr(n/w);
+        else
+            pr(1);
+        prl;
+    }
 }
