@@ -25,7 +25,7 @@ long long mod = 1e9+7;
 
 #define ll long long
 #define ull unsigned ll
-#define ld long double
+#define ld double
 #define Yes "Yes"
 #define No "No"
 #define YES "YES"
@@ -80,7 +80,7 @@ long long mod = 1e9+7;
 #define scanbb fori for(ll j=1;j<=m;j++) scanf("%lld",&bb[i][j]);
 #define scanstr getline(cin,str); slen=str.length();for(int i=slen;i>=1;i--) str[i]=str[i-1]; str[0]=0;
 
-#define prld(a) printf("%.12Lf",a);
+#define prld(a) printf("%.12lf",a);
 #define printld(a) prld(a)
 #define printsum printf("%lld\n",sum);
 #define printcase printf("Case %lld: ",++casenum);
@@ -183,7 +183,7 @@ ll a[100001], b1[M], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], sumtree[M], 
 ll b[100001], dd[MM][MM][4], ax[M], ay[M], az[M];
 ll d[1501], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M], lazy[M];
 ll qry[M][4];
-bool check[M], visit[1000001], treecheck[M], dp[151][1501];
+bool check[M], visit[M], treecheck[M], dp[151][1501];
 char s1[M], s2[M], ss[MM][MM];
 char s[M];
 char c1, c2, c, c3, c4;
@@ -628,23 +628,30 @@ bool yuil(ll x){
     return true;
 }
 int main(void) {
-    scanxy;
-    ld1 = sqrt(y);
-    t=(ll)ld1;
-    fo(i,2,t){
-        e=i*i;
-        r=x/e;
-        r*=e;
-        while(r<x){
-            r+=e;
+    scant;
+    wt {
+        ll cnt = 0;
+        ll sum = 0;
+        ld ld1 = 0.0;
+        scann;
+        foi(n*2) {
+            scanxy;
+            if (x!=0)
+                a[++cnt] = ab(x);
+            else
+                b[++sum] = ab(y);
         }
-        for(j=r;j<=y;j+=e)
-            visit[j-x+1]=1;
+        sort(a + 1, a + cnt + 1);
+        sort(b + 1, b + sum + 1);
+        fori {
+            w=a[i]*a[i]+b[i]*b[i];
+            ld2 = (ld)w;
+            ld1 += (ld)sqrt(ld2);
+        }
+        prld(ld1);
+        if(t!=0)
+            prl;
+        fori
+            a[i]=b[i]=0;
     }
-    fo(i,x,y){
-        if(visit[i-x+1])
-            cnt++;
-    }
-    pr(y-x+1-cnt);
-
 }
