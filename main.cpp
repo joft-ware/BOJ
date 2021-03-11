@@ -19,7 +19,7 @@
 #endif
 
 
-#define M 11
+#define M 200001
 #define MM 11
 #define N 11
 long long mod = 1e9+7;
@@ -106,6 +106,7 @@ long long mod = 1e9+7;
 #define cleanb for(ll i=0;i<=n;i++) b[i]=0;
 #define sorta sort(a+1,a+n+1);
 #define sortb sort(b+1,b+n+1);
+#define sortd sort(d+1,d+n+1);
 #define sortv sort(v.begin(),v.end());
 #define suma sum=0; fori sum+=a[i];
 #define infa fori a[i]=INF;
@@ -183,9 +184,9 @@ ll dy[5] = { 0,0,-1,0,1 };
 ll ddx[9] = { 0,-1,-1,-1,0,0,1,1,1 };
 ll ddy[9] = { 0,-1,0,1,-1,1,-1,0,1 };
 ld ld1, ld2, ld3, ld4, ld5, ld6, ld7;
-ll a[100001], b1[M], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], sumtree[M], mintree[M], maxtree[M], minindextree[M], prime[M];
-ll b[100001], dd[MM][MM][4], ax[M], ay[M], az[M];
-ll d[1501], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M], lazy[M];
+ll a[M], b1[M], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], sumtree[M], mintree[M], maxtree[M], minindextree[M], prime[M];
+ll b[M], dd[MM][MM][4], ax[M], ay[M], az[M];
+ll d[M], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M], lazy[M];
 ll qry[M][4];
 bool check[M], visit[M], treecheck[M], dp[151][1501];
 char c1, c2, c, c3, c4;
@@ -637,52 +638,34 @@ vll kmp(string s, string s2){
     return ans;
 }
 
+ll ff(ll x){
+    while(x>360000)
+    {
+        x-=360000;
+    }
+    return x;
+}
+
 
 int main(void) {
+    m=360000;
+    forj0{
+        s1.append(1,'0');
+        s2.append(1,'0');
+    };
     scann;
-    s="";
-    s2="";
-    fori {
-        scanc;
-        scanc;
-        s.append(1,c);
-    }
-    fori {
-        scanc;
-        scanc;
-        s2.append(1,c);
-    }
-    auto v2 = kmp(s2,s);
-    x = v2.size();
-    if(x)
-        no=1;
+    scana;
+    scanb;
 
-    fori0 {
-        s2.append(1, s2[i]);
-    }
-    auto v = kmp(s2,s);
-    x = v.size()-no;
-    y = n;
+    fori{
+        s1[a[i]]='1';
+        s2[b[i]]='1';
+    };
+    s1.append(s1);
+    auto v = kmp(s1,s2);
+    if(v.size())
+        pr("possible");
+    else
+        pr("impossible");
 
-    while(1){
-        z = max(x,y);
-        yes=0;
-        fo(i,2,z){
-            while(x%i==0&&y%i==0){
-                yes=1;
-                x/=i;
-                y/=i;
-            }
-        }
-        if(!yes)
-            break;
-    }
-    if(x>y)
-    {
-        pr("1/1");
-        return 0;
-    }
-    pr(x);
-    pr('/');
-    pr(y);
 }
