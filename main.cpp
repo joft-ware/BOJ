@@ -187,7 +187,7 @@ ll dy[5] = { 0,0,-1,0,1 };
 ll ddx[9] = { 0,-1,-1,-1,0,0,1,1,1 };
 ll ddy[9] = { 0,-1,0,1,-1,1,-1,0,1 };
 ld ld1, ld2, ld3, ld4, ld5, ld6, ld7;
-ll a[M], b1[M], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], sumtree[M], mintree[M], maxtree[M], minindextree[M], prime[M];
+ll a[1000001], b1[M], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], sumtree[M], mintree[M], maxtree[M], minindextree[M], prime[M];
 ll b[M], dd[MM][MM][4], ax[M], ay[M], az[M];
 ll d[M], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M], lazy[M];
 ll qry[M][4];
@@ -683,20 +683,29 @@ vll kmpll(vll v1, vll v2){ // 벡터 v1에 벡터 v2가 포함된 위치 벡터�
 }
 
 int main(void) {
-    scann;scanc;
     scanline(s);
     v = getpi(s);
-    fori d[i-1]=v[i-1];
-    fo(i,1,n-1){
-        k=i+1;
-        if(v[k-1]-1>=0)
-            if(v[v[k-1]-1]>0)
-                d[i]=d[v[k-1]-1];
+    n=v.size();
 
-        if(!d[i]) continue;
-
-        if(k-d[i]>=d[i])
-            sum+=(k-d[i]);
-    };
-    pr(sum);
-}
+    fori0 a[i]=INF;
+    fori0 {
+        if((i+1)*2-1>=n)
+            break;
+        if (v[(i+1) * 2 - 1] == i + 1)
+            a[(i+1) * 2 - 1] = i+1;
+    }
+    fori0{
+        x=v[i];
+        y=a[i]+i;
+        if(y>=n)
+            continue;
+        if(v[y]>=v[i])
+            if(a[y]>a[i])
+                a[y]=a[i];
+    }
+    fori0 {
+        if(a[i]!=INF){
+            pr2l(i+1,(i+1)/a[i]);
+        }
+    }
+};
