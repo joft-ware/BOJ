@@ -683,54 +683,20 @@ vll kmpll(vll v1, vll v2){ // 벡터 v1에 벡터 v2가 포함된 위치 벡터�
 }
 
 int main(void) {
-    scannm;
-    fori {
-        scanx;
-        foj(x){
-            scany;
-            vv[i].pb(y);
-        }
-        if(maxi<x){
-            maxi=x;
-            num=i;
-        }
+    scann;scanc;
+    scanline(s);
+    v = getpi(s);
+    fori d[i-1]=v[i-1];
+    fo(i,1,n-1){
+        k=i+1;
+        if(v[k-1]-1>=0)
+            if(v[v[k-1]-1]>0)
+                d[i]=d[v[k-1]-1];
+
+        if(!d[i]) continue;
+
+        if(k-d[i]>=d[i])
+            sum+=(k-d[i]);
     };
-    sum=0;
-    foi0(maxi-m+1){
-        vll v3, vr;
-        fo(j,i,i+m-1) {
-            v3.pb(vv[num][j]);
-            vr.pb(vv[num][j]);
-        }
-        reverse(vr.begin(),vr.end());
-        no=0;
-        forjn{
-            yes=0;
-
-            auto v4 = kmpll(vv[j],v3);
-            e = (ll)v4.size();
-            if(e>0)
-                yes=1;
-
-            auto v5 = kmpll(vv[j],vr);
-            w = (ll)v5.size();
-            if(w>0)
-                yes=1;
-
-            if(yes==0)
-            {
-                no=1;
-                break;
-            }
-        };
-        if(no==0)
-        {
-            sum=1;
-            break;
-        }
-    }
-    if(sum)
-        prYES;
-    else
-        prNO;
+    pr(sum);
 }
