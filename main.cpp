@@ -19,7 +19,7 @@
 #endif
 
 
-#define M 500001
+#define M 200001
 #define MM 11
 #define N 11
 long long mod = 1e9 + 7;
@@ -110,7 +110,7 @@ long long mod = 1e9 + 7;
 #define sorta sort(a+1,a+n+1);
 #define sortb sort(b+1,b+n+1);
 #define sortd sort(d+1,d+n+1);
-#define sortv(v) sort(v.begin(),v.end());
+#define sortv sort(v.begin(),v.end());
 #define suma sum=0; fori sum+=a[i];
 #define infa fori a[i]=INF;
 #define reversea fori tempa[i]=a[n+1-i]; fori a[i]=tempa[i];
@@ -188,7 +188,7 @@ ll dy[5] = { 0,0,-1,0,1 };
 ll ddx[9] = { 0,-1,-1,-1,0,0,1,1,1 };
 ll ddy[9] = { 0,-1,0,1,-1,1,-1,0,1 };
 ld ld1, ld2, ld3, ld4, ld5, ld6, ld7;
-ll a[M], b1[M], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], sumtree[M], mintree[M], maxtree[M], minindextree[M], prime[M];
+ll a[1000001], b1[M], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], sumtree[M], mintree[M], maxtree[M], minindextree[M], prime[M];
 ll b[M], dd[MM][MM][4], ax[M], ay[M], az[M];
 ll d[M], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M], lazy[M];
 ll qry[M][4];
@@ -201,7 +201,7 @@ typedef pair<ll, ll> ppair;
 ull u1, u2, u3, u4;
 queue<ll> q;
 queue<ll> qx, qy;
-priority_queue<ll> pq;
+priority_queue<ll> pq[1001];
 priority_queue<ppair> ppq;
 stack<ll> st;
 deque<ll> dq;
@@ -684,46 +684,29 @@ vll kmpll(vll v1, vll v2) { // 벡터 v1에 벡터 v2가 포함된 위치 벡터
 
 
 int main(void) {
-    scann;
-    fori
-    {
-        scanxy;
-        vp.pb({ x,y });
-        a3[y] = x;
-    }
-    sortv(vp);
-    fori0
-        a[i + 1] = vp[i].second;
-    v.pb(a[1]);
-    fo(i, 2, n) {
-        if (v[cnt] < a[i])
-        {
-            v.pb(a[i]);
-            d[i] = ++cnt;
+    w1{
+        n = -1;
+        scann;
+        if (n == -1)
+            break;
+        scana;
+        vll v;
+        cnt = 0;
+        v.pb(a[1]);
+        fo(i, 2, n) {
+            if (v[cnt] < a[i])
+            {
+                v.pb(a[i]);
+                d[i] = ++cnt;
+            }
+            else {
+                x = lower_bound(v.begin(), v.end(), a[i]) - v.begin();
+                v[x] = a[i];
+                d[i] = x;
+            }
         }
-        else {
-            x = lower_bound(v.begin(), v.end(), a[i]) - v.begin();
-            v[x] = a[i];
-            d[i] = x;
-        }
+        pr1l(cnt + 1);
     }
-    pr1l(n-(cnt + 1));
-    check[cnt + 1] = 1;
-    for(i=n;i>=1;i--) {
-        if (check[d[i] + 1]&&!check[d[i]])
-        {
-            a1[++sum] = a[i];
-            check[d[i]] = true;
-            visit[i] = true;
-            if (d[i] == 0)
-                break;
-        }
-    }
-    fori if (!visit[i]) a2[++e] = a3[a[i]];
-    sort(a2 + 1, a2 + e + 1);
-    n = e;
-    fori
-        pr1l(a2[i]);
 
 }
 
