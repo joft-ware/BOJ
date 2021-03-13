@@ -95,6 +95,8 @@ long long mod = 1e9 + 7;
 #define printmin printf("%lld\n",mini);
 #define printmini printf("%lld\n",mini);
 #define printa fori {printf("%lld ",a[i]); }printf("\n");
+#define printa1 fori {printf("%lld ",a1[i]); }printf("\n");
+#define printa2 fori {printf("%lld ",a2[i]); }printf("\n");
 #define printb fori {printf("%lld ",b[i]); }printf("\n");
 #define printd fori {printf("%lld ",d[i]); }printf("\n");
 #define printaa fori {for(ll j=1;j<=m;j++) {printf("%3d ",aa[i][j]);} printf("\n");}printf("\n");
@@ -682,31 +684,29 @@ vll kmpll(vll v1, vll v2) { // 벡터 v1에 벡터 v2가 포함된 위치 벡터
     return ans;
 }
 
+ll lis(ll a[], ll n) {
+    vll v;
+    ll cnt = 0;
+    fori d[i] = 0;
+    v.pb(a[1]);
+    fo(i, 2, n) {
+        if (v[cnt] < a[i])
+        {
+            v.pb(a[i]);
+            d[i] = ++cnt;
+        }
+        else {
+            x = lower_bound(v.begin(), v.end(), a[i]) - v.begin();
+            v[x] = a[i];
+            d[i] = x;
+        }
+    }
+    return cnt + 1;
+}
+
 
 int main(void) {
-    w1{
-        n = -1;
-        scann;
-        if (n == -1)
-            break;
-        scana;
-        vll v;
-        cnt = 0;
-        v.pb(a[1]);
-        fo(i, 2, n) {
-            if (v[cnt] < a[i])
-            {
-                v.pb(a[i]);
-                d[i] = ++cnt;
-            }
-            else {
-                x = lower_bound(v.begin(), v.end(), a[i]) - v.begin();
-                v[x] = a[i];
-                d[i] = x;
-            }
-        }
-        pr1l(cnt + 1);
-    }
-
+    scanna;
+    pr(n-lis(a, n));
 }
 
