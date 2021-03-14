@@ -16,7 +16,7 @@
 #endif
 
 
-#define M 200001
+#define M 100001
 #define MM 801
 #define N 11
 long long mod = 1e9 + 7;
@@ -767,6 +767,7 @@ int main(void) {
         vpa[x].pb({y, z});
         vpa[y].pb({x, z});
     };
-    auto v = dijk(vpa, 1, n);
-    pr(v[n-1]);
+     scanxy;
+    auto v = dijk(vpa, x, n);
+    pr(v[y-1]);
 }
