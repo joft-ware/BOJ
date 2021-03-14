@@ -20,7 +20,7 @@
 
 
 #define M 100001
-#define MM 11
+#define MM 126
 #define N 11
 long long mod = 1e9 + 7;
 
@@ -82,6 +82,7 @@ long long mod = 1e9 + 7;
 #define scanb fori scanf("%lld",&b[i]);
 #define scand fori scanf("%lld",&d[i]);
 #define scanaa fori for(ll j=1;j<=m;j++) scanf("%lld",&aa[i][j]);
+#define scanaa1 fori {scanc;for(ll j=1;j<=m;j++) {scanf("%1lld",&aa[i][j]);}};
 #define scanbb fori for(ll j=1;j<=m;j++) scanf("%lld",&bb[i][j]);
 #define scanline(s) getline(cin,s); slen=s.size();
 
@@ -258,7 +259,7 @@ bool vowel(char c)
     return false;
 }
 
-bool bound(int x, int y)
+bool bound(ll x, ll y, ll n, ll m)
 {
     if (x > 0 && y > 0 && x <= n && y <= m)
         return true;
@@ -753,15 +754,16 @@ vll ntov(ll n) {
 
 vll dijk(vector<ppair> vpa[], ll start, ll n){ // vpa: {to, cost}
     fori d[i] = INF;
-    d[start]=0;
-    ppq.push({0,start});
+    fori check[i]=false;
+    priority_queue<ppair> ppq;
+    vll v;
+    d[start]=aa[1][1];
 
+    ppq.push({-d[start],start}); // cost, 위치
     while(!ppq.empty()){
         ll now = ppq.top().second;
         ll cost=-(ppq.top().first);
         ppq.pop();
-        if(now==finish)
-            break;
 
         if(check[now]) continue;
         check[now]=true;
@@ -778,20 +780,42 @@ vll dijk(vector<ppair> vpa[], ll start, ll n){ // vpa: {to, cost}
             }
         };
     }
-    vll v;
+
     fori v.pb(d[i]);
     return v;
 }
 
 int main(void) {
-    scannm;
-    forj {
-        scanxyz;
-        vpa[x].pb({y, z});
-    };
-    scanxy;
-    start=x;
-    finish = y;
-    auto v = dijk(vpa,x,n);
-    pr(v[y-1]);
+    w1 {
+        vector<ppair> vpa[125*125+2];
+        ll n=0;
+        scann;
+        if(!n)
+            break;
+        fori {
+            while (!vpa[i].empty()) {
+                vpa[i].pop_back();
+            }
+        };
+        m=n;
+        scanaa;
+        fori {
+            forjn {
+                ll x = (i - 1) * n + j;
+                fok(4) {
+                    ll tx = i + dx[k];
+                    ll ty = j + dy[k];
+                    ll y = (tx - 1) * n + ty;
+                    if (bound(tx, ty,n,n)) {
+                        vpa[x].pb({y, aa[tx][ty]});
+                    }
+                }
+            }
+        };
+        auto v = dijk(vpa, 1, n * n);
+        pr("Problem ");
+        pr(++cnt);
+        pr(": ");
+        pr1l(v[n * n- 1]);
+    }
 }
