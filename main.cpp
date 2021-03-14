@@ -19,10 +19,10 @@
 #endif
 
 
-#define M 200001
+#define M 100001
 #define MM 11
 #define N 11
-long long mod = 1e9+7;
+long long mod = 1e9 + 7;
 
 #define ll long long
 #define ull unsigned ll
@@ -35,6 +35,7 @@ long long mod = 1e9+7;
 #define mn m=n;
 #define X first
 #define Y second
+#define PI 3.14159265358979323846264338327950288419716939937510
 
 
 #define foi(a) for(ll i=1;i<=a;i++)
@@ -69,7 +70,7 @@ long long mod = 1e9+7;
 #define scannml scanf("%lld %lld %lld",&n,&m,&l)
 #define scanxyz scanf("%lld %lld %lld",&x,&y,&z)
 #define scanxyzr scanf("%lld %lld %lld %lld",&x,&y,&z,&r)
-#define scans frees; scanf("%s", &s[1]); len = strlen(&s[1]);
+#define scans scanline(s)
 #define scansn frees; scanf("%s", &s[1]); len = strlen(&s[1]); n=len;
 #define scansm frees; scanf("%s", &s[1]); len = strlen(&s[1]); m=len;
 #define scans1 cin >> s1; len1 = s1.size();
@@ -84,7 +85,7 @@ long long mod = 1e9+7;
 #define scanbb fori for(ll j=1;j<=m;j++) scanf("%lld",&bb[i][j]);
 #define scanline(s) getline(cin,s); slen=s.size();
 
-#define prld(a) printf("%.12lf",a);
+#define prld(a) printf("%.12g ",a);
 #define printld(a) prld(a)
 #define printsum printf("%lld\n",sum);
 #define printcase printf("Case %lld: ",++casenum);
@@ -95,6 +96,8 @@ long long mod = 1e9+7;
 #define printmin printf("%lld\n",mini);
 #define printmini printf("%lld\n",mini);
 #define printa fori {printf("%lld ",a[i]); }printf("\n");
+#define printa1 fori {printf("%lld ",a1[i]); }printf("\n");
+#define printa2 fori {printf("%lld ",a2[i]); }printf("\n");
 #define printb fori {printf("%lld ",b[i]); }printf("\n");
 #define printd fori {printf("%lld ",d[i]); }printf("\n");
 #define printaa fori {for(ll j=1;j<=m;j++) {printf("%3d ",aa[i][j]);} printf("\n");}printf("\n");
@@ -102,6 +105,9 @@ long long mod = 1e9+7;
 #define printgg pr1l("gg");
 #define printv(v) for(auto qwe:v) {pr1(qwe);}; prl;
 #define prv(v) printv(v)
+#define pra printa
+#define prcase printcase
+#define prcases printcases
 
 #define frees for(ll i=0;i<=len+n;i++) s[i]=0;
 #define freea for(ll i=0;i<=n;i++) a[i]=0;
@@ -131,6 +137,7 @@ long long mod = 1e9+7;
 #define nbreak if(n==0) break;
 #define boundcheck(tx,ty) if(tx>=1&&ty>=1&&tx<=n&&ty<=m)
 #define strint fori a[i] = s[i] - '0';
+#define full(v) v.begin(), v.end()
 
 #define X first
 #define Y second
@@ -181,22 +188,24 @@ long long mod = 1e9+7;
 #define prstr for(ll wq=1;wq<=slen;wq++) pr(str[wq]);
 
 using namespace std;
-ll i, j, ii, jj, n, zz, yyy, xxx, maxim, bre, cnt, ans, slen, to, casenum, nn, hab, count, t, now, one, two, yy, m, yes, cntt, x1, x2, x3, Y1, y2, y3, temp, i1, i2, J1, j2, i3, j3, len1, len2, low, mid, left, right, high, ok, tx, ty, k, start, num, xx, qq, w, e, no, r, sum, x, y, z, l, len, mini = INF, maxi = -INF, x11, x22, x33, y11, y22, y33;
+ll i, j, ii, jj, n, zz, yyy, xxx, maxim, end, finish, next, bre, cnt, ans, slen, to, casenum, nn, hab, count, t, now, one, two, yy, m, yes, cntt, x1, x2, x3, Y1, y2, y3, temp, i1, i2, J1, j2, i3, j3, len1, len2, low, mid, left, right, high, ok, tx, ty, k, start, num, xx, qq, w, e, no, r, sum, x, y, z, l, len, mini = INF, maxi = -INF, x11, x22, x33, y11, y22, y33;
 ll dx[5] = { 0,-1,0,1,0 };
 ll dy[5] = { 0,0,-1,0,1 };
 ll ddx[9] = { 0,-1,-1,-1,0,0,1,1,1 };
 ll ddy[9] = { 0,-1,0,1,-1,1,-1,0,1 };
-ld ld1, ld2, ld3, ld4, ld5, ld6, ld7;
-ll a[1000001], b1[M], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], sumtree[M], mintree[M], maxtree[M], minindextree[M], prime[M];
+ll knightdx[9] = { 0,-1,-1,1,1,-2,-2,2,2 };
+ll knightdy[9] = { 0,2,-2,2,-2,1,-1,-1,1 };
+ld ld1, ld2, ld3, ld4, ld5, ld6, ld7, lda[M], ldb[M];
+ll a[M], b1[M], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], sumtree[M], mintree[M], maxtree[M], minindextree[M], prime[M];
 ll b[M], dd[MM][MM][4], ax[M], ay[M], az[M];
 ll d[M], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M], lazy[M];
 ll qry[M][4];
-bool check[M], visit[M], treecheck[M], dp[151][1501];
+bool check[M], visit[M], treecheck[M], dp[151][11];
 char c1, c2, c, c3, c4;
 ld ldmax, ldmin, ldmax1, ldmax2, ldmin1, ldmin2, ldd[M];
 
 string str, s, s1, s2, s3;
-typedef pair<ll,ll> ppair;
+typedef pair<ll, ll> ppair;
 ull u1, u2, u3, u4;
 queue<ll> q;
 queue<ll> qx, qy;
@@ -206,10 +215,10 @@ stack<ll> st;
 deque<ll> dq;
 map<string, ll> msi;
 map<ll, string> mis;
-vector<ll> v;
+vll v, v1, v2, v3, print;
 vector<ll> vv[M];
-vector<ll> v1, v2, v3;
 vector<ppair> vp;
+vector<ppair> vpa[M];
 bool boo[M];
 
 
@@ -234,12 +243,12 @@ bool so(char c)
     return false;
 }
 
-bool isnum(char c){
-    return (c>='0'&&c<='9');
+bool isnum(char c) {
+    return (c >= '0'&&c <= '9');
 }
 
-bool daso(char c){
-    return (da(c)||so(c));
+bool daso(char c) {
+    return (da(c) || so(c));
 }
 
 bool vowel(char c)
@@ -260,18 +269,18 @@ ll find(ll x)
 {
     if (d[x] == x)
         return x;
-    d[x]=find(d[x]);
+    d[x] = find(d[x]);
     return d[x];
 }
 
 void un(ll x, ll y)
 {
     ll q = find(x);
-    ll w= find(y);
-    if(q>w)
-        d[q]=find(w);
+    ll w = find(y);
+    if (q > w)
+        d[q] = find(w);
     else
-        d[q]=find(w);
+        d[q] = find(w);
 }
 
 bool same(ll x, ll y)
@@ -361,9 +370,9 @@ ll smallest(int x, int y, int z)
     return a[1];
 }
 
-ll minindex(ll x, ll y){
-    if(a[x]==a[y]) return (smaller(x,y));
-    return (a[x] < a[y]) ? x:y;
+ll minindex(ll x, ll y) {
+    if (a[x] == a[y]) return (smaller(x, y));
+    return (a[x] < a[y]) ? x : y;
 }
 
 ll maketree_minindex(ll left, ll right, ll node)
@@ -411,16 +420,16 @@ ll query_min(ll node, ll left, ll right, ll start, ll end)
     return smaller(query_min(node * 2, left, mid, start, end), query_min(node * 2 + 1, mid + 1, right, start, end));
 }
 
-ll update_min(ll node, ll left, ll right, ll idx){ ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ll update_min(ll node, ll left, ll right, ll idx) { ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     if (idx<left || idx>right) // update 필요없음
         return mintree[node];
-    if(left==right)
+    if (left == right)
         return mintree[node] = a[left];
 
     ll mid = (left + right) / 2;
-    ll leftnode = update_min(node*2,left,mid,idx);
-    ll rightnode = update_min(node*2+1,mid+1,right,idx);
-    mintree[node]=min(leftnode, rightnode);
+    ll leftnode = update_min(node * 2, left, mid, idx);
+    ll rightnode = update_min(node * 2 + 1, mid + 1, right, idx);
+    mintree[node] = min(leftnode, rightnode);
     return mintree[node];
 }
 
@@ -460,28 +469,28 @@ ll maketree_sum(ll left, ll right, ll node)
     }
 }
 
-void update_lazy_sum(ll node, ll left, ll right){
-    if(!lazy[node])
+void update_lazy_sum(ll node, ll left, ll right) {
+    if (!lazy[node])
         return;
-    sumtree[node]+=((right-left+1)*lazy[node]);
-    if(right!=left){
-        lazy[node*2]+=lazy[node];
-        lazy[node*2+1]+=lazy[node];
+    sumtree[node] += ((right - left + 1)*lazy[node]);
+    if (right != left) {
+        lazy[node * 2] += lazy[node];
+        lazy[node * 2 + 1] += lazy[node];
     }
-    lazy[node]=0;
+    lazy[node] = 0;
 }
 
-ll update_sum(ll left, ll right, ll val, ll node, ll start, ll end){
+ll update_sum(ll left, ll right, ll val, ll node, ll start, ll end) {
     update_lazy_sum(node, left, right);
-    if(end<left||start>right) // 범위 밖
+    if (end<left || start>right) // 범위 밖
         return sumtree[node];
-    if(start<=left&&end>=right){ // 범위 내부에 속함
-        lazy[node]+=val;
-        update_lazy_sum(node,left,right);
+    if (start <= left && end >= right) { // 범위 내부에 속함
+        lazy[node] += val;
+        update_lazy_sum(node, left, right);
         return sumtree[node];
     }
-    ll mid = (left+right)/2; // 걸쳐 있음
-    sumtree[node] = update_sum(left, mid, val, node*2, start, end)+update_sum(mid+1, right, val, node*2+1, start, end);
+    ll mid = (left + right) / 2; // 걸쳐 있음
+    sumtree[node] = update_sum(left, mid, val, node * 2, start, end) + update_sum(mid + 1, right, val, node * 2 + 1, start, end);
     return sumtree[node];
 }
 
@@ -489,7 +498,7 @@ ll query_sum(ll node, ll left, ll right, ll start, ll end) {
     update_lazy_sum(node, left, right);
     if (right < start || end < left)
         return 0; // 겹치지 않는 경우(영향이 없는 값을 반환)
-    if(start<=left&&end>=right) // 범위 내부에 속함
+    if (start <= left && end >= right) // 범위 내부에 속함
         return sumtree[node]; // 포함되는 경우
     ll mid = (left + right) / 2; // 일부만 겹치는 경우
     return (query_sum(node * 2, left, mid, start, end)) + (query_sum(node * 2 + 1, mid + 1, right, start, end));
@@ -519,7 +528,7 @@ long long dfs(long long now, long long visit, ll w)
 
         if ((visit & (1 << (i - 1))) == 0 && aa[now][i] > 0)
         {
-            dp[now][visit] = smaller(mini, aa[now][i] + dfs(i, (visit | (1 << (i - 1))),w));
+            dp[now][visit] = smaller(mini, aa[now][i] + dfs(i, (visit | (1 << (i - 1))), w));
             return dp[now][visit];
         }
     }
@@ -562,84 +571,84 @@ ll reverse(ll x)
 ll ds(char c)
 {
     ll x;
-    if(so(c))
-        x = (c-'a'+1);
+    if (so(c))
+        x = (c - 'a' + 1);
     else
-        x = (c-'A'+27);
+        x = (c - 'A' + 27);
     return x;
 }
 
 ld ccw(ld x1, ld x2, ld x3, ld y1, ld y2, ld y3) {
-    ld x = (x1*y2+x2*y3+x3*y1);
-    x+= (-y1*x2-y2*x3-y3*x1);
-    return x/2;
+    ld x = (x1*y2 + x2 * y3 + x3 * y1);
+    x += (-y1 * x2 - y2 * x3 - y3 * x1);
+    return x / 2;
 }
 
 ll ab(ll x)
 {
-    if(x<0)
+    if (x < 0)
         return -x;
     return x;
 }
 
-ll bzegob(ll x, ll y){
-    ll k=1;
-    while(y>0){
-        if(y&1)
-            k=(k*x)%mod;
-        k%=mod;
-        x=(x*x)%mod;
-        y>>=1;
+ll bzegob(ll x, ll y) {
+    ll k = 1;
+    while (y > 0) {
+        if (y & 1)
+            k = (k*x) % mod;
+        k %= mod;
+        x = (x*x) % mod;
+        y >>= 1;
     }
-    return k%mod;
+    return k % mod;
 }
 
 
-ll find_sum(ll left, ll right, ll node, ll sum){
+ll find_sum(ll left, ll right, ll node, ll sum) {
     update_lazy_sum(node, left, right);
-    if(left>=right)
+    if (left >= right)
         return right;
-    mid=(left+right)/2;
-    if(sumtree[node*2]>=sum)
-        return find_sum(left,mid,node*2, sum);
+    mid = (left + right) / 2;
+    if (sumtree[node * 2] >= sum)
+        return find_sum(left, mid, node * 2, sum);
     else
-        return find_sum(mid+1,right,node*2+1, sum-sumtree[node*2]);
+        return find_sum(mid + 1, right, node * 2 + 1, sum - sumtree[node * 2]);
 }
 
-ll insert_sum(ll node, ll left, ll right, ll start, ll end){
+ll insert_sum(ll node, ll left, ll right, ll start, ll end) {
     update_lazy_sum(node, left, right);
 
-    mid=(left+right)/2;
-    if(left==right)
+    mid = (left + right) / 2;
+    if (left == right)
         return left;
-    if(sumtree[node*2]>0&&mid>=start)
-        return insert_sum(node*2, left, mid, start,end);
+    if (sumtree[node * 2] > 0 && mid >= start)
+        return insert_sum(node * 2, left, mid, start, end);
     else
-        return insert_sum(node*2+1,mid+1,right,start,end);
+        return insert_sum(node * 2 + 1, mid + 1, right, start, end);
 }
 
-vll getpi(string p){ // 문자열 p의 pi배열 반환
+vll getpi(string p) { // 문자열 p의 pi배열 반환
     ll n = (ll)p.size();
-    ll j=0;
-    vll pi(n,0);
-    fo(i,1,n-1){
-        while(j>0 && p[i] != p[j]) // i: 기준, j: 비교 대상
-            j=pi[j-1];
-        if(p[i]==p[j])
-            pi[i]=++j;
+    ll j = 0;
+    vll pi(n, 0);
+    fo(i, 1, n - 1) {
+        while (j > 0 && p[i] != p[j]) // i: 기준, j: 비교 대상
+            j = pi[j - 1];
+        if (p[i] == p[j])
+            pi[i] = ++j;
     };
     return pi;
 }
 
-vll kmp(string s, string s2){ // 문자열 s에 문자열 s2가 포함된 위치 벡터를 반환
+vll kmp(string s, string s2) { // 문자열 s에 문자열 s2가 포함된 위치 벡터를 반환
     vll ans;
     auto pi = getpi(s2);
-    ll n = (ll)s.size(), m=(ll)s2.size(), j=0;
+    ll n = (ll)s.size(), m = (ll)s2.size(), j = 0;
     fori0{
-        while(j>0&&s[i]!=s2[j])
-            j=pi[j-1];
-        if(s[i]==s2[j]){
-            if(j==m-1) {
+        while (j > 0 && s[i] != s2[j])
+            j = pi[j - 1];
+        if (s[i] == s2[j]) {
+            if (j == m - 1) {
                 ans.pb(i - m + 1);
                 j = pi[j];
             }
@@ -650,28 +659,28 @@ vll kmp(string s, string s2){ // 문자열 s에 문자열 s2가 포함된 위치
     return ans;
 }
 
-vll getpi(vll p){ // 벡터 p의 pi배열 반환
+vll getpi(vll p) { // 벡터 p의 pi배열 반환
     ll n = (ll)p.size();
-    ll j=0;
-    vll pi(n,0);
-    fo(i,1,n-1){
-        while(j>0 && p[i] != p[j]) // i: 기준, j: 비교 대상
-            j=pi[j-1];
-        if(p[i]==p[j])
-            pi[i]=++j;
+    ll j = 0;
+    vll pi(n, 0);
+    fo(i, 1, n - 1) {
+        while (j > 0 && p[i] != p[j]) // i: 기준, j: 비교 대상
+            j = pi[j - 1];
+        if (p[i] == p[j])
+            pi[i] = ++j;
     };
     return pi;
 }
 
-vll kmpll(vll v1, vll v2){ // 벡터 v1에 벡터 v2가 포함된 위치 벡터를 반환
+vll kmpll(vll v1, vll v2) { // 벡터 v1에 벡터 v2가 포함된 위치 벡터를 반환
     vll ans;
     auto pi = getpi(v2);
-    ll n = (ll)v1.size(), m=(ll)v2.size(), j=0;
+    ll n = (ll)v1.size(), m = (ll)v2.size(), j = 0;
     fori0{
-        while(j>0&&v1[i]!=v2[j])
-            j=pi[j-1];
-        if(v1[i]==v2[j]){
-            if(j==m-1) {
+        while (j > 0 && v1[i] != v2[j])
+            j = pi[j - 1];
+        if (v1[i] == v2[j]) {
+            if (j == m - 1) {
                 ans.pb(i - m + 1);
                 j = pi[j];
             }
@@ -680,32 +689,109 @@ vll kmpll(vll v1, vll v2){ // 벡터 v1에 벡터 v2가 포함된 위치 벡터�
         }
     };
     return ans;
+}
+
+ll lis(ll a[], ll n) {
+    vll v;
+    ll cnt = 0;
+    fori d[i] = 0;
+    v.pb(a[1]);
+    fo(i, 2, n) {
+        if (v[cnt] < a[i])
+        {
+            v.pb(a[i]);
+            d[i] = ++cnt;
+        }
+        else {
+            x = lower_bound(v.begin(), v.end(), a[i]) - v.begin();
+            v[x] = a[i];
+            d[i] = x;
+        }
+    }
+    return cnt + 1;
+}
+vll lisv(ll a[], ll n) {
+    vll v, ret;
+    ll cnt = 0;
+    fori d[i] = 0;
+    fori visit[i] = false;
+    v.pb(a[1]);
+    fo(i, 2, n) {
+        if (v[cnt] < a[i])
+        {
+            v.pb(a[i]);
+            d[i] = ++cnt;
+        }
+        else {
+            x = lower_bound(v.begin(), v.end(), a[i]) - v.begin();
+            v[x] = a[i];
+            d[i] = x;
+        }
+    }
+    visit[cnt + 1] = true;
+    for (i = n; i >= 1; i--)
+    {
+        if (visit[d[i] + 1] && !visit[d[i]])
+        {
+            visit[d[i]] = true;
+            ret.pb(i);
+        }
+    }
+    return ret;
+}
+
+vll ntov(ll n) {
+    vll a;
+    w1{
+        a.pb(n % 10);
+        if (n < 10)
+            break;
+        n /= 10;
+    }
+    return a;
+}
+
+vll dijk(vector<ppair> vpa[], ll start, ll n){ // vpa: {to, cost}
+    fori d[i] = INF;
+    d[start]=0;
+    ppq.push({0,start});
+
+    while(!ppq.empty()){
+        ll now = ppq.top().second;
+        ll cost=-(ppq.top().first);
+        ppq.pop();
+        if(now==finish)
+            break;
+
+        if(check[now]) continue;
+        check[now]=true;
+
+        ll l = vpa[now].size();
+        fo(i,0,l-1){
+            y = vpa[now][i].first;
+            ll tcost = vpa[now][i].second;
+            if(check[y]) continue;
+            if(d[y]>cost+tcost)
+            {
+                d[y]=cost+tcost;
+                ppq.push({-d[y],y});
+            }
+        };
+    }
+    vll v;
+    fori v.pb(d[i]);
+    return v;
 }
 
 int main(void) {
-    scanline(s);
-    v = getpi(s);
-    n=v.size();
-
-    fori0 a[i]=INF;
-    fori0 {
-        if((i+1)*2-1>=n)
-            break;
-        if (v[(i+1) * 2 - 1] == i + 1)
-            a[(i+1) * 2 - 1] = i+1;
-    }
-    fori0{
-        x=v[i];
-        y=a[i]+i;
-        if(y>=n)
-            continue;
-        if(v[y]>=v[i])
-            if(a[y]>a[i])
-                a[y]=a[i];
-    }
-    fori0 {
-        if(a[i]!=INF){
-            pr2l(i+1,(i+1)/a[i]);
-        }
-    }
-};
+    scannm;
+    forj {
+        scanxyz;
+        vpa[x].pb({y, z});
+    };
+    scanxy;
+    start=x;
+    finish = y;
+    auto v = dijk(vpa,x,n);
+    pr(v[y-1]);
+}
