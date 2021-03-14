@@ -768,7 +768,7 @@ vll dijk(vector<ppair> vpa[], ll start, ll n){ // vpa: {to, cost}
 
         ll l = vpa[now].size();
         fo(i,0,l-1){
-            y = vpa[now][i].first;
+            ll y = vpa[now][i].first;
             ll tcost = vpa[now][i].second;
             if(check[y]) continue;
             if(d[y]>cost+tcost)
