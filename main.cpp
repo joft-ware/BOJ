@@ -1,6 +1,3 @@
-# pragma GCC optimize ("O3")
-# pragma GCC optimize ("Ofast")
-# pragma GCC optimize ("unroll-loops")
 #include <stdio.h>
 #include <cstdio>
 #include <iostream>
@@ -19,8 +16,8 @@
 #endif
 
 
-#define M 100001
-#define MM 126
+#define M 200001
+#define MM 801
 #define N 11
 long long mod = 1e9 + 7;
 
@@ -200,8 +197,8 @@ ld ld1, ld2, ld3, ld4, ld5, ld6, ld7, lda[M], ldb[M];
 ll a[M], b1[M], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], sumtree[M], mintree[M], maxtree[M], minindextree[M], prime[M];
 ll b[M], dd[MM][MM][4], ax[M], ay[M], az[M];
 ll d[M], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M], lazy[M];
-ll qry[M][4];
-bool check[M], visit[M], treecheck[M], dp[151][11];
+ll qry[M][4],dp[151][11];
+bool check[M], visit[M], treecheck[M];
 char c1, c2, c, c3, c4;
 ld ldmax, ldmin, ldmax1, ldmax2, ldmin1, ldmin2, ldd[M];
 
@@ -210,7 +207,7 @@ typedef pair<ll, ll> ppair;
 ull u1, u2, u3, u4;
 queue<ll> q;
 queue<ll> qx, qy;
-priority_queue<ll> pq[1001];
+priority_queue<ll> pq[M];
 priority_queue<ppair> ppq;
 stack<ll> st;
 deque<ll> dq;
@@ -338,6 +335,7 @@ void clean(long long* a, int n)
 {
     fori
         a[i] = 0;
+    a[0]=0;
 }
 
 ll zari(ll n)
@@ -351,7 +349,7 @@ ll zari(ll n)
     }
 }
 
-ll biggest(int x, int y, int z)
+ll biggest(ll x, ll y, ll z)
 {
     ll a[4];
     a[1] = x;
@@ -361,7 +359,7 @@ ll biggest(int x, int y, int z)
     return a[3];
 }
 
-ll smallest(int x, int y, int z)
+ll smallest(ll x, ll y, ll z)
 {
     ll a[4];
     a[1] = x;
@@ -507,7 +505,7 @@ ll query_sum(ll node, ll left, ll right, ll start, ll end) {
 
 ll fact(ll n)
 {
-    k = 1;
+    ll k = 1;
     fori
         k *= i;
     return k;
@@ -515,7 +513,6 @@ ll fact(ll n)
 
 long long dfs(long long now, long long visit, ll w)
 {
-    pr2l(now, visit);
     if (visit == ((1 << n) - 1))
     {
         dp[now][visit] = ((aa[now][1] == 0) ? INF : aa[now][1]);
@@ -526,32 +523,10 @@ long long dfs(long long now, long long visit, ll w)
     mini = INF;
     for (long long i = 1; i <= n; i++)
     {
-
         if ((visit & (1 << (i - 1))) == 0 && aa[now][i] > 0)
         {
             dp[now][visit] = smaller(mini, aa[now][i] + dfs(i, (visit | (1 << (i - 1))), w));
             return dp[now][visit];
-        }
-    }
-}
-
-void re(int x, int lev)
-{
-    a[lev] = x;
-    if (lev == m)
-    {
-        for (int i = 1; i <= m; i++)
-            printf("%d ", b[a[i]]);
-        printf("\n");
-        return;
-    }
-    fori
-    {
-        if (i != x)
-        {
-            check[i] = 1;
-            re(i, lev + 1);
-            check[i] = 0;
         }
     }
 }
@@ -757,7 +732,7 @@ vll dijk(vector<ppair> vpa[], ll start, ll n){ // vpa: {to, cost}
     fori check[i]=false;
     priority_queue<ppair> ppq;
     vll v;
-    d[start]=aa[1][1];
+    d[start]=0;
 
     ppq.push({-d[start],start}); // cost, 위치
     while(!ppq.empty()){
@@ -786,36 +761,12 @@ vll dijk(vector<ppair> vpa[], ll start, ll n){ // vpa: {to, cost}
 }
 
 int main(void) {
-    w1 {
-        vector<ppair> vpa[125*125+2];
-        ll n=0;
-        scann;
-        if(!n)
-            break;
-        fori {
-            while (!vpa[i].empty()) {
-                vpa[i].pop_back();
-            }
-        };
-        m=n;
-        scanaa;
-        fori {
-            forjn {
-                ll x = (i - 1) * n + j;
-                fok(4) {
-                    ll tx = i + dx[k];
-                    ll ty = j + dy[k];
-                    ll y = (tx - 1) * n + ty;
-                    if (bound(tx, ty,n,n)) {
-                        vpa[x].pb({y, aa[tx][ty]});
-                    }
-                }
-            }
-        };
-        auto v = dijk(vpa, 1, n * n);
-        pr("Problem ");
-        pr(++cnt);
-        pr(": ");
-        pr1l(v[n * n- 1]);
-    }
+    scannm;
+    forj {
+        scanxyz;
+        vpa[x].pb({y, z});
+        vpa[y].pb({x, z});
+    };
+    auto v = dijk(vpa, 1, n);
+    pr(v[n-1]);
 }
