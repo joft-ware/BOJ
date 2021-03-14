@@ -186,7 +186,7 @@ long long mod = 1e9 + 7;
 #define prstr for(ll wq=1;wq<=slen;wq++) pr(str[wq]);
 
 using namespace std;
-ll i, j, ii, jj, n, zz, yyy, xxx, maxim, end, finish, next, bre, cnt, ans, slen, to, casenum, nn, hab, count, t, now, one, two, yy, m, yes, cntt, x1, x2, x3, Y1, y2, y3, temp, i1, i2, J1, j2, i3, j3, len1, len2, low, mid, left, right, high, ok, tx, ty, k, start, num, xx, qq, w, e, no, r, sum, x, y, z, l, len, mini = INF, maxi = -INF, x11, x22, x33, y11, y22, y33;
+ll i, j, ii, jj, n, zz, yyy, xxx, maxim, end, finish, next, bre, cnt, ans, slen, to, casenum, nn, hab, count, t, now, one, two, yy, m, yes, cntt, x1, x2, x3, x4, y4, Y1, y2, y3, temp, i1, i2, J1, j2, i3, j3, len1, len2, low, mid, left, right, high, ok, tx, ty, k, start, num, xx, qq, w, e, no, r, sum, x, y, z, l, len, mini = INF, maxi = -INF, x11, x22, x33, y11, y22, y33;
 ll dx[5] = { 0,-1,0,1,0 };
 ll dy[5] = { 0,0,-1,0,1 };
 ll ddx[9] = { 0,-1,-1,-1,0,0,1,1,1 };
@@ -760,14 +760,16 @@ vll dijk(vector<ppair> vpa[], ll start, ll n){ // vpa: {to, cost}
     return v;
 }
 
+ll ddp[101][101][101];
+
 int main(void) {
-    scannm;
-    forj {
-        scanxyz;
-        vpa[x].pb({y, z});
-        vpa[y].pb({x, z});
-    };
-     scanxy;
-    auto v = dijk(vpa, x, n);
-    pr(v[y-1]);
+    ld x1, x2, x3, x4, y1, y2, y3, y4;
+    sc4(x1, y1, x2, y2);
+    sc4(x3, y3, x4, y4);
+    ld1=ccw(x1,x2,x3,y1,y2,y3);
+    ld2=ccw(x1,x2,x4,y1,y2,y4);
+    ld3=ccw(x3,x4,x1,y3,y4,y1);
+    ld4=ccw(x3,x4,x2,y3,y4,y2);
+    pr(ld1*ld2<0&&ld3*ld4<0);
+
 }
