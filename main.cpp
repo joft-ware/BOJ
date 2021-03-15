@@ -16,8 +16,8 @@
 #endif
 
 
-#define M 100001
-#define MM 801
+#define M 200001
+#define MM 81
 #define N 11
 long long mod = 1e9 + 7;
 
@@ -136,6 +136,7 @@ long long mod = 1e9 + 7;
 #define boundcheck(tx,ty) if(tx>=1&&ty>=1&&tx<=n&&ty<=m)
 #define strint fori a[i] = s[i] - '0';
 #define full(v) v.begin(), v.end()
+#define all(v) v.begin(), v.end()
 
 #define X first
 #define Y second
@@ -186,7 +187,7 @@ long long mod = 1e9 + 7;
 #define prstr for(ll wq=1;wq<=slen;wq++) pr(str[wq]);
 
 using namespace std;
-ll i, j, ii, jj, n, zz, yyy, xxx, maxim, end, finish, next, bre, cnt, ans, slen, to, casenum, nn, hab, count, t, now, one, two, yy, m, yes, cntt, x1, x2, x3, x4, y4, Y1, y2, y3, temp, i1, i2, J1, j2, i3, j3, len1, len2, low, mid, left, right, high, ok, tx, ty, k, start, num, xx, qq, w, e, no, r, sum, x, y, z, l, len, mini = INF, maxi = -INF, x11, x22, x33, y11, y22, y33;
+ll i, j, ii, jj, n, zz, yyy, xxx, maxim, l1, l2, l3, l4, end, finish, next, bre, cnt, ans, slen, to, casenum, nn, hab, count, t, now, one, two, yy, m, yes, cntt, x1, x2, x3, x4, y4, Y1, y2, y3, temp, i1, i2, J1, j2, i3, j3, len1, len2, low, mid, left, right, high, ok, tx, ty, k, start, num, xx, qq, w, e, no, r, sum, x, y, z, l, len, mini = INF, maxi = -INF, x11, x22, x33, y11, y22, y33;
 ll dx[5] = { 0,-1,0,1,0 };
 ll dy[5] = { 0,0,-1,0,1 };
 ll ddx[9] = { 0,-1,-1,-1,0,0,1,1,1 };
@@ -203,7 +204,7 @@ char c1, c2, c, c3, c4;
 ld ldmax, ldmin, ldmax1, ldmax2, ldmin1, ldmin2, ldd[M];
 
 string str, s, s1, s2, s3;
-typedef pair<ld, ld> xy;
+typedef pair<ll, ll> xy;
 ull u1, u2, u3, u4;
 queue<ll> q, qx, qy;
 priority_queue<ll> pq[M];
@@ -756,9 +757,9 @@ bool cross(xy a, xy b, xy c, xy d){ // 선분ab와 cd의 cross 여부
     return (x<0&&y<0);
 }
 
-ld distxy(xy a, xy b){ // 좌표 거리의 제곱
-    ld w = a.X-b.X;
-    ld e = a.Y-b.Y;
+ll distxy(xy a, xy b){ // 좌표 거리의 제곱
+    ll w = a.X-b.X;
+    ll e = a.Y-b.Y;
     return w*w+e*e;
 }
 
@@ -769,31 +770,94 @@ bool ccwcmp(xy a, xy b){
     return false;
 }
 
-bool xycmp(xy a, xy b){ // a가 작다
+bool xycmp(xy a, xy b){ // 시계방향
     if(a.Y>b.Y)
         return true;
     if(a.Y<b.Y)
         return false;
+    return (a.X<b.X); // >
+}
+
+vector<xy> convex_hull(xy xya[], ll n){
+    vector<xy> vxy;
+    xy1 = xya[1];
+    fori if (xycmp(xya[i], xy1)) xy1 = xya[i]; // 극값 검색
+    sort(xya + 1, xya + n + 1, ccwcmp);
+    foi(n) { // 시계방향
+        while (vxy.size() >= 2 && ccw(vxy[vxy.size() - 2], vxy[vxy.size() - 1], xya[i]) >= 0)
+        {
+            vxy.pop_back();
+        }
+        vxy.pb(xya[i]);
+    };
+    return vxy;
+}
+
+bool xycmpmax(xy a, xy b){
+    if(a.Y>b.Y)
+        return true;
+    if(a.Y<b.Y)
+        return false;
+    return (a.X>b.X);
+}
+
+bool xycmpmin(xy a, xy b){
+    if(a.Y<b.Y)
+        return true;
+    if(a.Y>b.Y)
+        return false;
     return (a.X<b.X);
 }
 
-int main(void) {
-    scant; wt {
-        scann;
-        xy xya[51];
-        vector<xy> vxy;
-        fori sc2(xya[i].X, xya[i].Y);
-        xy1 = xya[1];
-        fori if (xycmp(xya[i], xy1)) xy1 = xya[i]; // 극값 검색
-        sort(xya + 1, xya + n + 1, ccwcmp);
+ll rotating_calipers(vector<xy> vxy){ // 시계방향으로 회전하는 캘리퍼스
+    xy mini=vxy[0];
+    xy maxi=vxy[0];
+    ll x=0,y=0;
+    ll n = vxy.size();
+    fori0 {
+        if(xycmpmin(vxy[i],mini)) {
+            mini = vxy[i];
+            x=i;
+        }
+        if(xycmpmax(vxy[i],mini)) {
+            maxi = vxy[i];
+            y = i;
+        }
+    };
+    l1=vxy[x].X;
+    l2=vxy[x].Y;
+    l3=vxy[y].X;
+    l4=vxy[y].Y;
+    ll maxim = distxy(vxy[x],vxy[y]);
+    foi0(n){
+        ll nextx = (x+1)%n;
+        ll nexty = (y+1)%n;
+        xy xx = {vxy[x].X-vxy[nextx].X,vxy[x].Y-vxy[nextx].Y};
+        xy yy = {vxy[y].X-vxy[nexty].X,vxy[y].Y-vxy[nexty].Y};
+        if(ccw(xx,{0,0},yy)<0) x = nextx; // 원점으로 두 벡터를 옮긴 뒤 비교
+        else y = nexty;
+        if(maxim<distxy(vxy[x],vxy[y])) {
+            maxim = max(maxim, distxy(vxy[x], vxy[y]));
+            l1=vxy[x].X;
+            l2=vxy[x].Y;
+            l3=vxy[y].X;
+            l4=vxy[y].Y;
+        }
+    };
+    return maxim;
 
-        foi(n) {
-            while (vxy.size() >= 2 && ccw(vxy[vxy.size() - 2], vxy[vxy.size() - 1], xya[i]) >= 0) {
-                vxy.pop_back();
-            }
-            vxy.pb(xya[i]);
-        };
-        pr1l(vxy.size());
-        foi0(vxy.size()) pr2l(vxy[i].X, vxy[i].Y);
+}
+
+
+int main(void) {
+    ll t;
+    scant;
+    wt
+    {
+        scann;
+        fori sc2(xya[i].X, xya[i].Y);
+        auto vxy = convex_hull(xya,n);
+        ll zzz=(rotating_calipers(vxy));
+        pr4l(l1,l2,l3,l4);
     }
 }
