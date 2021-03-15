@@ -11,12 +11,8 @@
 #include <stdlib.h>
 #include <deque>
 #include <map>
-#ifdef _MSC_VER
-#define _CRT_SECURE_NO_WARNINGS
-#endif
 
-
-#define M 200001
+#define M 2001
 #define MM 101
 #define N 11
 long long mod = 1e9 + 7;
@@ -195,7 +191,7 @@ ll ddy[9] = { 0,-1,0,1,-1,1,-1,0,1 };
 ll knightdx[9] = { 0,-1,-1,1,1,-2,-2,2,2 };
 ll knightdy[9] = { 0,2,-2,2,-2,1,-1,-1,1 };
 ld ld1, ld2, ld3, ld4, ld5, ld6, ld7, lda[M], ldb[M];
-ll a[M], b1[M], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], sumtree[M], mintree[M], maxtree[M], minindextree[M], prime[M];
+ll a[5000002], b1[M], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], sumtree[M], mintree[M], maxtree[M], minindextree[M], prime[M];
 ll b[M], dd[MM][MM][4], ax[M], ay[M], az[M];
 ll d[M], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M], lazy[M];
 ll qry[M][4],dp[151][11];
@@ -211,6 +207,7 @@ priority_queue<ll> pq[M];
 priority_queue<xy> pqxy;
 stack<ll> st;
 deque<ll> dq;
+deque<xy> dqxy;
 map<string, ll> msi;
 map<ll, string> mis;
 vll v, v1, v2, v3, print;
@@ -859,15 +856,19 @@ ld rotating_calipers(vector<xy> vxy){ // 시계방향으로 회전하는 캘리�
 
 
 int main(void) {
-    {
-        scann;
-        fori sc2(xya[i].X, xya[i].Y);
-        auto v = convex_hull(xya,n);
-        n=v.size();
-        fori0{
-            ll next=(i+1)%n;
-            ld1+=distxy(v[i],v[next]);
-        };
-        printf("%.2lf",ld1);
-    }
+    ios_base::sync_with_stdio(false);
+    cin.tie(0);
+    cout.tie(0);
+    deque<pair<ll, ll>>dqxy;
+
+    sc2(n,m);
+    fori{
+        sc(x);
+        if(!dqxy.empty()&&dqxy.front().Y<i-m+1)
+            dqxy.pop_front();
+        while(!dqxy.empty()&&dqxy.back().X>x)
+            dqxy.pop_back();
+        dqxy.pb({x,i});
+        pr1(dqxy.front().X);
+    };
 }
