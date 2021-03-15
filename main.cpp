@@ -169,6 +169,7 @@ long long mod = 1e9 + 7;
 #define pr8l(a,b,c,d,e,f,g,h) cout << (a) << ' ' << (b) << ' '<< (c) << ' '<< (d) << ' '<< (e) << ' ' << (f) << ' ' << (g) << ' ' << (h) << '\n'
 
 #define prcnt pr1l(cnt)
+#define prx pr1l(x)
 #define prno pr1l("no")
 #define pryes pr1l("yes")
 #define prNO pr1l("NO")
@@ -859,16 +860,29 @@ int main(void) {
     ios_base::sync_with_stdio(false);
     cin.tie(0);
     cout.tie(0);
-    deque<pair<ll, ll>>dqxy;
 
-    sc2(n,m);
-    fori{
-        sc(x);
-        if(!dqxy.empty()&&dqxy.front().Y<i-m+1)
-            dqxy.pop_front();
-        while(!dqxy.empty()&&dqxy.back().X>x)
-            dqxy.pop_back();
-        dqxy.pb({x,i});
+    scanna;
+    x = 1;
+    fori dqxy.pb({i,a[i]});
+    fori {
         pr1(dqxy.front().X);
+        y=dqxy.front().Y;
+        dqxy.pop_front();
+        if(i==n)
+            braek;
+        if(y>0)
+        {
+            foj(y-1){
+                dqxy.push_back(dqxy.front());
+                dqxy.pop_front();
+            }
+        }
+        else
+        {
+            foj(-y){
+                dqxy.push_front(dqxy.back());
+                dqxy.pop_back();
+            }
+        }
     };
 }
