@@ -197,7 +197,7 @@ ll b[M], dd[MM][MM][4], ax[M], ay[M], az[M];
 ll d[M], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M], lazy[M];
 ll qry[M][4],dp[151][11];
 bool check[M], visit[M], treecheck[M];
-char c1, c2, c, c3, c4;
+char c1, c2, c, c3, c4, cc[M];
 ld ldmax, ldmin, ldmax1, ldmax2, ldmin1, ldmin2, ldd[M];
 
 string str, s, s1, s2, s3;
@@ -863,22 +863,12 @@ int main(void) {
     ios_base::sync_with_stdio(false);
     cin.tie(0);
     cout.tie(0);
-    deque<ll> dq;
-    scannm;
-    scana;
-    m=2*m-1;
-    j=1;
-    for(i=1;i<=n-m+1;i++){
-        while(!dq.empty()&&dq.front()<i)
-            dq.pop_front();
-        for(;j<=i+m-1;j++)
-        {
-            while(!dq.empty()&&a[dq.back()]<=a[j])
-                dq.pop_back();
-            dq.pb(j);
-        }
-        pr1(a[dq.front()]);
-    };
+
+    sc3(x, y, s);
+    l=s.size();
+    w = s[l-1] - '0';
+    if (w%2)
+        pr((x ^ y));
+    else
+        pr(x);
 }
-
-
