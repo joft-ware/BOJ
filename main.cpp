@@ -860,7 +860,7 @@ ld rotating_calipers(vector<xy> vxy){ // 시계방향으로 회전하는 캘리�
 
 int main(void) {
     {
-        scannm;
+        scann;
         fori sc2(xya[i].X, xya[i].Y);
         auto v = convex_hull(xya,n);
         n=v.size();
@@ -868,7 +868,6 @@ int main(void) {
             ll next=(i+1)%n;
             ld1+=distxy(v[i],v[next]);
         };
-        ld1+=2*m*PI;
-        prld(ld1);
+        printf("%.2lf",ld1);
     }
 }
