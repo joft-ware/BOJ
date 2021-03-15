@@ -203,22 +203,20 @@ char c1, c2, c, c3, c4;
 ld ldmax, ldmin, ldmax1, ldmax2, ldmin1, ldmin2, ldd[M];
 
 string str, s, s1, s2, s3;
-typedef pair<ll, ll> ppair;
+typedef pair<ld, ld> xy;
 ull u1, u2, u3, u4;
-queue<ll> q;
-queue<ll> qx, qy;
+queue<ll> q, qx, qy;
 priority_queue<ll> pq[M];
-priority_queue<ppair> ppq;
+priority_queue<xy> pqxy;
 stack<ll> st;
 deque<ll> dq;
 map<string, ll> msi;
 map<ll, string> mis;
 vll v, v1, v2, v3, print;
 vector<ll> vv[M];
-vector<ppair> vp;
-vector<ppair> vpa[M];
+vector<xy> vxy, vxya[M];
+xy xy1, xya[M];
 bool boo[M];
-
 
 ll zegob(ll x, ll y)
 {
@@ -234,6 +232,7 @@ bool da(char c)
         return true;
     return false;
 }
+
 bool so(char c)
 {
     if (c >= 'a' && c <= 'z')
@@ -511,26 +510,6 @@ ll fact(ll n)
     return k;
 }
 
-long long dfs(long long now, long long visit, ll w)
-{
-    if (visit == ((1 << n) - 1))
-    {
-        dp[now][visit] = ((aa[now][1] == 0) ? INF : aa[now][1]);
-        return dp[now][visit];
-    }
-    if (dp[now][visit] != INF)
-        return dp[now][visit];
-    mini = INF;
-    for (long long i = 1; i <= n; i++)
-    {
-        if ((visit & (1 << (i - 1))) == 0 && aa[now][i] > 0)
-        {
-            dp[now][visit] = smaller(mini, aa[now][i] + dfs(i, (visit | (1 << (i - 1))), w));
-            return dp[now][visit];
-        }
-    }
-}
-
 ll reverse(ll x)
 {
     ll sum = 0;
@@ -554,12 +533,6 @@ ll ds(char c)
     return x;
 }
 
-ld ccw(ld x1, ld x2, ld x3, ld y1, ld y2, ld y3) {
-    ld x = (x1*y2 + x2 * y3 + x3 * y1);
-    x += (-y1 * x2 - y2 * x3 - y3 * x1);
-    return x / 2;
-}
-
 ll ab(ll x)
 {
     if (x < 0)
@@ -578,7 +551,6 @@ ll bzegob(ll x, ll y) {
     }
     return k % mod;
 }
-
 
 ll find_sum(ll left, ll right, ll node, ll sum) {
     update_lazy_sum(node, left, right);
@@ -686,7 +658,8 @@ ll lis(ll a[], ll n) {
     }
     return cnt + 1;
 }
-vll lisv(ll a[], ll n) {
+
+vll lisv(ll a[], ll n) { // a의 LIS 구하기
     vll v, ret;
     ll cnt = 0;
     fori d[i] = 0;
@@ -716,7 +689,7 @@ vll lisv(ll a[], ll n) {
     return ret;
 }
 
-vll ntov(ll n) {
+vll ntov(ll n) { // 정수 n을 vector 로 변환
     vll a;
     w1{
         a.pb(n % 10);
@@ -727,10 +700,10 @@ vll ntov(ll n) {
     return a;
 }
 
-vll dijk(vector<ppair> vpa[], ll start, ll n){ // vpa: {to, cost}
+vll dijk(vector<xy> vpa[], ll start, ll n){ // 다익스트라. vpa: {to, cost}
     fori d[i] = INF;
     fori check[i]=false;
-    priority_queue<ppair> ppq;
+    priority_queue<xy> ppq;
     vll v;
     d[start]=0;
 
@@ -760,16 +733,65 @@ vll dijk(vector<ppair> vpa[], ll start, ll n){ // vpa: {to, cost}
     return v;
 }
 
-ll ddp[101][101][101];
+ld ccw(ld x1, ld x2, ld x3, ld y1, ld y2, ld y3) {
+    ld x = (x1*y2 + x2 * y3 + x3 * y1);
+    x += (-y1 * x2 - y2 * x3 - y3 * x1);
+    return x / 2;
+}
+
+ll ccw(xy a, xy b, xy c){
+    ll w = (b.X-a.X)*(c.Y-a.Y)-(b.Y-a.Y)*(c.X-a.X);
+    if(w<0) return -1;
+    return (w>0);
+}
+bool cross(xy a, xy b, xy c, xy d){ // 선분ab와 cd의 cross 여부
+    ll x = ccw(a,b,c)*ccw(a,b,d);
+    ll y = ccw(c,d,a)*ccw(c,d,b);
+    if(!x&&!y){
+        if(a>b) swap(a,b);
+        if(c>d) swap(c,d);
+        if(a<=d&&b>=c) return true;
+        return false;
+    }
+    return (x<0&&y<0);
+}
+
+ld distxy(xy a, xy b){ // 좌표 거리의 제곱
+    ld w = a.X-b.X;
+    ld e = a.Y-b.Y;
+    return w*w+e*e;
+}
+
+bool ccwcmp(xy a, xy b){
+    if(ccw(xy1,a,b)>0) return true;
+    if(ccw(xy1,a,b)<0) return false;
+    if(distxy(xy1,a)<distxy(xy1,b)) return true;
+    return false;
+}
+
+bool xycmp(xy a, xy b){ // a가 작다
+    if(a.X<b.X)
+        return true;
+    if(a.X>b.X)
+        return false;
+    return (a.Y<b.Y);
+}
 
 int main(void) {
-    ld x1, x2, x3, x4, y1, y2, y3, y4;
-    sc4(x1, y1, x2, y2);
-    sc4(x3, y3, x4, y4);
-    ld1=ccw(x1,x2,x3,y1,y2,y3);
-    ld2=ccw(x1,x2,x4,y1,y2,y4);
-    ld3=ccw(x3,x4,x1,y3,y4,y1);
-    ld4=ccw(x3,x4,x2,y3,y4,y2);
-    pr(ld1*ld2<0&&ld3*ld4<0);
+    scann;
+    fori sc2(xya[i].X,xya[i].Y);
+    xy1 = xya[1];
+    fori if (xycmp(xya[i], xy1)) xy1 = xya[i]; // 극값 검색
+    sort(xya+1,xya+n+1,ccwcmp);
 
+    foi(n){
+        while(vxy.size()>=2&&ccw(vxy[vxy.size()-2],vxy[vxy.size()-1],xya[i])<=0){
+            vxy.pop_back();
+        }
+        vxy.pb(xya[i]);
+    };
+    /*foi0(vxy.size()){
+        pr2l(vxy[i].X,vxy[i].Y);
+    }*/
+    pr(vxy.size());
 }
