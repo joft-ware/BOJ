@@ -763,35 +763,37 @@ ld distxy(xy a, xy b){ // 좌표 거리의 제곱
 }
 
 bool ccwcmp(xy a, xy b){
-    if(ccw(xy1,a,b)>0) return true;
-    if(ccw(xy1,a,b)<0) return false;
+    if(ccw(xy1,a,b)<0) return true;
+    if(ccw(xy1,a,b)>0) return false;
     if(distxy(xy1,a)<distxy(xy1,b)) return true;
     return false;
 }
 
 bool xycmp(xy a, xy b){ // a가 작다
-    if(a.X<b.X)
+    if(a.Y>b.Y)
         return true;
-    if(a.X>b.X)
+    if(a.Y<b.Y)
         return false;
-    return (a.Y<b.Y);
+    return (a.X<b.X);
 }
 
 int main(void) {
-    scann;
-    fori sc2(xya[i].X,xya[i].Y);
-    xy1 = xya[1];
-    fori if (xycmp(xya[i], xy1)) xy1 = xya[i]; // 극값 검색
-    sort(xya+1,xya+n+1,ccwcmp);
+    scant; wt {
+        scann;
+        xy xya[51];
+        vector<xy> vxy;
+        fori sc2(xya[i].X, xya[i].Y);
+        xy1 = xya[1];
+        fori if (xycmp(xya[i], xy1)) xy1 = xya[i]; // 극값 검색
+        sort(xya + 1, xya + n + 1, ccwcmp);
 
-    foi(n){
-        while(vxy.size()>=2&&ccw(vxy[vxy.size()-2],vxy[vxy.size()-1],xya[i])<=0){
-            vxy.pop_back();
-        }
-        vxy.pb(xya[i]);
-    };
-    /*foi0(vxy.size()){
-        pr2l(vxy[i].X,vxy[i].Y);
-    }*/
-    pr(vxy.size());
+        foi(n) {
+            while (vxy.size() >= 2 && ccw(vxy[vxy.size() - 2], vxy[vxy.size() - 1], xya[i]) >= 0) {
+                vxy.pop_back();
+            }
+            vxy.pb(xya[i]);
+        };
+        pr1l(vxy.size());
+        foi0(vxy.size()) pr2l(vxy[i].X, vxy[i].Y);
+    }
 }
