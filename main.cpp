@@ -17,7 +17,7 @@
 
 
 #define M 200001
-#define MM 81
+#define MM 101
 #define N 11
 long long mod = 1e9 + 7;
 
@@ -204,7 +204,7 @@ char c1, c2, c, c3, c4;
 ld ldmax, ldmin, ldmax1, ldmax2, ldmin1, ldmin2, ldd[M];
 
 string str, s, s1, s2, s3;
-typedef pair<ll, ll> xy;
+typedef pair<ld, ld> xy;
 ull u1, u2, u3, u4;
 queue<ll> q, qx, qy;
 priority_queue<ll> pq[M];
@@ -740,8 +740,8 @@ ld ccw(ld x1, ld x2, ld x3, ld y1, ld y2, ld y3) {
     return x / 2;
 }
 
-ll ccw(xy a, xy b, xy c){
-    ll w = (b.X-a.X)*(c.Y-a.Y)-(b.Y-a.Y)*(c.X-a.X);
+ld ccw(xy a, xy b, xy c){
+    ld w = (b.X-a.X)*(c.Y-a.Y)-(b.Y-a.Y)*(c.X-a.X);
     if(w<0) return -1;
     return (w>0);
 }
@@ -757,7 +757,7 @@ bool cross(xy a, xy b, xy c, xy d){ // 선분ab와 cd의 cross 여부
     return (x<0&&y<0);
 }
 
-ll distxy(xy a, xy b){ // 좌표 거리의 제곱
+ld distxy(xy a, xy b){ // 좌표 거리의 제곱
     ll w = a.X-b.X;
     ll e = a.Y-b.Y;
     return w*w+e*e;
@@ -809,7 +809,7 @@ bool xycmpmin(xy a, xy b){
     return (a.X<b.X);
 }
 
-ll rotating_calipers(vector<xy> vxy){ // 시계방향으로 회전하는 캘리퍼스
+ld rotating_calipers(vector<xy> vxy){ // 시계방향으로 회전하는 캘리퍼스
     xy mini=vxy[0];
     xy maxi=vxy[0];
     ll x=0,y=0;
@@ -828,7 +828,7 @@ ll rotating_calipers(vector<xy> vxy){ // 시계방향으로 회전하는 캘리�
     l2=vxy[x].Y;
     l3=vxy[y].X;
     l4=vxy[y].Y;
-    ll maxim = distxy(vxy[x],vxy[y]);
+    ld maxim = distxy(vxy[x],vxy[y]);
     foi0(n){
         ll nextx = (x+1)%n;
         ll nexty = (y+1)%n;
@@ -850,14 +850,16 @@ ll rotating_calipers(vector<xy> vxy){ // 시계방향으로 회전하는 캘리�
 
 
 int main(void) {
-    ll t;
-    scant;
-    wt
+
     {
         scann;
         fori sc2(xya[i].X, xya[i].Y);
-        auto vxy = convex_hull(xya,n);
-        ll zzz=(rotating_calipers(vxy));
-        pr4l(l1,l2,l3,l4);
+        auto v = convex_hull(xya,n);
+        n=v.size();
+        foi(n-1){
+            ld1+=ccw(v[0].X,v[i-1].X,v[i].X,v[0].Y,v[i-1].Y,v[i].Y);
+        }
+        ll w = (ld)(abs(ld1/50));
+        pr(w);
     }
 }
