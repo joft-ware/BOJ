@@ -869,6 +869,6 @@ int main(void) {
             ld1+=distxy(v[i],v[next]);
         };
         ld1+=2*m*PI;
-        pr(banolim(ld1));
+        prld(ld1);
     }
 }
