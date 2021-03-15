@@ -701,6 +701,15 @@ vll ntov(ll n) { // 정수 n을 vector 로 변환
     return a;
 }
 
+ll banolim(ld a){
+    ll x = (ll)a;
+    ld y = (ld)x;
+    if(a-y>=0.5)
+        return x+1;
+    else
+        return x;
+}
+
 vll dijk(vector<xy> vpa[], ll start, ll n){ // 다익스트라. vpa: {to, cost}
     fori d[i] = INF;
     fori check[i]=false;
@@ -757,10 +766,10 @@ bool cross(xy a, xy b, xy c, xy d){ // 선분ab와 cd의 cross 여부
     return (x<0&&y<0);
 }
 
-ld distxy(xy a, xy b){ // 좌표 거리의 제곱
-    ll w = a.X-b.X;
-    ll e = a.Y-b.Y;
-    return w*w+e*e;
+ld distxy(xy a, xy b){ // 좌표 거리
+    ld w = a.X-b.X;
+    ld e = a.Y-b.Y;
+    return sqrt(w*w+e*e);
 }
 
 bool ccwcmp(xy a, xy b){
@@ -850,16 +859,16 @@ ld rotating_calipers(vector<xy> vxy){ // 시계방향으로 회전하는 캘리�
 
 
 int main(void) {
-
     {
-        scann;
+        scannm;
         fori sc2(xya[i].X, xya[i].Y);
         auto v = convex_hull(xya,n);
         n=v.size();
-        foi(n-1){
-            ld1+=ccw(v[0].X,v[i-1].X,v[i].X,v[0].Y,v[i-1].Y,v[i].Y);
-        }
-        ll w = (ld)(abs(ld1/50));
-        pr(w);
+        fori0{
+            ll next=(i+1)%n;
+            ld1+=distxy(v[i],v[next]);
+        };
+        ld1+=2*m*PI;
+        pr(banolim(ld1));
     }
 }
