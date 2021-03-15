@@ -201,7 +201,7 @@ char c1, c2, c, c3, c4;
 ld ldmax, ldmin, ldmax1, ldmax2, ldmin1, ldmin2, ldd[M];
 
 string str, s, s1, s2, s3;
-typedef pair<ld, ld> xy;
+typedef pair<ll, ll> xy;
 ull u1, u2, u3, u4;
 queue<ll> q, qx, qy;
 priority_queue<ll> pq[M];
@@ -852,6 +852,9 @@ ld rotating_calipers(vector<xy> vxy){ // 시계방향으로 회전하는 캘리�
         }
     };
     return maxim;
+}
+
+void sliding_window(void){
 
 }
 
@@ -860,29 +863,22 @@ int main(void) {
     ios_base::sync_with_stdio(false);
     cin.tie(0);
     cout.tie(0);
-
-    scanna;
-    x = 1;
-    fori dqxy.pb({i,a[i]});
-    fori {
-        pr1(dqxy.front().X);
-        y=dqxy.front().Y;
-        dqxy.pop_front();
-        if(i==n)
-            braek;
-        if(y>0)
+    deque<ll> dq;
+    scannm;
+    scana;
+    m=2*m-1;
+    j=1;
+    for(i=1;i<=n-m+1;i++){
+        while(!dq.empty()&&dq.front()<i)
+            dq.pop_front();
+        for(;j<=i+m-1;j++)
         {
-            foj(y-1){
-                dqxy.push_back(dqxy.front());
-                dqxy.pop_front();
-            }
+            while(!dq.empty()&&a[dq.back()]<=a[j])
+                dq.pop_back();
+            dq.pb(j);
         }
-        else
-        {
-            foj(-y){
-                dqxy.push_front(dqxy.back());
-                dqxy.pop_back();
-            }
-        }
+        pr1(a[dq.front()]);
     };
 }
+
+
