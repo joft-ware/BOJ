@@ -880,35 +880,6 @@ vll changebase(ll n, ll m){
     return b;
 }
 int main(void) {
-    scannm;
-    fori {
-        sc(ss[i]);
-    };
-    for(j=m-1;j>=0;j--){
-        for(i=1;i<=n;i++){
-            c=ss[i][j];
-            if(c=='.')
-                pr('.');
-            if(c=='O')
-                pr('O');
-            if(c=='-')
-                pr('|');
-            if(c=='|')
-                pr('-');
-            if(c==47)
-                pr("\\");
-            if(c==92)
-                pr('/');
-            if(c=='^')
-                pr('<');
-            if(c=='<')
-                pr('v');
-            if(c=='v')
-                pr('>');
-            if(c=='>')
-                pr('^');
-        }
-        if(j!=m)
-            prl;
-    };
+    scann;
+    fori pryes;
 }
