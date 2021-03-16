@@ -44,6 +44,7 @@
 #define forjn0 for(ll j=0;j<n;j++)
 #define forj0 for(ll j=0;j<m;j++)
 #define fork for(ll k=1;k<=l;k++)
+#define fork0 for(ll k=0;k<l;k++)
 #define forkn for(ll k=1;k<=n;k++)
 #define foriw for(ll i=1;;i++)
 
@@ -198,13 +199,13 @@ ll a[5000002], b1[M], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], sumtree[M],
 ll b[M], dd[MM][MM][4], ax[M], ay[M], az[M];
 ll d[M], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M], lazy[M];
 ll qry[M][4],dp[151][11];
-ll mod = 1000000007;
 bool check[M], visit[M], treecheck[M];
 char c1, c2, c, c3, c4, cc[MM][MM];
 ld ldmax, ldmin, ldmax1, ldmax2, ldmin1, ldmin2, ldd[M];
 
 string str, s, s1, s2, s3, ss[M], ss1[M], ss2[M];
 typedef pair<ll, ll> xy;
+typedef vector<vll> matrix;
 ull u1, u2, u3, u4;
 queue<ll> q, qx, qy;
 priority_queue<ll> pq[M];
@@ -219,6 +220,17 @@ vector<ll> vv[M];
 vector<xy> vxy, vxya[M];
 xy xy1, xya[M];
 bool boo[M];
+ll mod = 1e9+7;
+
+matrix operator *(matrix &a, matrix &b){
+    matrix c(2, vll(2));
+    ll n=m=l=2;
+    fori0
+        forj0
+            fork0
+                c[i][j]=(c[i][j]+(a[i][k]*b[k][j]))%mod;
+    return c;
+}
 
 ll zegob(ll x, ll y)
 {
@@ -870,10 +882,23 @@ vll changebase(ll n, ll m){
 }
 
 
-int main(void) {
-    ll x, y;
-    scanxy;
-    x%=mod;
+ll fibo(ll n){
+    matrix x = {{1, 0},
+                {0, 1}};
+    matrix a = {{1, 1},
+                {1, 0}};
+    while(n>0){
+        if(n%2)
+            x=x*a;
+        a=a*a;
+        n/=2;
+    }
+    return x[0][1]%mod;
+}
 
-    pr(zegob(x,y)%mod);
+
+int main(void) {
+    ll n;
+    scann;
+    pr(fibo(n));
 }
