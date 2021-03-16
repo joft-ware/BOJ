@@ -195,7 +195,7 @@ ll ddy[9] = { 0,-1,0,1,-1,1,-1,0,1 };
 ll knightdx[9] = { 0,-1,-1,1,1,-2,-2,2,2 };
 ll knightdy[9] = { 0,2,-2,2,-2,1,-1,-1,1 };
 ld ld1, ld2, ld3, ld4, ld5, ld6, ld7, lda[M], ldb[M];
-ll a[5000002], b1[M], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], sumtree[M], mintree[M], maxtree[M], minindextree[M], prime[M];
+ll a[1000002], b1[M], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], sumtree[M], mintree[M], maxtree[M], minindextree[M], prime[M];
 ll b[M], dd[MM][MM][4], ax[M], ay[M], az[M], d[M], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M], lazy[M];
 ll qry[M][4],dp[151][11], matn=2;
 bool check[M], visit[M], treecheck[M];
@@ -904,11 +904,10 @@ ll fibosum(ll from, ll to){
 }
 
 int main(void) {
-    mod = 1e9+7;
-    scann;
-    nn=n;
-    if (n % 2)
-        n--;
-    x=(fibo(n + 1) - 1+mod)%mod;
-    pr(fibosum(1,nn)+mod-x)%mod;
-}
+    mod=10000;
+    w1{
+        scann;
+        if(n==-1)
+            break;
+        pr1l(fibo(n));
+    }}
