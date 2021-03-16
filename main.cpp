@@ -857,24 +857,51 @@ ld rotating_calipers(vector<xy> vxy){ // 시계방향으로 회전하는 캘리�
     return maxim;
 }
 
+ll dis(ll x, ll y){
+    return abs(x-y);
+}
+
+vll changebase(ll n, ll m){
+    vll a;
+    vll b;
+    w1{
+        a.pb(n%m);
+        cnt++;
+        if(n<m)
+            break;
+        n/=m;
+    };
+    foi0(cnt) {
+        if(a[n+1-i]<=9)
+            b.pb(a[cnt - i]+'0');
+        else
+            b.pb(a[cnt - i]+55);
+    }
+    return b;
+}
 
 int main(void) {
-    ios_base::sync_with_stdio(false);
-    cin.tie(0);
-    cout.tie(0);
-    scannm;
-    nn=n;
-    scanaa;
-    scannm;
-    scanbb;
-    mm=m;
-    foi(nn){
-        foj(mm){
-            sum=0;
-            fok(n){
-                sum+=aa[i][k]*bb[k][j];
-            }
-            pr1(sum);
+
+    sc2(n,m);
+    l=1;r=m;
+    scant;
+    wt{
+        scanx;
+        if(x<l)
+        {
+            y=l-x;
+            cnt+=y;
+            l-=y;
+            r-=y;
         }
-        prl;
-    }}
+        else if(x>r)
+        {
+            y=x-r;
+            cnt+=y;
+            l+=y;
+            r+=y;
+        }
+    }
+    prcnt;
+
+};
