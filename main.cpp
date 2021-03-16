@@ -196,9 +196,8 @@ ll knightdx[9] = { 0,-1,-1,1,1,-2,-2,2,2 };
 ll knightdy[9] = { 0,2,-2,2,-2,1,-1,-1,1 };
 ld ld1, ld2, ld3, ld4, ld5, ld6, ld7, lda[M], ldb[M];
 ll a[5000002], b1[M], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], sumtree[M], mintree[M], maxtree[M], minindextree[M], prime[M];
-ll b[M], dd[MM][MM][4], ax[M], ay[M], az[M];
-ll d[M], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M], lazy[M];
-ll qry[M][4],dp[151][11];
+ll b[M], dd[MM][MM][4], ax[M], ay[M], az[M], d[M], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M], lazy[M];
+ll qry[M][4],dp[151][11], matn=2;
 bool check[M], visit[M], treecheck[M];
 char c1, c2, c, c3, c4, cc[MM][MM];
 ld ldmax, ldmin, ldmax1, ldmax2, ldmin1, ldmin2, ldd[M];
@@ -220,11 +219,11 @@ vector<ll> vv[M];
 vector<xy> vxy, vxya[M];
 xy xy1, xya[M];
 bool boo[M];
-ll mod = 1e9+7;
+ll mod = INF;
 
 matrix operator *(matrix &a, matrix &b){
-    matrix c(2, vll(2));
-    ll n=m=l=2;
+    matrix c(matn, vll(matn));
+    ll n=m=l=matn;
     fori0
         forj0
             fork0
@@ -882,6 +881,8 @@ vll changebase(ll n, ll m){
 }
 
 
+
+
 ll fibo(ll n){
     matrix x = {{1, 0},
                 {0, 1}};
@@ -896,9 +897,14 @@ ll fibo(ll n){
     return x[0][1]%mod;
 }
 
+ll fibosum(ll from, ll to){
+    ll x = fibo(from+1)-1;
+    ll y = fibo(to+2)-1;
+    return (y-x+mod)%mod;
+}
 
 int main(void) {
-    ll n;
-    scann;
-    pr(fibo(n));
+    mod=1e9;
+    scannm;
+    pr(fibosum(n,m));
 }
