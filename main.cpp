@@ -904,14 +904,7 @@ ll fibosum(ll from, ll to){
 }
 
 int main(void) {
-    scant;
-    mod=1e9+7;
-    wt{
-        scann;
-        if(n<=2)
-            pr1l(1);
-        else
-            pr1l(zegob(2,n-2)%mod);
-
-    };
+    scannm;
+    if (n%2 == 0 || m%2 == 0) {pr0;}
+    else{ pr(min(n, m));}
 }
