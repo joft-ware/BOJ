@@ -152,7 +152,7 @@
 #define sc6(a,b,c,d,e,f) cin >> a >> b >> c >> d >> e >> f
 
 #define pr(a) cout << (a)
-#define pr0 cout << ('0');
+#define pr0 cout << (0);
 #define prl cout << '\n'
 #define pr1(a) cout << (a) << ' '
 #define pr2(a,b) cout << (a) << ' ' << (b) << ' '
@@ -904,34 +904,10 @@ ll fibosum(ll from, ll to){
 }
 
 int main(void) {
-    scannm;
-    x=n+m;
-    y=n-m;
-    z=n*m;
-    r=biggest(x,y,z);
-    if(x==r) cnt++;
-    if(y==r) cnt++;
-    if(z==r) cnt++;
-    if(cnt>1)
-        pr("NIE");
-    else{
-        if(n<0)
-            printf("(%lld)",n);
-        else
-            pr(n);
-        if(x==r)
-            pr('+');
-        else if(y==r)
-            pr('-');
-        else if(z==r)
-            pr('*');
-        if(m<0)
-            printf("(%lld)",m);
-        else
-            pr(m);
-        pr('=');
-        if(r<0)
-            printf("(%lld)",r);
-        else
-            pr1l(r);
-    }}
+    scanxyz;
+    l=x%(y+z);
+    if(l<y)
+        pr(1);
+    else
+        pr0;
+}
