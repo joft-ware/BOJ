@@ -56,6 +56,7 @@ long long mod = 1e9 + 7;
 #define scanc scanf("%c",&c)
 #define scanxy scanf("%lld %lld",&x,&y)
 #define scanyx scanf("%lld %lld",&y,&x)
+#define scanzr scanf("%lld %lld",&z,&r)
 #define scanwe scanf("%lld %lld",&w,&e)
 #define scannm scanf("%lld %lld",&n,&m)
 #define scanwe scanf("%lld %lld",&w,&e)
@@ -854,21 +855,39 @@ ld rotating_calipers(vector<xy> vxy){ // 시계방향으로 회전하는 캘리�
     return maxim;
 }
 
-void sliding_window(void){
-
-}
-
 
 int main(void) {
     ios_base::sync_with_stdio(false);
     cin.tie(0);
     cout.tie(0);
 
-    sc3(x, y, s);
-    l=s.size();
-    w = s[l-1] - '0';
-    if (w%2)
-        pr((x ^ y));
-    else
-        pr(x);
-}
+    w1{
+        scans;
+        n=slen;
+        no=0;
+        if(s[0]=='#')
+            break;
+        fori0{
+            if(s[i]!='b'&&s[i]!='d'&&s[i]!='p'&&s[i]!='q'&&s[i]!='i'&&s[i]!='o'&&s[i]!='v'&&s[i]!='w'&&s[i]!='x')
+                no=1;
+        };
+        if(no){
+            pr1l("INVALID");
+            continue;
+        }
+        fori0{
+            j=n-1-i;
+            if(s[j]=='b')
+                pr('d');
+            else if(s[j]=='d')
+                pr('b');
+            else if(s[j]=='p')
+                pr('q');
+            else if(s[j]=='q')
+                pr('p');
+            else
+                pr(s[j]);
+        };
+        prl;
+    }
+    };
