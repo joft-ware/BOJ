@@ -904,10 +904,14 @@ ll fibosum(ll from, ll to){
 }
 
 int main(void) {
-    mod=10000;
-    w1{
+    scant;
+    mod=1e9+7;
+    wt{
         scann;
-        if(n==-1)
-            break;
-        pr1l(fibo(n));
-    }}
+        if(n<=2)
+            pr1l(1);
+        else
+            pr1l(zegob(2,n-2)%mod);
+
+    };
+}
