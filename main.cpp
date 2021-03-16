@@ -198,7 +198,7 @@ ll a[5000002], b1[M], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], sumtree[M],
 ll b[M], dd[MM][MM][4], ax[M], ay[M], az[M];
 ll d[M], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M], lazy[M];
 ll qry[M][4],dp[151][11];
-ll mod = INF;
+ll mod = 1000000007;
 bool check[M], visit[M], treecheck[M];
 char c1, c2, c, c3, c4, cc[MM][MM];
 ld ldmax, ldmin, ldmax1, ldmax2, ldmin1, ldmin2, ldd[M];
@@ -871,7 +871,9 @@ vll changebase(ll n, ll m){
 
 
 int main(void) {
-    scanxyz;
-    mod = z;
-    pr(zegob(x, y));
+    ll x, y;
+    scanxy;
+    x%=mod;
+
+    pr(zegob(x,y)%mod);
 }
