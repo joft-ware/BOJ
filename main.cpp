@@ -904,18 +904,34 @@ ll fibosum(ll from, ll to){
 }
 
 int main(void) {
-    scann;
-    scana;
-    fori {
-        if (!a[i])
-            d[i] = ++cnt;
+    scannm;
+    x=n+m;
+    y=n-m;
+    z=n*m;
+    r=biggest(x,y,z);
+    if(x==r) cnt++;
+    if(y==r) cnt++;
+    if(z==r) cnt++;
+    if(cnt>1)
+        pr("NIE");
+    else{
+        if(n<0)
+            printf("(%lld)",n);
         else
-            d[i] = d[i - 1];
-    }
-    fori{
-        if(a[i]) {
-            sum+=d[i];
-        }
-    }
-    prsum;
-};
+            pr(n);
+        if(x==r)
+            pr('+');
+        else if(y==r)
+            pr('-');
+        else if(z==r)
+            pr('*');
+        if(m<0)
+            printf("(%lld)",m);
+        else
+            pr(m);
+        pr('=');
+        if(r<0)
+            printf("(%lld)",r);
+        else
+            pr1l(r);
+    }}
