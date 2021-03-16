@@ -904,7 +904,18 @@ ll fibosum(ll from, ll to){
 }
 
 int main(void) {
-    scannm;
-    if (n%2 == 0 || m%2 == 0) {pr0;}
-    else{ pr(min(n, m));}
-}
+    scann;
+    scana;
+    fori {
+        if (!a[i])
+            d[i] = ++cnt;
+        else
+            d[i] = d[i - 1];
+    }
+    fori{
+        if(a[i]) {
+            sum+=d[i];
+        }
+    }
+    prsum;
+};
