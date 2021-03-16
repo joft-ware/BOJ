@@ -880,20 +880,35 @@ vll changebase(ll n, ll m){
     return b;
 }
 int main(void) {
-    scann;
-    ld y=0, x=0;
-    fori{
-        sc3(s3,t,s);
-        y+=(ld)t;
-        if(s=="F")
-            continue;
-        x+=(4-(s[0]-'A'))*t;
-        if(s.size()==1)
-            continue;
-        if(s[1]=='+')
-            x+=(0.3)*t;
-        else if(s[1]=='-')
-            x+=(-0.3)*t;
-    }
-    printf("%.2lf",x/y+0.00000000001);
-};
+    scannm;
+    fori {
+        sc(ss[i]);
+    };
+    for(j=m-1;j>=0;j--){
+        for(i=1;i<=n;i++){
+            c=ss[i][j];
+            if(c=='.')
+                pr('.');
+            if(c=='O')
+                pr('O');
+            if(c=='-')
+                pr('|');
+            if(c=='|')
+                pr('-');
+            if(c==47)
+                pr("\\");
+            if(c==92)
+                pr('/');
+            if(c=='^')
+                pr('<');
+            if(c=='<')
+                pr('v');
+            if(c=='v')
+                pr('>');
+            if(c=='>')
+                pr('^');
+        }
+        if(j!=m)
+            prl;
+    };
+}
