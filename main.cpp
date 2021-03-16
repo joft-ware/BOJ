@@ -13,8 +13,8 @@
 #include <map>
 
 #define M 2001
-#define MM 101
-#define N 11
+#define MM 1001
+#define N 1200
 long long mod = 1e9 + 7;
 
 #define ll long long
@@ -172,10 +172,11 @@ long long mod = 1e9 + 7;
 
 #define prcnt pr1l(cnt)
 #define prx pr1l(x)
-#define prno pr1l("no")
-#define pryes pr1l("yes")
-#define prNO pr1l("NO")
-#define prYES pr1l("YES")
+#define prxy pr2l(x, y)
+#define prno pr1("no")
+#define pryes pr1("yes")
+#define prNO pr1("NO")
+#define prYES pr1("YES")
 #define prgg pr1l("gg")
 #define prmaxi pr1l(maxi)
 #define prmax pr1l(maxi)
@@ -187,8 +188,8 @@ long long mod = 1e9 + 7;
 
 using namespace std;
 ll i, j, ii, jj, n, zz, yyy, xxx, maxim, l1, l2, l3, l4, end, finish, next, bre, cnt, ans, slen, to, casenum, nn, hab, count, t, now, one, two, yy, m, yes, cntt, x1, x2, x3, x4, y4, Y1, y2, y3, temp, i1, i2, J1, j2, i3, j3, len1, len2, low, mid, left, right, high, ok, tx, ty, k, start, num, xx, qq, w, e, no, r, sum, x, y, z, l, len, mini = INF, maxi = -INF, x11, x22, x33, y11, y22, y33;
-ll dx[5] = { 0,-1,0,1,0 };
-ll dy[5] = { 0,0,-1,0,1 };
+ll dx[5] = { 0,0,1,0,-1 };
+ll dy[5] = { 0,1,0,-1,0 };
 ll ddx[9] = { 0,-1,-1,-1,0,0,1,1,1 };
 ll ddy[9] = { 0,-1,0,1,-1,1,-1,0,1 };
 ll knightdx[9] = { 0,-1,-1,1,1,-2,-2,2,2 };
@@ -199,7 +200,7 @@ ll b[M], dd[MM][MM][4], ax[M], ay[M], az[M];
 ll d[M], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M], lazy[M];
 ll qry[M][4],dp[151][11];
 bool check[M], visit[M], treecheck[M];
-char c1, c2, c, c3, c4, cc[M];
+char c1, c2, c, c3, c4, cc[MM][MM];
 ld ldmax, ldmin, ldmax1, ldmax2, ldmin1, ldmin2, ldd[M];
 
 string str, s, s1, s2, s3, ss[M], ss1[M], ss2[M];
@@ -861,20 +862,22 @@ int main(void) {
     ios_base::sync_with_stdio(false);
     cin.tie(0);
     cout.tie(0);
-
-    sc2(n, s);
-    fori {
-        sc2(s1, s2);
-        ss[i] = s1;
-        ss1[i] = s2;
-        if ((s == s1))
-            s3 = s2;
-    };
-    fori{
-        if(ss[i]==s)
-            yes=1;
-        if(yes==0&&ss1[i]==s3)
+    w1 {
+        scans;
+        if(s[0]=='#')
+            braek;
+        n = slen;
+        cnt=0;
+        fori0 {
+            if (s[i] == '1')
+                cnt++;
+        };
+        if(s[n-1]=='o')
             cnt++;
+        if (cnt%2)
+            s[n - 1] = '1';
+        else
+            s[n - 1] = '0';
+        pr1l(s);
     };
-    prcnt;
 }
