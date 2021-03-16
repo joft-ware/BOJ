@@ -904,7 +904,9 @@ ll fibosum(ll from, ll to){
 }
 
 int main(void) {
-    mod=1e9;
-    scannm;
-    pr(fibosum(n,m));
+    mod = 1e9+7;
+    scann;
+    if (n % 2)
+        n--;
+    pr(fibo(n + 1)) - 1;
 }
