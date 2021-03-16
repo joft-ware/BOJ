@@ -41,6 +41,7 @@ long long mod = 1e9 + 7;
 #define fori0 for(ll i=0;i<n;i++)
 #define forj for(ll j=1;j<=m;j++)
 #define forjn for(ll j=1;j<=n;j++)
+#define forji for(ll j=1;j<=i;j++)
 #define forjn0 for(ll j=0;j<n;j++)
 #define forj0 for(ll j=0;j<m;j++)
 #define fork for(ll k=1;k<=l;k++)
@@ -201,7 +202,7 @@ bool check[M], visit[M], treecheck[M];
 char c1, c2, c, c3, c4, cc[M];
 ld ldmax, ldmin, ldmax1, ldmax2, ldmin1, ldmin2, ldd[M];
 
-string str, s, s1, s2, s3;
+string str, s, s1, s2, s3, ss[M], ss1[M], ss2[M];
 typedef pair<ll, ll> xy;
 ull u1, u2, u3, u4;
 queue<ll> q, qx, qy;
@@ -861,33 +862,19 @@ int main(void) {
     cin.tie(0);
     cout.tie(0);
 
-    w1{
-        scans;
-        n=slen;
-        no=0;
-        if(s[0]=='#')
-            break;
-        fori0{
-            if(s[i]!='b'&&s[i]!='d'&&s[i]!='p'&&s[i]!='q'&&s[i]!='i'&&s[i]!='o'&&s[i]!='v'&&s[i]!='w'&&s[i]!='x')
-                no=1;
-        };
-        if(no){
-            pr1l("INVALID");
-            continue;
-        }
-        fori0{
-            j=n-1-i;
-            if(s[j]=='b')
-                pr('d');
-            else if(s[j]=='d')
-                pr('b');
-            else if(s[j]=='p')
-                pr('q');
-            else if(s[j]=='q')
-                pr('p');
-            else
-                pr(s[j]);
-        };
-        prl;
-    }
+    sc2(n, s);
+    fori {
+        sc2(s1, s2);
+        ss[i] = s1;
+        ss1[i] = s2;
+        if ((s == s1))
+            s3 = s2;
     };
+    fori{
+        if(ss[i]==s)
+            yes=1;
+        if(yes==0&&ss1[i]==s3)
+            cnt++;
+    };
+    prcnt;
+}
