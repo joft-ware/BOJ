@@ -187,7 +187,7 @@ long long mod = 1e9 + 7;
 #define prstr for(ll wq=1;wq<=slen;wq++) pr(str[wq]);
 
 using namespace std;
-ll i, j, ii, jj, n, zz, yyy, xxx, maxim, l1, l2, l3, l4, end, finish, next, bre, cnt, ans, slen, to, casenum, nn, hab, count, t, now, one, two, yy, m, yes, cntt, x1, x2, x3, x4, y4, Y1, y2, y3, temp, i1, i2, J1, j2, i3, j3, len1, len2, low, mid, left, right, high, ok, tx, ty, k, start, num, xx, qq, w, e, no, r, sum, x, y, z, l, len, mini = INF, maxi = -INF, x11, x22, x33, y11, y22, y33;
+ll i, j, ii, jj, n, zz, yyy, xxx, maxim, l1, l2, l3, mm, l4, end, finish, next, bre, cnt, ans, slen, to, casenum, nn, hab, count, t, now, one, two, yy, m, yes, cntt, x1, x2, x3, x4, y4, Y1, y2, y3, temp, i1, i2, J1, j2, i3, j3, len1, len2, low, mid, left, right, high, ok, tx, ty, k, start, num, xx, qq, w, e, no, r, sum, x, y, z, l, len, mini = INF, maxi = -INF, x11, x22, x33, y11, y22, y33;
 ll dx[5] = { 0,0,1,0,-1 };
 ll dy[5] = { 0,1,0,-1,0 };
 ll ddx[9] = { 0,-1,-1,-1,0,0,1,1,1 };
@@ -862,22 +862,19 @@ int main(void) {
     ios_base::sync_with_stdio(false);
     cin.tie(0);
     cout.tie(0);
-    w1 {
-        scans;
-        if(s[0]=='#')
-            braek;
-        n = slen;
-        cnt=0;
-        fori0 {
-            if (s[i] == '1')
-                cnt++;
-        };
-        if(s[n-1]=='o')
-            cnt++;
-        if (cnt%2)
-            s[n - 1] = '1';
-        else
-            s[n - 1] = '0';
-        pr1l(s);
-    };
-}
+    scannm;
+    nn=n;
+    scanaa;
+    scannm;
+    scanbb;
+    mm=m;
+    foi(nn){
+        foj(mm){
+            sum=0;
+            fok(n){
+                sum+=aa[i][k]*bb[k][j];
+            }
+            pr1(sum);
+        }
+        prl;
+    }}
