@@ -879,29 +879,21 @@ vll changebase(ll n, ll m){
     }
     return b;
 }
-
 int main(void) {
-
-    sc2(n,m);
-    l=1;r=m;
-    scant;
-    wt{
-        scanx;
-        if(x<l)
-        {
-            y=l-x;
-            cnt+=y;
-            l-=y;
-            r-=y;
-        }
-        else if(x>r)
-        {
-            y=x-r;
-            cnt+=y;
-            l+=y;
-            r+=y;
-        }
+    scann;
+    ld y=0, x=0;
+    fori{
+        sc3(s3,t,s);
+        y+=(ld)t;
+        if(s=="F")
+            continue;
+        x+=(4-(s[0]-'A'))*t;
+        if(s.size()==1)
+            continue;
+        if(s[1]=='+')
+            x+=(0.3)*t;
+        else if(s[1]=='-')
+            x+=(-0.3)*t;
     }
-    prcnt;
-
+    printf("%.2lf",x/y+0.00000000001);
 };
