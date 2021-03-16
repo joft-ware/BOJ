@@ -15,7 +15,6 @@
 #define M 2001
 #define MM 1001
 #define N 1200
-long long mod = 1e9 + 7;
 
 #define ll long long
 #define ull unsigned ll
@@ -199,6 +198,7 @@ ll a[5000002], b1[M], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], sumtree[M],
 ll b[M], dd[MM][MM][4], ax[M], ay[M], az[M];
 ll d[M], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M], lazy[M];
 ll qry[M][4],dp[151][11];
+ll mod = INF;
 bool check[M], visit[M], treecheck[M];
 char c1, c2, c, c3, c4, cc[MM][MM];
 ld ldmax, ldmin, ldmax1, ldmax2, ldmin1, ldmin2, ldd[M];
@@ -223,9 +223,14 @@ bool boo[M];
 ll zegob(ll x, ll y)
 {
     ll k = 1;
-    for (int i = 1; i <= y; i++)
-        k *= x;
-    return k;
+    while (y > 0) {
+        if (y & 1)
+            k = (k*x) % mod;
+        k %= mod;
+        x = (x*x) % mod;
+        y >>= 1;
+    }
+    return k % mod;
 }
 
 bool da(char c)
@@ -542,18 +547,6 @@ ll ab(ll x)
     return x;
 }
 
-ll bzegob(ll x, ll y) {
-    ll k = 1;
-    while (y > 0) {
-        if (y & 1)
-            k = (k*x) % mod;
-        k %= mod;
-        x = (x*x) % mod;
-        y >>= 1;
-    }
-    return k % mod;
-}
-
 ll find_sum(ll left, ll right, ll node, ll sum) {
     update_lazy_sum(node, left, right);
     if (left >= right)
@@ -857,10 +850,6 @@ ld rotating_calipers(vector<xy> vxy){ // 시계방향으로 회전하는 캘리�
     return maxim;
 }
 
-ll dis(ll x, ll y){
-    return abs(x-y);
-}
-
 vll changebase(ll n, ll m){
     vll a;
     vll b;
@@ -879,7 +868,10 @@ vll changebase(ll n, ll m){
     }
     return b;
 }
+
+
 int main(void) {
-    scann;
-    fori pryes;
+    scanxyz;
+    mod = z;
+    pr(zegob(x, y));
 }
