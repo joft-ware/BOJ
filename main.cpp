@@ -12,8 +12,8 @@
 #include <deque>
 #include <map>
 
-#define M 2001
-#define MM 1001
+#define M 101
+#define MM 101
 #define N 1200
 
 #define ll long long
@@ -196,7 +196,7 @@ ll knightdx[9] = { 0,-1,-1,1,1,-2,-2,2,2 };
 ll knightdy[9] = { 0,2,-2,2,-2,1,-1,-1,1 };
 ld ld1, ld2, ld3, ld4, ld5, ld6, ld7, lda[M], ldb[M];
 ll a[1000002], b1[M], a1[M], a2[M], a3[M], a4[M], a5[M], bb[MM][MM], sumtree[M], mintree[M], maxtree[M], minindextree[M], prime[M];
-ll b[M], dd[MM][MM][4], ax[M], ay[M], az[M], d[M], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M], lazy[M];
+ll b[1000002], dd[MM][MM][4], ax[M], ay[M], az[M], d[1000002], dist[M], aa[MM][MM], d1[M], d2[M], tempa[M], lazy[M];
 ll qry[M][4],dp[151][11], matn=2;
 bool check[M], visit[M], treecheck[M];
 char c1, c2, c, c3, c4, cc[MM][MM];
@@ -902,23 +902,26 @@ ll fibosum(ll from, ll to){
 }
 
 int main(void) {
-    scannm;
-    scana;
-    forj sc(b[j]);
-    fori
-        d[i]=d[i-1]+a[i];
-    forj
-        d1[j]=d1[j-1]+b[j];
-    x=n;
-    y=m;
-    foi(n+m){
-        if(d[x]==d1[y])
-            break;
-        cnt++;
-        if(d[x]>d1[y])
-            x--;
+    scann;
+    m = n - 1;
+    foi(m) sc(a[i]);
+    forj {
+        if (!(a[j]==2||a[j]==1)) {
+            t=0;
+            d[j] = t;
+        }
         else
-            y--;
-    }
-    prcnt;
+            d[j] = ++t;
+    };
+    t=0;
+    for(j=n-1;j>=1;j--) {
+        if (!(a[j]==2||a[j]==0)){
+            t=0;
+            b[j] = t;
+        }
+        else
+            b[j] = ++t;
+    };
+    fori
+        pr1(d[i-1]+b[i]);
 }
