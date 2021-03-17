@@ -919,8 +919,9 @@ ll fibosum(ll from, ll to){
 int main(void) {
     scann;
     fori {
-        forjn pr1((i % 2) ? ++cnt : (n * (i*2-1) + 1 - (++cnt)));
-        prl;
+        scanx;
+        maxi = max(maxi, x);
+        maxim=max(maxi-x, maxim);
     }
-
+    pr(maxim);
 }
