@@ -918,10 +918,6 @@ ll fibosum(ll from, ll to){
 
 int main(void) {
     scann;
-    fori {
-        scanx;
-        maxi = max(maxi, x);
-        maxim=max(maxi-x, maxim);
-    }
-    pr(maxim);
+    fori scanx, sum += x;
+    pr(min(sum, n - sum));
 }
