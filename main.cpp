@@ -222,8 +222,8 @@ bool boo[M];
 ll mod = INF;
 
 matrix operator *(matrix &a, matrix &b){
-    matrix c(matn, vll(matn));
-    ll n=m=l=matn;
+    matrix c(2, vll(2));
+    ll n=m=l=2;
     fori0
         forj0
             fork0
@@ -231,17 +231,28 @@ matrix operator *(matrix &a, matrix &b){
     return c;
 }
 
+ll zegobmod(ll x, ll y)
+{
+    ll k = 1;
+    while (y > 0) {
+        if (y & 1)
+            k = (k%mod*x%mod)%mod;
+        x = (x*x)%mod;
+        y >>= 1;
+    }
+    return k%mod;
+}
+
 ll zegob(ll x, ll y)
 {
     ll k = 1;
     while (y > 0) {
         if (y & 1)
-            k = (k*x) % mod;
-        k %= mod;
-        x = (x*x) % mod;
+            k = (k*x);
+        x = (x*x);
         y >>= 1;
     }
-    return k % mod;
+    return k;
 }
 
 bool da(char c)
@@ -900,27 +911,10 @@ ll fibosum(ll from, ll to){
     ll y = fibo(to+2)-1;
     return (y-x+mod)%mod;
 }
-bool bboo[1000001];
 
 int main(void) {
-    scannm;
-    fori{
-        scanx;
-        if(x>0)
-            a[++sum]=x;
-    };
-    n=sum;
-    sorta;
-    suma;
-    fori d[i]=a[i]+d[i-1];
-    for(i=1;i<=n;i++){
-        if(sum-(d[i-1])>=(n-i+1)*m)
-        {
-            num=i;
-            break;
-        }
-        cnt++;
-    }
-    if(!num) pr("NIE");
-    else prcnt;
+    scann;
+    scana;
+    fo(i, 2, n - 1)mini = min(mini, a[i]);
+    printf("%lld.00", mini);
 }
