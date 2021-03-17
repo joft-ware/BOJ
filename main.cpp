@@ -208,7 +208,7 @@ typedef pair<ll, ll> xy;
 typedef vector<vll> matrix;
 ull u1, u2, u3, u4;
 queue<ll> q, qx, qy;
-priority_queue<ll> pq[M];
+priority_queue<ll> pq;
 priority_queue<xy> pqxy;
 stack<ll> st;
 deque<ll> dq;
@@ -918,17 +918,24 @@ ll fibosum(ll from, ll to){
 }
 
 int main(void) {
-    scann;
-    scana;
-    x=a[n];
-    forin1{
-        if(a[i]>=x) {
-            x=a[i];
-            continue;
-        }
-        l=(x-1+a[i])/a[i];
-        r=l*a[i];
-        x=r;
+    scant;
+    wt {
+        scannm;
+        m++;
+        scana;
+        fori pq.push(a[i]);
+        clean(d,n);
+        x=0;
+        fori{
+            forjn{
+                if(++x==n+1)x=1;
+                if(d[x]||pq.top()>a[x]) continue;
+                d[x]=i;
+                pq.pop();
+                break;
+            };
+        };
+        while(pq.size()) pq.pop();
+        pr1l(d[m]);
     };
-    prx;
 }
