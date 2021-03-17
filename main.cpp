@@ -759,6 +759,7 @@ ld ccw(xy a, xy b, xy c){
     if(w<0) return -1;
     return (w>0);
 }
+
 bool cross(xy a, xy b, xy c, xy d){ // 선분ab와 cd의 cross 여부
     ll x = ccw(a,b,c)*ccw(a,b,d);
     ll y = ccw(c,d,a)*ccw(c,d,b);
@@ -880,9 +881,6 @@ vll changebase(ll n, ll m){
     return b;
 }
 
-
-
-
 ll fibo(ll n){
     matrix x = {{1, 0},
                 {0, 1}};
@@ -904,10 +902,15 @@ ll fibosum(ll from, ll to){
 }
 
 int main(void) {
-    scanxyz;
-    l=x%(y+z);
-    if(l<y)
-        pr(1);
+    scann;
+    scana;
+    for (i = 3; i <= n; i++) {
+        if (a[i] != a[i - 1] && a[i] != a[i - 2] && a[i - 1] != a[i - 2])
+            yes = 1;
+
+    }
+    if(yes)
+        pr("TAK");
     else
-        pr0;
+        pr("NIE");
 }
