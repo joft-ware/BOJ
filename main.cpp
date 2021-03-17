@@ -37,6 +37,7 @@
 #define fok(a) for(ll k=1;k<=a;k++)
 #define fori for(ll i=1;i<=n;i++)
 #define forin for(ll i=1;i<=n;i++)
+#define forin1 for(ll i=n;i>=1;i--)
 #define fori0 for(ll i=0;i<n;i++)
 #define forj for(ll j=1;j<=m;j++)
 #define forjn for(ll j=1;j<=n;j++)
@@ -918,6 +919,16 @@ ll fibosum(ll from, ll to){
 
 int main(void) {
     scann;
-    fori scanx, sum += x;
-    pr(min(sum, n - sum));
+    scana;
+    x=a[n];
+    forin1{
+        if(a[i]>=x) {
+            x=a[i];
+            continue;
+        }
+        l=(x-1+a[i])/a[i];
+        r=l*a[i];
+        x=r;
+    };
+    prx;
 }
