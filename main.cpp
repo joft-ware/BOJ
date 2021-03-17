@@ -323,6 +323,10 @@ ll gcd(ll x, ll y)
     return gcd(y, x % y);
 }
 
+ll lcm(ll x, ll y){
+    return x*y/gcd(x,y);
+}
+
 ll bigger(ll x, ll y)
 {
     if (x > y)
@@ -913,8 +917,6 @@ ll fibosum(ll from, ll to){
 }
 
 int main(void) {
-    scann;
-    scana;
-    fo(i, 2, n - 1)mini = min(mini, a[i]);
-    printf("%lld.00", mini);
+    scanxyz;
+    pr(z / x + z / y - z / lcm(x, y));
 }
