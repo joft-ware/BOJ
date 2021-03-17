@@ -917,6 +917,10 @@ ll fibosum(ll from, ll to){
 }
 
 int main(void) {
-    scanxyz;
-    pr(z / x + z / y - z / lcm(x, y));
+    scann;
+    fori {
+        forjn pr1((i % 2) ? ++cnt : (n * (i*2-1) + 1 - (++cnt)));
+        prl;
+    }
+
 }
