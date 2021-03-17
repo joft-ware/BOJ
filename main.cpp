@@ -900,28 +900,27 @@ ll fibosum(ll from, ll to){
     ll y = fibo(to+2)-1;
     return (y-x+mod)%mod;
 }
+bool bboo[1000001];
 
 int main(void) {
-    scann;
-    m = n - 1;
-    foi(m) sc(a[i]);
-    forj {
-        if (!(a[j]==2||a[j]==1)) {
-            t=0;
-            d[j] = t;
-        }
-        else
-            d[j] = ++t;
+    scannm;
+    fori{
+        scanx;
+        if(x>0)
+            a[++sum]=x;
     };
-    t=0;
-    for(j=n-1;j>=1;j--) {
-        if (!(a[j]==2||a[j]==0)){
-            t=0;
-            b[j] = t;
+    n=sum;
+    sorta;
+    suma;
+    fori d[i]=a[i]+d[i-1];
+    for(i=1;i<=n;i++){
+        if(sum-(d[i-1])>=(n-i+1)*m)
+        {
+            num=i;
+            break;
         }
-        else
-            b[j] = ++t;
-    };
-    fori
-        pr1(d[i-1]+b[i]);
+        cnt++;
+    }
+    if(!num) pr("NIE");
+    else prcnt;
 }
