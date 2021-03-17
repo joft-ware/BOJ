@@ -902,15 +902,23 @@ ll fibosum(ll from, ll to){
 }
 
 int main(void) {
-    scann;
+    scannm;
     scana;
-    for (i = 3; i <= n; i++) {
-        if (a[i] != a[i - 1] && a[i] != a[i - 2] && a[i - 1] != a[i - 2])
-            yes = 1;
-
+    forj sc(b[j]);
+    fori
+        d[i]=d[i-1]+a[i];
+    forj
+        d1[j]=d1[j-1]+b[j];
+    x=n;
+    y=m;
+    foi(n+m){
+        if(d[x]==d1[y])
+            break;
+        cnt++;
+        if(d[x]>d1[y])
+            x--;
+        else
+            y--;
     }
-    if(yes)
-        pr("TAK");
-    else
-        pr("NIE");
+    prcnt;
 }
